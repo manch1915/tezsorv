@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: "Code"
+    name: "CodeIcon"
 }
 </script>
 

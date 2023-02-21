@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\CheatSheet;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,6 +18,15 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+Route::get('/cheat', function (){
+    $cheatSheet = CheatSheet::find(1);
+    return $cheatSheet->category->name;
+});
+
+Route::group(['prefix' => 'subjects'], function (){
+    Route::get('/physics', [\App\Http\Controllers\SubjectController::class, 'getPhysics'])->name('physics');
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

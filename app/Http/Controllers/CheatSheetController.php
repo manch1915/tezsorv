@@ -14,7 +14,7 @@ class CheatSheetController extends Controller
      */
     public function index(): Response
     {
-        //
+
     }
 
     /**

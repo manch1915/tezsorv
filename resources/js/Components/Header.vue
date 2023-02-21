@@ -21,7 +21,7 @@
                     <Popover class="relative" v-slot="{ open }">
                         <PopoverButton
                             :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-gray-800 text-base font-medium dark:hover:text-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
-                            <span>Solutions</span>
+                            <span>Categories</span>
                             <ChevronDownIcon
                                 :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"
                                 aria-hidden="true"/>
@@ -208,15 +208,16 @@ import {
 import {CalculatorIcon, ChevronDownIcon} from '@heroicons/vue/20/solid'
 import LanguageSelect from "@/Components/LanguageSelect.vue";
 import ThemeSwitch from "@/Components/ThemeSwitch.vue";
-import Code from "@/Components/icons/Code.vue"
-import Square from "@/Components/icons/Square.vue";
+//icons
+import CodeIcon from "@/Components/icons/CodeIcon.vue"
+import HistoryIcon from "@/Components/icons/HistoryIcon.vue";
 import Tun from "@/Components/icons/Tun.vue";
+import RulerIcon from "@/Components/icons/RulerIcon.vue";
+import PhysicsIcon from "@/Components/icons/PhysicsIcon.vue";
 
 export default {
     components: {
         ThemeSwitch,
-        Code,
-        Square,
         LanguageSelect, Popover, PopoverButton, PopoverGroup, PopoverPanel, ArrowPathIcon,
         Bars3Icon,
         BookmarkSquareIcon,
@@ -235,20 +236,20 @@ export default {
                 {
                     name: 'Ֆիզիկա',
                     description: 'Get a better understanding of where your traffic is coming from.',
-                    href: '#',
-                    icon: null,
+                    href: route('physics'),
+                    icon: PhysicsIcon,
                 },
                 {
                     name: 'Ծրագրաորում',
                     description: 'Speak directly to your customers in a more meaningful way.',
                     href: '#',
-                    icon: Code,
+                    icon: CodeIcon,
                 },
                 {
                     name: 'Երկրաչափություն',
                     description: "Your customers' data will be safe and secure.",
                     href: '#',
-                    icon: Square
+                    icon: RulerIcon
                 },
                 {
                     name: 'Հանրահաշիվ',
@@ -257,10 +258,10 @@ export default {
                     icon: CalculatorIcon ,
                 },
                 {
-                    name: 'Հայոց Պատմություն',
+                    name: 'Պատմություն',
                     description: 'Build strategic funnels that will drive your customers to convert',
                     href: '#',
-                    icon: CalendarIcon,
+                    icon: HistoryIcon,
                 },],
             callsToAction: [
                 {name: 'Watch Demo', href: '#', icon: PlayIcon},
