@@ -5,7 +5,7 @@ use App\Models\CheatSheet;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use \App\Http\Controllers\DashboardController as Dashboard;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,20 +17,31 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+
+Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
 Route::get('/cheat', function (){
     $cheatSheet = CheatSheet::find(1);
     return $cheatSheet->category->name;
 });
 
-Route::group(['prefix' => 'subjects'], function (){
-    Route::get('/physics', [\App\Http\Controllers\SubjectController::class, 'getPhysics'])->name('physics');
+Route::group(['prefix' => 'dashboard', 'middleware' =>  'is_admin'],function (){
+    Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+    Route::get('/tables',[Dashboard::class, 'tables'])->name('tables');
+    Route::get('/forms', [Dashboard::class, 'forms'])->name('forms');
+    Route::get('/ui', [Dashboard::class, 'ui'])->name('ui');
+    Route::get('/responsive', [Dashboard::class, 'responsive'])->name('responsive');
+    Route::get('/style', [Dashboard::class, 'style'])->name('style');
+    Route::get('/profile', [Dashboard::class, 'profile'])->name('profile');
+    Route::get('/login', [Dashboard::class, 'login'])->name('login');
+    Route::get('/error', [Dashboard::class, 'error'])->name('error');
 });
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::group(['prefix' => 'subjects'], function (){
+    Route::get('/physics', [\App\Http\Controllers\SubjectController::class, 'getPhysics'])->name('physics');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

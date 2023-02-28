@@ -17,7 +17,7 @@
 export default {
     name: "NameCard",
     props: {
-      number: Number,
+      number: String,
       head: String,
       link: String,
       text: String,

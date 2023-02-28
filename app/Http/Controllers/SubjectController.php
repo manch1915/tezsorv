@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
     public function getPhysics(){
-        $cheatSheets = Categories::where('name', 'Physics')
+        $cheatSheets = Category::where('name', 'Physics')
             ->first()
             ->cheatSheets()
             ->limit(3)

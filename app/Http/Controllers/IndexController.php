@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     public function index(){
-        return inertia('Home');
+        $user = auth()->user();
+        return inertia('Home', compact('user'));
     }
 }

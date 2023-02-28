@@ -122,11 +122,15 @@
                     <ThemeSwitch/>
                 </PopoverGroup>
                 <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                    <a :href="route('login')"
+
+                    <a v-if="!this.user.authenticated" :href="route('login')"
                        class="whitespace-nowrap text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Sign in</a>
-                    <a :href="route('register')"
+                    <a v-if="!this.user.authenticated" :href="route('register')"
                        class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign
                         up</a>
+                    <Button v-if="this.user.authenticated" @click="logout">
+                        Log Out
+                    </Button>
                 </div>
             </div>
         </div>
@@ -190,6 +194,7 @@
 
 <script>
 import {Popover, PopoverButton, PopoverGroup, PopoverPanel} from '@headlessui/vue'
+import { Link } from '@inertiajs/vue3';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import {
     ArrowPathIcon,
@@ -214,10 +219,11 @@ import HistoryIcon from "@/Components/icons/HistoryIcon.vue";
 import Tun from "@/Components/icons/Tun.vue";
 import RulerIcon from "@/Components/icons/RulerIcon.vue";
 import PhysicsIcon from "@/Components/icons/PhysicsIcon.vue";
-
+import axios from "axios";
 export default {
     components: {
         ThemeSwitch,
+        Link,
         LanguageSelect, Popover, PopoverButton, PopoverGroup, PopoverPanel, ArrowPathIcon,
         Bars3Icon,
         BookmarkSquareIcon,
@@ -307,8 +313,33 @@ export default {
                 jp: "先週の金曜日、縞模様の青いワームが脚のないトカゲと握手するのを見ました。",
                 cn: "上周五，我看到一只斑点的蓝色蠕虫与一只无腿的蜥蜴握手。"
             },
-
+            user:{
+                authenticated: false,
+                user: {}
+            }
         }
+
     },
+    created() {
+        this.checkAuth();
+    },
+    methods: {
+        async checkAuth() {
+            try {
+                axios.defaults.withCredentials = true;
+                await axios.get('/sanctum/csrf-cookie');
+                const response = await axios.get('/api/user');
+                this.user.authenticated = response.data.authenticated
+                this.user.uesr = response.data.user
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        logout(){
+            axios.post('api/logout').then(res => {
+                this.user.authenticated = false
+            })
+        }
+    }
 }
 </script>

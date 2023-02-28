@@ -26,15 +26,23 @@ import AsciiModel from "@/Components/AsciiModel.vue";
 import NameCard from "@/Components/NameCard.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import Statistics from "@/Components/Statistics.vue";
+import axios from 'axios';
 
 
 export default {
     name: "Home",
     components: {Statistics, MainLayout, NameCard, AsciiModel, AnimetedText, BookModel},
+    props:{
+      user: Object,
+    },
     data(){
         return{
             header: ['Ամենամեծ ռեսուրսային համակարգը Հայաստանում:)', 'The first rule about fight club is...', '.... . .-.. .--.'],
+
        }
+    },
+    mounted() {
+
     }
 }
 </script>
