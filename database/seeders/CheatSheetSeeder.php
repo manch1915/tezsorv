@@ -16,7 +16,7 @@ class CheatSheetSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 25; $i++) {
             $header = $faker->sentence;
             $body = $faker->paragraph;
             $picture = $faker->imageUrl(640, 480, 'cats');
@@ -28,7 +28,7 @@ class CheatSheetSeeder extends Seeder
                 'body' => $body,
                 'picture' => $picture,
                 'file' => $file,
-                'categories_id' => $category_id,
+                'category_id' => $category_id,
                 'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
                 'updated_at' => $faker->dateTimeBetween('-1 year', 'now')
             ]);

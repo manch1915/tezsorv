@@ -16,6 +16,10 @@ module.exports = {
             gray: "gray",
         },
         extend: {
+            colors: {
+                'main': '#161616',
+                'second': '#333333',
+            },
             zIndex: {
                 "-1": "-1",
             },
@@ -79,6 +83,6 @@ module.exports = {
             );
         }),
         require("@tailwindcss/line-clamp"),
-    ],
-    plugins: [require('@tailwindcss/forms')],
+        require('@tailwindcss/forms')
+    ]
 };

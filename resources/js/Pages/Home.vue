@@ -1,52 +1,163 @@
 <template>
-    <MainLayout>
-            <section class="grid lg:grid-cols-2 grid-cols-1 justify-items-center dark:text-gray-900 text-white items-center">
-                <AnimetedText :texts="header"/>
-                <BookModel/>
-            </section>
-            <section class="grid lg:grid-cols-2 grid-cols-1 justify-items-center dark:text-gray-900 text-white items-center">
-                <AsciiModel/>
-                <div class="font-bold text-3xl">  Ֆիզիկայի, Քիմիայի, Հանրահաշվի, Երկրաչափության, Ծրագրաորման թյուր ռեսուրսներ</div>
-            </section>
-            <h1 class="font-bold text-3xl text-white text-center mt-5">Ի՞նչն է ձեզ հետաքրքիր</h1>
-            <div class="grid lg:grid-cols-3 grid-cols-1">
-                <NameCard number="01" head="Ֆիզիկա" link="ADSASD" text="Ռեսուրսներ կապված Ֆիզիկաի հետ"/>
-                <NameCard number="02" head="Աշխարհագրություն" link="ADSASD" text="Ռեսուրսներ կապված Աշխարհագրության հետ"/>
-                <NameCard number="03" head="Մաթեմատիկա" link="ADSASD" text="Ռեսուրսներ կապված Մաթեմատիկաի հետ"/>
+    <main class="bg-main">
+
+        <section class="bg-lines">
+            <div class="mx-auto max-w-7xl ">
+                <Header/>
+                <div class="pt-10">
+                    <div class="heading-fade-2lines">Հանրահաշվի, Քիմիայի, <span
+                        class="text-highlight-purple">Ֆիզիկայի</span>, Երկրաչափության, Ծրագրաորման <span
+                        class="text-highlight-orange">թյուր</span> ռեսուրսներ
+                    </div>
+                    <p class="text-size-large my-5">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ վտանգը։</p>
+                    <a href="#" class="glow-button">Կատալոգ</a>
+                </div>
             </div>
-            <Statistics/>
-    </MainLayout>
+        </section>
+        <div class="mx-auto max-w-7xl">
+            <div class="grid grid-cols-3 gap-x-5">
+                <HomeCardImg image="images/fizika.png" prov="Ֆիզիկան նյութի, էներգիայի և դրանց փոխազդեցությունների ուսումնասիրությունն է:Ուսանեք մեխանիկայի, ջերմոդինամիկայի և այլնի մասին:" zagalovok="Ֆիզիկա"/>
+                <HomeCardImg image="images/prog.png" prov="Ծրագրավորումը համակարգչային ծրագրեր գրելու արվեստ է ՝ օգտագործելով ծրագրավորման լեզուներ:Ուսանեք վեբ զարգացման, խաղերի ձևավորման և այլնի մասին:" zagalovok="Ծրագրավորում"/>
+                <HomeCardImg image="images/qimia.png" prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
+            </div>
+            <Footer/>
+        </div>
+    </main>
 </template>
 
 <script>
+import Footer from "@/Components/Footer.vue";
 
-import BookModel from "@/Components/BookModel.vue";
-import AnimetedText from "@/Components/AnimetedText.vue";
-import AsciiModel from "@/Components/AsciiModel.vue";
-import NameCard from "@/Components/NameCard.vue";
-import MainLayout from "@/Layouts/MainLayout.vue";
 import Statistics from "@/Components/Statistics.vue";
 import axios from 'axios';
-
+import AnimateOnVisible from "@/Components/AnimateOnVisible.vue";
+import Header from "@/Components/Header.vue";
+import HomeCardImg from "@/Components/HomeCardImg.vue";
 
 export default {
     name: "Home",
-    components: {Statistics, MainLayout, NameCard, AsciiModel, AnimetedText, BookModel},
-    props:{
-      user: Object,
+    components: {HomeCardImg, AnimateOnVisible, Statistics, Footer, Header},
+    props: {
+        user: Object,
     },
-    data(){
-        return{
-            header: ['Ամենամեծ ռեսուրսային համակարգը Հայաստանում:)', 'The first rule about fight club is...', '.... . .-.. .--.'],
+    data() {
 
-       }
     },
     mounted() {
 
-    }
+    },
+    methods: {}
 }
 </script>
 
 <style scoped>
 
+.bg-lines {
+    position: relative;
+    background-image: linear-gradient(180deg, #161616, #161616 13%, rgba(22, 22, 22, 0) 89%, #161616), url(https://assets.website-files.com/63f5d36e1bfb159570f6408c/63feed1d49df0b0ba2f037d8_Grid.svg);
+    background-position: 0 0, 50% 50%;
+    background-size: auto, auto;
+    background-clip: padding-box;
+    -webkit-text-fill-color: inherit;
+}
+
+.heading-fade-2lines {
+    -webkit-text-size-adjust: 100%;
+    color: #f1f0ee;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -.04em;
+    display: inline-block;
+    background-image: linear-gradient(114deg, rgba(216, 213, 209, .6), #f1f0ee 44%, rgba(216, 213, 209, .6));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-highlight-orange {
+    -webkit-text-size-adjust: 100%;
+    color: #f1f0ee;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: -.04em;
+    -webkit-text-fill-color: transparent;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    padding-right: .25rem;
+    padding-left: .25rem;
+    border-left: 4px solid #ff7448;
+    border-radius: 0;
+    background-image: linear-gradient(90deg, rgba(255, 116, 72, .2), rgba(255, 116, 71, .05));
+    line-height: 1;
+}
+
+.text-highlight-purple {
+    -webkit-text-size-adjust: 100%;
+    color: #f1f0ee;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: -.04em;
+    -webkit-text-fill-color: transparent;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    padding-right: .25rem;
+    padding-left: .25rem;
+    border-left: 4px solid #6248ff;
+    border-radius: 0;
+    background-image: linear-gradient(90deg, rgba(98, 72, 255, .2), rgba(98, 72, 255, .05));
+    line-height: 1;
+}
+
+.text-size-large {
+    -webkit-text-size-adjust: 100%;
+    font-family: Relative, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    -webkit-text-fill-color: inherit;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    color: rgba(216, 213, 209, .2);
+    font-size: 1.25rem;
+}
+
+.glow-button {
+    width: 10rem;
+    display: block;
+    margin: 20px auto;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.5;
+    -webkit-text-fill-color: inherit;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: inherit;
+    max-width: 100%;
+    border: 1px solid #d8d5d1;
+    border-radius: .6rem;
+    background-color: #d8d5d1;
+    transition: .5s;
+    font-family: Relative, sans-serif;
+    color: #161616;
+    font-size: 1.125rem;
+    font-weight: 500;
+    text-align: center;
+    padding: .75rem 1.5rem .75rem 1.3rem;
+    grid-column-gap: 0.75rem;
+    grid-row-gap: 0.75rem;
+}
+
+.glow-button:hover {
+    border-color: #fff;
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 hsla(0, 0%, 100%, .5);
+}
 </style>

@@ -20,6 +20,11 @@ export default [
     label: "Dashboard",
   },
   {
+    route: "cheatsheet",
+    icon: mdiTable,
+    label: "CheatSheets",
+  },
+  {
     route: "tables",
     label: "Tables",
     icon: mdiTable,

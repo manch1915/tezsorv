@@ -1,7 +1,8 @@
 <template>
     <Popover class="relative main-bg">
         <div class="px-6">
-            <div class="flex items-center justify-between py-6 md:justify-start md:space-x-10">
+            <div
+                class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
                 <div class="flex justify-start lg:w-0 lg:flex-1">
                     <a :href="route('home')">
                         <span class="sr-only">Your Company</span>
@@ -16,62 +17,117 @@
                         <Bars3Icon class="h-6 w-6" aria-hidden="true"/>
                     </PopoverButton>
                 </div>
-                <PopoverGroup as="nav" class="hidden space-x-2 md:flex items-center navbar-container">
-<!--                    <Popover class="relative" v-slot="{ open }">-->
-<!--                        <PopoverButton-->
-<!--                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-main text-base font-medium dark:hover:text-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">-->
-<!--                            <span>Categories</span>-->
-<!--                            <ChevronDownIcon-->
-<!--                                :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"-->
-<!--                                aria-hidden="true"/>-->
-<!--                        </PopoverButton>-->
+                <PopoverGroup as="nav" class="hidden space-x-10 md:flex items-center">
+                    <Popover class="relative" v-slot="{ open }">
+                        <PopoverButton
+                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-gray-800 text-base font-medium dark:hover:text-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
+                            <span>Categories</span>
+                            <ChevronDownIcon
+                                :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"
+                                aria-hidden="true"/>
+                        </PopoverButton>
 
-<!--                        <transition enter-active-class="transition ease-out duration-200"-->
-<!--                                    enter-from-class="opacity-0 translate-y-1"-->
-<!--                                    enter-to-class="opacity-100 translate-y-0"-->
-<!--                                    leave-active-class="transition ease-in duration-150"-->
-<!--                                    leave-from-class="opacity-100 translate-y-0"-->
-<!--                                    leave-to-class="opacity-0 translate-y-1">-->
-<!--                            <PopoverPanel class="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">-->
-<!--                                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">-->
-<!--                                    <div class="relative grid gap-6 dark:bg-white bg-gray-700 px-5 py-6 sm:gap-8 sm:p-8">-->
-<!--                                        <a v-for="item in solutions" :key="item.name" :href="item.href"-->
-<!--                                           class="-m-3 flex items-start rounded-lg p-3 dark:hover:bg-gray-50 hover:bg-gray-900">-->
-<!--                                            <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"-->
-<!--                                                       aria-hidden="true"/>-->
-<!--                                            <div class="ml-4">-->
-<!--                                                <p class="text-base font-medium dark:text-gray-900 text-gray-100 ">{{ item.name }}</p>-->
-<!--                                                <p class="mt-1 text-sm dark:text-gray-500 text-gray-50">{{ item.description }}</p>-->
-<!--                                            </div>-->
-<!--                                        </a>-->
-<!--                                    </div>-->
-<!--                                    <div-->
-<!--                                        class="space-y-6 dark:bg-gray-50 bg-gray-800 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">-->
-<!--                                        <div v-for="item in callsToAction" :key="item.name" class="flow-root">-->
-<!--                                            <a :href="item.href"-->
-<!--                                               class="-m-3 flex items-center rounded-md p-3 text-base font-medium dark:text-gray-900 dark:hover:bg-gray-100 text-gray-400 hover:bg-gray-900">-->
-<!--                                                <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-gray-400"-->
-<!--                                                           aria-hidden="true"/>-->
-<!--                                                <span class="ml-3">{{ item.name }}</span>-->
-<!--                                            </a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </PopoverPanel>-->
-<!--                        </transition>-->
-<!--                    </Popover>-->
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Categories</a>
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Pricing</a>
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Docs</a>
+                        <transition enter-active-class="transition ease-out duration-200"
+                                    enter-from-class="opacity-0 translate-y-1"
+                                    enter-to-class="opacity-100 translate-y-0"
+                                    leave-active-class="transition ease-in duration-150"
+                                    leave-from-class="opacity-100 translate-y-0"
+                                    leave-to-class="opacity-0 translate-y-1">
+                            <PopoverPanel class="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                    <div class="relative grid gap-6 dark:bg-white bg-gray-700 px-5 py-6 sm:gap-8 sm:p-8">
+                                        <a v-for="item in solutions" :key="item.name" :href="item.href"
+                                           class="-m-3 flex items-start rounded-lg p-3 dark:hover:bg-gray-50 hover:bg-gray-900">
+                                            <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                                       aria-hidden="true"/>
+                                            <div class="ml-4">
+                                                <p class="text-base font-medium dark:text-gray-900 text-gray-100 ">{{ item.name }}</p>
+                                                <p class="mt-1 text-sm dark:text-gray-500 text-gray-50">{{ item.description }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div
+                                        class="space-y-6 dark:bg-gray-50 bg-gray-800 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
+                                        <div v-for="item in callsToAction" :key="item.name" class="flow-root">
+                                            <a :href="item.href"
+                                               class="-m-3 flex items-center rounded-md p-3 text-base font-medium dark:text-gray-900 dark:hover:bg-gray-100 text-gray-400 hover:bg-gray-900">
+                                                <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-gray-400"
+                                                           aria-hidden="true"/>
+                                                <span class="ml-3">{{ item.name }}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </PopoverPanel>
+                        </transition>
+                    </Popover>
 
+                    <a href="#" class="text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Pricing</a>
+                    <a href="#" class="text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Docs</a>
 
+                    <Popover class="relative" v-slot="{ open }">
+                        <PopoverButton
+                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-gray-800 text-base font-medium dark:hover:text-gray-900 hover:text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
+                            <span>More</span>
+                            <ChevronDownIcon
+                                :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"
+                                aria-hidden="true"/>
+                        </PopoverButton>
 
+                        <transition enter-active-class="transition ease-out duration-200"
+                                    enter-from-class="opacity-0 translate-y-1"
+                                    enter-to-class="opacity-100 translate-y-0"
+                                    leave-active-class="transition ease-in duration-150"
+                                    leave-from-class="opacity-100 translate-y-0"
+                                    leave-to-class="opacity-0 translate-y-1">
+                            <PopoverPanel
+                                class="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
+                                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                    <div class="relative grid gap-6  dark:bg-white bg-gray-700 px-5 py-6 sm:gap-8 sm:p-8">
+                                        <a v-for="item in resources" :key="item.name" :href="item.href"
+                                           class="-m-3 flex items-start rounded-lg p-3 dark:hover:bg-gray-50 hover:bg-gray-900">
+                                            <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                                       aria-hidden="true"/>
+                                            <div class="ml-4">
+                                                <p class="text-base font-medium dark:text-gray-900 text-gray-100 ">{{ item.name }}</p>
+                                                <p class="mt-1 text-sm dark:text-gray-500 text-gray-50">{{ item.description }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="dark:bg-gray-50 bg-gray-800 px-5 py-5 sm:px-8 sm:py-8">
+                                        <div>
+                                            <h3 class="text-base font-medium text-gray-500">Recent Posts</h3>
+                                            <ul role="list" class="mt-4 space-y-4">
+                                                <li v-for="post in recentPosts" :key="post.id"
+                                                    class="truncate text-base">
+                                                    <a :href="post.href"
+                                                       class="font-medium dark:text-gray-900 dark:hover:bg-gray-100 text-gray-400 hover:bg-gray-900">{{
+                                                            post.name
+                                                        }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="mt-5 text-sm">
+                                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                                View all posts
+                                                <span aria-hidden="true"> &rarr;</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </PopoverPanel>
+                        </transition>
+                    </Popover>
+                    <LanguageSelect/>
+                    <ThemeSwitch/>
                 </PopoverGroup>
-                <LanguageSelect/>
-
                 <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
 
-                    <a v-if="!this.user.authenticated" :href="route('login')" class="login"><UserIcon/><div>Sign in</div></a>
+                    <a v-if="!this.user.authenticated" :href="route('login')"
+                       class="whitespace-nowrap text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Sign in</a>
+                    <a v-if="!this.user.authenticated" :href="route('register')"
+                       class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign
+                        up</a>
                     <Button v-if="this.user.authenticated" @click="logout">
                         Log Out
                     </Button>
@@ -153,10 +209,10 @@ import {
     ShieldCheckIcon,
     Squares2X2Icon,
     XMarkIcon,
-    UserIcon,
 } from '@heroicons/vue/24/outline'
 import {CalculatorIcon, ChevronDownIcon} from '@heroicons/vue/20/solid'
 import LanguageSelect from "@/Components/LanguageSelect.vue";
+import ThemeSwitch from "@/Components/ThemeSwitch.vue";
 //icons
 import CodeIcon from "@/Components/icons/CodeIcon.vue"
 import HistoryIcon from "@/Components/icons/HistoryIcon.vue";
@@ -166,6 +222,7 @@ import PhysicsIcon from "@/Components/icons/PhysicsIcon.vue";
 import axios from "axios";
 export default {
     components: {
+        ThemeSwitch,
         Link,
         LanguageSelect, Popover, PopoverButton, PopoverGroup, PopoverPanel, ArrowPathIcon,
         Bars3Icon,
@@ -178,7 +235,6 @@ export default {
         PlayIcon,
         ShieldCheckIcon,
         Squares2X2Icon,
-        UserIcon,
         XMarkIcon,ChevronDownIcon},
     data() {
         return {
@@ -287,59 +343,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-.navbar-container{
-    display: flex;
-    overflow: hidden;
-    width: 18.25rem;
-    height: auto;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 0.375rem;
-    justify-content: space-between;
-    align-items: center;
-    grid-auto-columns: 1fr;
-    grid-column-gap: 1rem;
-    grid-row-gap: 1rem;
-    -ms-grid-columns: auto 1fr auto;
-    grid-template-columns: auto 1fr auto;
-    -ms-grid-rows: auto;
-    grid-template-rows: auto;
-    border: 1px solid hsla(0,0%,100%,.15);
-    border-radius: 0.75rem;
-    background-color: rgba(22,22,22,.8);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-}
-
-.login{
-    text-decoration: inherit;
-    padding: 0.6rem 1.25rem;
-    font-size: 1rem;
-    border: 1px solid #d8d5d1;
-    background-color: transparent;
-    background-image: none;
-    backdrop-filter: blur(20px);
-    color: #ebe7e3;
-    display: flex;
-    padding-left: 1.3rem;
-    justify-content: center;
-    align-items: center;
-    grid-column-gap: 0.75rem;
-    grid-row-gap: 0.75rem;
-    border-radius: 0.6rem;
-    transition: .5s;
-    font-family: Relative,sans-serif;
-    font-weight: 500;
-    text-align: center;
-}
-.login:hover{
-    border-color: hsla(0,0%,100%,.2);
-    background-color: hsla(0,0%,100%,.05);
-    box-shadow: none;
-    color: #fff;
-}
-.login svg{
-    width: 1rem;
-}
-</style>

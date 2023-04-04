@@ -19,24 +19,19 @@ use \App\Http\Controllers\DashboardController as Dashboard;
 
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
-Route::get('/cheat', function (){
-    $cheatSheet = CheatSheet::find(1);
-    return $cheatSheet->category->name;
-});
 
-Route::group(['prefix' => 'dashboard', 'middleware' =>  'is_admin'],function (){
+
+Route::group(['prefix' => 'dashboard'],function (){
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+    Route::get('/cheatsheet', [Dashboard::class, 'cheatsheet'])->name('cheatsheet');
     Route::get('/tables',[Dashboard::class, 'tables'])->name('tables');
     Route::get('/forms', [Dashboard::class, 'forms'])->name('forms');
     Route::get('/ui', [Dashboard::class, 'ui'])->name('ui');
     Route::get('/responsive', [Dashboard::class, 'responsive'])->name('responsive');
     Route::get('/style', [Dashboard::class, 'style'])->name('style');
     Route::get('/profile', [Dashboard::class, 'profile'])->name('profile');
-    Route::get('/login', [Dashboard::class, 'login'])->name('login');
     Route::get('/error', [Dashboard::class, 'error'])->name('error');
 });
-
-
 
 
 Route::group(['prefix' => 'subjects'], function (){

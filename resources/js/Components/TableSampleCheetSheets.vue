@@ -1,5 +1,5 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watchEffect} from "vue";
 import { useMainStore } from "@/stores/main";
 import { mdiEye, mdiTrashCan } from "@mdi/js";
 import CardBoxModal from "@/components/CardBoxModal.vue";
@@ -8,6 +8,8 @@ import BaseLevel from "@/components/BaseLevel.vue";
 import BaseButtons from "@/components/BaseButtons.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+
 
 defineProps({
   checkable: Boolean,
@@ -15,12 +17,17 @@ defineProps({
 
 const mainStore = useMainStore();
 
-mainStore.fetchClients();
-const items = computed(() => mainStore.clients);
-console.log(items.value)
+mainStore.fetchCheatSheets();
+const items = computed(() => mainStore.cheatsheets);
+
 const isModalActive = ref(false);
 
 const isModalDangerActive = ref(false);
+const delItemId = ref(0);
+const ModalDanger = id => {
+    isModalDangerActive.value = true
+    delItemId.value = id
+}
 
 const perPage = ref(5);
 
@@ -38,6 +45,11 @@ const itemsPaginated = computed(() =>
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
 
 const currentPageHuman = computed(() => currentPage.value + 1);
+
+async function onDeleteItem() {
+    await mainStore.deleteCheatSheet(delItemId)
+}
+
 
 const pagesList = computed(() => {
   const pagesList = [];
@@ -74,16 +86,17 @@ const checked = (isChecked, client) => {
 </script>
 
 <template>
+  <PulseLoader v-if="mainStore.loading"/>
   <CardBoxModal v-model="isModalActive" title="Sample modal">
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
   </CardBoxModal>
-
   <CardBoxModal
     v-model="isModalDangerActive"
     title="Please confirm"
     button="danger"
     has-cancel
+    @confirm="onDeleteItem"
   >
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
@@ -104,49 +117,39 @@ const checked = (isChecked, client) => {
       <tr>
         <th v-if="checkable" />
         <th />
-        <th>Name</th>
-        <th>Company</th>
-        <th>City</th>
-        <th>Progress</th>
+        <th>Header</th>
+        <th>Category</th>
+        <th>Body</th>
         <th>Created</th>
         <th />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="client in itemsPaginated" :key="client.id">
+      <tr v-for="cheatsheet in itemsPaginated" :key="cheatsheet.id">
         <TableCheckboxCell
           v-if="checkable"
-          @checked="checked($event, client)"
+          @checked="checked($event, cheatsheet)"
         />
         <td class="border-b-0 lg:w-6 before:hidden">
           <UserAvatar
-            :username="client.name"
+            :username="cheatsheet.header"
             class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
           />
         </td>
         <td data-label="Name">
-          {{ client.name }}
+          {{ cheatsheet.header }}
         </td>
         <td data-label="Company">
-          {{ client.company }}
+          {{ cheatsheet.category_name }}
         </td>
         <td data-label="City">
-          {{ client.city }}
-        </td>
-        <td data-label="Progress" class="lg:w-32">
-          <progress
-            class="flex w-2/5 self-center lg:w-full"
-            max="100"
-            :value="client.progress"
-          >
-            {{ client.progress }}
-          </progress>
+          {{ cheatsheet.body }}
         </td>
         <td data-label="Created" class="lg:w-1 whitespace-nowrap">
           <small
             class="text-gray-500 dark:text-slate-400"
-            :title="client.created"
-            >{{ client.created }}</small
+            :title="cheatsheet.created_at"
+            >{{ cheatsheet.created_at }}</small
           >
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
@@ -161,7 +164,7 @@ const checked = (isChecked, client) => {
               color="danger"
               :icon="mdiTrashCan"
               small
-              @click="isModalDangerActive = true"
+              @click="ModalDanger(cheatsheet.id)"
             />
           </BaseButtons>
         </td>

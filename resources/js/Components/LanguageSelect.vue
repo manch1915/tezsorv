@@ -1,11 +1,11 @@
 <template>
     <div class="relative">
-        <button class="dark:bg-white bg-gray-800 dark:text-gray-500 text-gray-200 rounded shadow-lg p-2 focus:outline-none" @click.prevent="menuToggle=!menuToggle">
+        <button class=" bg-second text-gray-200 rounded shadow-lg p-2 focus:outline-none" @click.prevent="menuToggle=!menuToggle">
             <span class="fi w-6" :class="`fi-${countries[selected].flag}`"></span> <i class="mdi mdi-chevron-down"></i>
         </button>
-        <div class="dark:bg-white bg-gray-800 dark:text-gray-700 text-gray-200 shadow-md rounded text-sm absolute mt-12 top-0 right-0 min-w-full w-48 z-30" v-show="menuToggle">
+        <div class="bg-second text-gray-200 shadow-md rounded text-sm absolute mt-12 top-0 right-0 min-w-full w-48 z-30" v-show="menuToggle">
             <span class="absolute top-0 right-0 w-3 h-3 dark:bg-white bg-gray-800 transform rotate-45 -mt-1 mr-3"></span>
-            <div class="dark:bg-white bg-gray-800 overflow-auto rounded w-full relative z-10">
+            <div class="bg-second overflow-auto rounded w-full relative z-10">
                 <ul class="list-reset">
                     <template v-for="(item, index) in countries">
                         <li>

@@ -8,38 +8,38 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return inertia('HomeView');
+        return inertia('Dashboard/HomeView');
+    }
+    public function cheatsheet()
+    {
+        return inertia('Dashboard/CheatSheet');
     }
     public function tables()
     {
-        return inertia('TablesView');
+        return inertia('Dashboard/TablesView');
     }
     public function forms()
     {
-        return inertia('FormsView');
+        return inertia('Dashboard/FormsView');
     }
     public function ui()
     {
-        return inertia('UiView');
+        return inertia('Dashboard/UiView');
     }
     public function responsive()
     {
-        return inertia('ResponsiveView');
+        return inertia('Dashboard/ResponsiveView');
     }
     public function style()
     {
-        return inertia('StyleView');
+        return inertia('Dashboard/StyleView');
     }
     public function profile()
     {
-        return inertia('ProfileView');
-    }
-    public function login()
-    {
-        return inertia('LoginView');
+        return inertia('Dashboard/ProfileView');
     }
     public function error()
     {
-        return inertia('ErrorView');
+        return inertia('Dashboard/ErrorView');
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-gray-800 dark:bg-white">
+    <main class="bg-main">
         <div class="mx-auto max-w-7xl ">
             <Header/>
              <slot/>
