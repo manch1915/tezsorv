@@ -9,14 +9,14 @@
                              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
                     </a>
                 </div>
-                <div class="-my-2 -mr-2 md:hidden">
+                <div class="-my-2 -mr-2 sm:hidden">
                     <PopoverButton
                         class="inline-flex items-center justify-center rounded-md dark:bg-white bg-gray-800 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span class="sr-only">Open menu</span>
                         <Bars3Icon class="h-6 w-6" aria-hidden="true"/>
                     </PopoverButton>
                 </div>
-                <PopoverGroup as="nav" class="hidden space-x-2 md:flex items-center navbar-container">
+                <PopoverGroup as="nav" class="hidden space-x-2 sm:flex items-center navbar-container">
 <!--                    <Popover class="relative" v-slot="{ open }">-->
 <!--                        <PopoverButton-->
 <!--                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-main text-base font-medium dark:hover:text-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">-->
@@ -69,7 +69,7 @@
                 </PopoverGroup>
                 <LanguageSelect/>
 
-                <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+                <div class="hidden items-center justify-end sm:flex md:flex-1 lg:w-0">
 
                     <a v-if="!this.user.authenticated" :href="route('login')" class="login"><UserIcon/><div>Sign in</div></a>
                     <Button v-if="this.user.authenticated" @click="logout">
@@ -79,21 +79,16 @@
             </div>
         </div>
 
-        <transition enter-active-class="duration-200 ease-out" enter-from-class="opacity-0 scale-95"
-                    enter-to-class="opacity-100 scale-100" leave-active-class="duration-100 ease-in"
-                    leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-            <PopoverPanel focus class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-                <div class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+        <transition enter-active-class="duration-200 ease-out" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="duration-100 ease-in" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
+            <PopoverPanel focus class="absolute inset-x-0 z-10 top-0 origin-top-right transform p-2 transition md:hidde">
+                <div class="divide-y-2 divide-gray-50 rounded-lg bg-second shadow-lg ring-1 ring-white ring-opacity-5 popoverpanel">
                     <div class="px-5 pt-5 pb-6">
                         <div class="flex items-center justify-between">
                             <div>
-                                <img class="h-8 w-auto"
-                                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                     alt="Your Company"/>
+                                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"/>
                             </div>
                             <div class="-mr-2">
-                                <PopoverButton
-                                    class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                <PopoverButton class="inline-flex items-center justify-center rounded-md bg-second p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                                     <span class="sr-only">Close menu</span>
                                     <XMarkIcon class="h-6 w-6" aria-hidden="true"/>
                                 </PopoverButton>
@@ -101,28 +96,22 @@
                         </div>
                         <div class="mt-6">
                             <nav class="grid gap-y-8">
-                                <a v-for="item in solutions" :key="item.name" :href="item.href"
-                                   class="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
-                                    <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"
-                                               aria-hidden="true"/>
-                                    <span class="ml-3 text-base font-medium text-gray-900">{{ item.name }}</span>
+                                <a v-for="item in solutions" :key="item.name" :href="item.href" class="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
+                                    <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true"/>
+                                    <span class="ml-3 text-base font-medium text-white">{{ item.name }}</span>
                                 </a>
                             </nav>
                         </div>
                     </div>
                     <div class="space-y-6 py-6 px-5">
                         <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-                            <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">Pricing</a>
-
-                            <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">Docs</a>
-                            <a v-for="item in resources" :key="item.name" :href="item.href"
-                               class="text-base font-medium text-gray-900 hover:text-gray-700">{{ item.name }}</a>
+                            <a href="#" class="text-base font-medium text-white hover:text-gray-700">Pricing</a>
+                            <a href="#" class="text-base font-medium text-white hover:text-gray-700">Docs</a>
+                            <a v-for="item in resources" :key="item.name" :href="item.href" class="text-base font-medium text-white hover:text-gray-700">{{ item.name }}</a>
                         </div>
                         <LanguageSelect/>
                         <div>
-                            <a :href="route('register')"
-                               class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign
-                                up</a>
+                            <a :href="route('register')" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign up</a>
                             <p class="mt-6 text-center text-base font-medium text-gray-500">
                                 Existing customer?
                                 {{ ' ' }}
@@ -289,7 +278,6 @@ export default {
 </script>
 <style scoped>
 .navbar-container{
-    display: flex;
     overflow: hidden;
     width: 18.25rem;
     height: auto;
@@ -311,7 +299,12 @@ export default {
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
 }
-
+.popoverpanel{
+    background-image: linear-gradient(180deg, rgba(22, 22, 22, 0.79), rgba(22, 22, 22, 0.67) 13%, rgba(22, 22, 22, 0.75) 89%, #161616), url(https://assets.website-files.com/63f5d36e1bfb159570f6408c/63feed1d49df0b0ba2f037d8_Grid.svg);
+    background-position: 0 0, 50% 50%;
+    background-size: auto, auto;
+    background-clip: padding-box;
+}
 .login{
     text-decoration: inherit;
     padding: 0.6rem 1.25rem;

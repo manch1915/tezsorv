@@ -3,29 +3,31 @@
         <div class="padding-global">
             <div class="container-large">
                 <div class="padding-vertical padding-xxlarge">
-                    <div class="rl-footer_slack-cta">
-                        <div class="rl-footer_slack-text-wrapper"><img
-                            src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/641b9dd374e097246ef585df_slack.svg"
-                            loading="lazy" alt="" class="rl-footer_slack-icon">
+                    <div class="grid grid-cols-1 md:grid-cols-2 rl-footer_slack-cta">
+                        <div class=" rl-footer_slack-text-wrapper">
+                            <img alt="" class="rl-footer_slack-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/641b9dd374e097246ef585df_slack.svg">
                             <div class="max-width-large">
                                 <div class="margin-bottom margin-tiny"><h5>Join our awesome community</h5></div>
-                                <p>Share work, seek support, vote on components, stay updated and network with other
-                                    Lumers.<br></p></div>
+                                <p>Share work, seek support, vote on components, stay updated and network with other Lumers.<br></p>
+                            </div>
                         </div>
-                        <a href="http://slack.relume.io/" target="_blank" class="button dont-shrink w-button">Join our
-                            Slack</a></div>
+                        <a class="button dont-shrink w-button" href="http://slack.relume.io/" target="_blank">Join our Slack</a></div>
                     <div class="padding-bottom padding-xxlarge">
-                        <div class="w-layout-grid footer3_top-wrapper">
+                        <div class="grid grid-cols-1 md:grid-cols-2 footer3_top-wrapper">
                             <div class="footer3_left-wrapper">
-                                <div class="margin-bottom margin-medium"><a href="#"
-                                                                            class="footer3_logo-link w-nav-brand"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6404607f156eb1a0c6bc462c_Relume%20Ipsum%20Logo.svg"
-                                    loading="lazy" alt=""></a></div>
+                                <div class="margin-bottom margin-medium">
+                                    <a class="footer3_logo-link w-nav-brand" href="#">
+                                        <img alt="" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6404607f156eb1a0c6bc462c_Relume%20Ipsum%20Logo.svg">
+                                    </a>
+                                </div>
                                 <div class="margin-bottom margin-medium">
                                     <div class="footer3_details-wrapper">
-                                        <div class="text-size-small"><span class="text-size-medium">Made by </span><a
-                                            href="http://relume.io/links" target="_blank" class="text-style-link"><span
-                                            class="text-size-medium text-style-link">Relume</span></a></div>
+                                        <div class="text-size-small">
+                                            <span class="text-size-medium">Made by </span>
+                                            <a class="text-style-link" href="http://relume.io/links" target="_blank">
+                                                <span class="text-size-medium text-style-link">Relume</span>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="margin-top margin-xxsmall">
                                         <div class="max-width-medium">
@@ -36,52 +38,44 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rl-footer_social-link-wrapper"><a href="https://www.figma.com/@relume"
-                                                                              target="_blank"
-                                                                              class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e494b8fd3f05331d446f_icon-figma.svg"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a><a
-                                    href="http://twitter.com/relume_io"
-                                    class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da47cbb8e5e3_twitter.png"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a><a
-                                    href="http://slack.relume.io/" target="_blank"
-                                    class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da49f1b8e5db_slack.png"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a><a
-                                    href="https://www.youtube.com/channel/UC36lpnNYIg_c81NOLGhoxLA" target="_blank"
-                                    class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9daa438b8e5e1_youtube.png"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a><a
-                                    href="https://www.tiktok.com/@relume.io" target="_blank"
-                                    class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e4e3d4b9da4346b8f41c_tiktok-logo.png"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a><a
-                                    href="https://webflow.com/relume" target="_blank"
-                                    class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da51ccb8e5df_webflow.png"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a><a
-                                    href="https://au.linkedin.com/company/relume" target="_blank"
-                                    class="rl-footer_social-link w-inline-block"><img
-                                    src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da0ecfb8e5dd_linkedin_square.png"
-                                    loading="lazy" width="24" alt="" class="rl-footer_social-icon"></a></div>
+                                <div class="rl-footer_social-link-wrapper">
+                                    <a class="rl-footer_social-link w-inline-block" href="https://www.figma.com/@relume" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e494b8fd3f05331d446f_icon-figma.svg" width="24">
+                                    </a>
+                                    <a class="rl-footer_social-link w-inline-block" href="http://twitter.com/relume_io">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da47cbb8e5e3_twitter.png" width="24">
+                                    </a>
+                                    <a class="rl-footer_social-link w-inline-block" href="http://slack.relume.io/" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da49f1b8e5db_slack.png" width="24">
+                                    </a>
+                                    <a class="rl-footer_social-link w-inline-block" href="https://www.youtube.com/channel/UC36lpnNYIg_c81NOLGhoxLA" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9daa438b8e5e1_youtube.png" width="24">
+                                    </a>
+                                    <a class="rl-footer_social-link w-inline-block" href="https://www.tiktok.com/@relume.io" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e4e3d4b9da4346b8f41c_tiktok-logo.png" width="24">
+                                    </a>
+                                    <a class="rl-footer_social-link w-inline-block" href="https://webflow.com/relume" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da51ccb8e5df_webflow.png" width="24">
+                                    </a>
+                                    <a class="rl-footer_social-link w-inline-block" href="https://au.linkedin.com/company/relume" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da0ecfb8e5dd_linkedin_square.png" width="24">
+                                    </a>
+                                </div>
                             </div>
                             <div class="w-layout-grid footer3_menu-wrapper">
-                                <div class="footer3_link-list"><a
-                                    href="https://www.figma.com/community/plugin/1208279655592025559"
-                                    class="footer3_link">Install</a><a
-                                    href="https://www.youtube.com/watch?v=gK7Zl-tUTiY" target="_blank"
-                                    class="footer3_link">Watch Demo</a><a href="#features"
-                                                                          class="footer3_link">Features</a><a
-                                    href="#Pricing" class="footer3_link">Pricing</a><a
-                                    href="https://www.figma.com/community/file/1214956185011458089" target="_blank"
-                                    class="footer3_link">Learn</a></div>
-                                <div class="footer3_link-list"><a href="mailto:relume-ipsum-feedback@relume.io"
-                                                                  class="footer3_link">Feedback</a><a
-                                    href="mailto:relume-ipsum-support@relume.io" class="footer3_link">Contact</a><a
-                                    href="http://slack.relume.io/" target="_blank" class="footer3_link">Slack</a><a
-                                    href="https://relume.getrewardful.com/signup?campaign=relume-ipsum" target="_blank"
-                                    class="footer3_link">Become an Affiliate</a></div>
+                                <div class="footer3_link-list">
+                                    <a class="footer3_link" href="https://www.figma.com/community/plugin/1208279655592025559">Install</a>
+                                    <a class="footer3_link" href="https://www.youtube.com/watch?v=gK7Zl-tUTiY" target="_blank">Watch Demo</a>
+                                    <a class="footer3_link" href="#features">Features</a>
+                                    <a class="footer3_link" href="#Pricing">Pricing</a>
+                                    <a class="footer3_link" href="https://www.figma.com/community/file/1214956185011458089" target="_blank">Learn</a>
+                                </div>
+                                <div class="footer3_link-list">
+                                    <a class="footer3_link" href="mailto:relume-ipsum-feedback@relume.io">Feedback</a>
+                                    <a class="footer3_link" href="mailto:relume-ipsum-support@relume.io">Contact</a>
+                                    <a class="footer3_link" href="http://slack.relume.io/" target="_blank">Slack</a>
+                                    <a class="footer3_link" href="https://relume.getrewardful.com/signup?campaign=relume-ipsum" target="_blank">Become an Affiliate</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,10 +83,10 @@
                     <div class="padding-top padding-medium">
                         <div class="footer3_bottom-wrapper">
                             <div class="footer3_credit-text">© 2023 Relume. All rights reserved.</div>
-                            <div class="w-layout-grid footer3_legal-list"><a href="/legal/privacy-policy"
-                                                                             class="footer3_legal-link">Privacy
-                                Policy</a><a href="/legal/terms-of-service" class="footer3_legal-link">Terms &amp;
-                                Conditions</a></div>
+                            <div class="w-layout-grid footer3_legal-list">
+                                <a class="footer3_legal-link" href="/legal/privacy-policy">Privacy Policy</a>
+                                <a class="footer3_legal-link" href="/legal/terms-of-service">Terms &amp;Conditions</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,9 +118,9 @@ export default {
     padding-left: 5%
 }
 
-.container-large,.rl-footer_slack-cta,.rl-footer_slack-text-wrapper {
+.container-large, .rl-footer_slack-cta, .rl-footer_slack-text-wrapper {
     -webkit-text-size-adjust: 100%;
-    font-family: Relative,sans-serif;
+    font-family: Relative, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased
 }
@@ -138,14 +132,31 @@ export default {
     font-weight: 400;
     width: 100%;
     max-width: 80rem;
-    margin-right: auto!important;
-    margin-left: auto!important
+    margin-right: auto !important;
+    margin-left: auto !important
 }
 
-.rl-footer_slack-cta,.rl-footer_slack-text-wrapper {
-    display: flex
+.rl-footer_slack-text-wrapper,.rl-footer_slack-cta {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
+.rl-footer_slack-text-wrapper{
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+@media only screen and (max-width: 768px) {
+    .rl-footer_slack-text-wrapper{
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px 0 20px 0;
+    }
+}
 .rl-footer_slack-cta {
     color: #f1f0ee;
     font-size: 1rem;
@@ -155,17 +166,13 @@ export default {
     padding: 2rem;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid rgba(255,255,255,.15);
+    border: 1px solid rgba(255, 255, 255, .15);
     border-radius: 1rem;
-    background-color: rgba(34,34,34,.5)
+    background-color: rgba(34, 34, 34, .5)
 }
 
-.rl-footer_slack-text-wrapper {
-    margin-right: 1.5rem;
-    align-items: flex-start
-}
 
-.max-width-large,.rl-footer_slack-icon,.rl-footer_slack-text-wrapper {
+.max-width-large, .rl-footer_slack-icon, .rl-footer_slack-text-wrapper {
     color: #f1f0ee;
     font-size: 1rem;
     line-height: 1.5;
@@ -174,7 +181,7 @@ export default {
 
 .rl-footer_slack-icon {
     -webkit-text-size-adjust: 100%;
-    font-family: Relative,sans-serif;
+    font-family: Relative, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     vertical-align: middle;
@@ -182,9 +189,8 @@ export default {
     max-width: 100%;
     width: 3.5rem;
     height: 3.5rem;
-    margin-right: 2rem;
     padding: .5rem;
-    border: 1px solid rgba(22,22,22,.15);
+    border: 1px solid rgba(22, 22, 22, .15);
     border-radius: .5rem;
     background-color: transparent;
     filter: invert(100%)
@@ -195,9 +201,9 @@ export default {
     max-width: 48rem
 }
 
-.button,.footer3_top-wrapper,.max-width-large {
+.button, .footer3_top-wrapper, .max-width-large {
     -webkit-text-size-adjust: 100%;
-    font-family: Relative,sans-serif;
+    font-family: Relative, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased
 }
@@ -222,29 +228,25 @@ export default {
 .button:hover {
     border-color: #fff;
     background-color: #fff;
-    box-shadow: 0 0 16px 0 rgba(255,255,255,.5)
+    box-shadow: 0 0 16px 0 rgba(255, 255, 255, .5)
 }
 
 .footer3_top-wrapper {
     line-height: 1.5;
     font-weight: 400;
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-row-gap: 16px;
     align-items: start;
-    grid-column-gap: 4vw;
-    grid-template-columns: 1fr .5fr;
-    grid-template-rows: auto
+    align-content: center;
+    justify-content: center;
 }
 
-.footer3_left-wrapper,.footer3_top-wrapper {
+.footer3_left-wrapper, .footer3_top-wrapper {
     color: #f1f0ee;
     font-size: 1rem
 }
 
-.footer3_left-wrapper,.rl-footer_social-icon,.rl-footer_social-link,.rl-footer_social-link-wrapper {
+.footer3_left-wrapper, .rl-footer_social-icon, .rl-footer_social-link, .rl-footer_social-link-wrapper {
     -webkit-text-size-adjust: 100%;
-    font-family: Relative,sans-serif;
+    font-family: Relative, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     box-sizing: border-box;
@@ -258,7 +260,7 @@ export default {
     margin-top: 1rem
 }
 
-.rl-footer_social-icon,.rl-footer_social-link {
+.rl-footer_social-icon, .rl-footer_social-link {
     font-size: inherit;
     color: #fff;
     max-width: 100%
@@ -275,7 +277,7 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: .5rem;
-    background-color: rgba(255,255,255,.05);
+    background-color: rgba(255, 255, 255, .05);
     transition: .3s
 }
 
@@ -298,9 +300,9 @@ export default {
     grid-template-rows: auto
 }
 
-.footer3_link,.footer3_link-list,.footer3_menu-wrapper {
+.footer3_link, .footer3_link-list, .footer3_menu-wrapper {
     -webkit-text-size-adjust: 100%;
-    font-family: Relative,sans-serif;
+    font-family: Relative, sans-serif;
     line-height: 1.5;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -325,7 +327,7 @@ export default {
     padding-top: .5rem;
     padding-bottom: .5rem;
     transition: .5s;
-    color: rgba(216,213,209,.8);
+    color: rgba(216, 213, 209, .8);
     text-decoration: none
 }
 
@@ -337,9 +339,9 @@ export default {
     align-items: center
 }
 
-.footer3_bottom-wrapper,.footer3_credit-text,.footer3_legal-link,.footer3_legal-list {
+.footer3_bottom-wrapper, .footer3_credit-text, .footer3_legal-link, .footer3_legal-list {
     -webkit-text-size-adjust: 100%;
-    font-family: Relative,sans-serif;
+    font-family: Relative, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     box-sizing: border-box;
@@ -347,11 +349,11 @@ export default {
 }
 
 .footer3_credit-text {
-    color: rgba(216,213,209,.65);
+    color: rgba(216, 213, 209, .65);
     font-size: .875rem
 }
 
-.footer3_legal-link,.footer3_legal-list {
+.footer3_legal-link, .footer3_legal-list {
     white-space: normal
 }
 
@@ -371,7 +373,7 @@ export default {
 .footer3_legal-link {
     background-color: transparent;
     border-color: #fff;
-    color: rgba(216,213,209,.65);
+    color: rgba(216, 213, 209, .65);
     font-size: .875rem;
     text-decoration: underline
 }
@@ -380,23 +382,23 @@ export default {
     padding: 2rem
 }
 
-.padding-bottom,.padding-top {
-    padding-right: 0!important;
-    padding-left: 0!important
+.padding-bottom, .padding-top {
+    padding-right: 0 !important;
+    padding-left: 0 !important
 }
 
 .padding-top {
-    padding-bottom: 0!important
+    padding-bottom: 0 !important
 }
 
 .padding-bottom {
-    padding-top: 0!important
+    padding-top: 0 !important
 }
 
 .margin-bottom {
-    margin-top: 0!important;
-    margin-right: 0!important;
-    margin-left: 0!important
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important
 }
 
 .margin-medium {
@@ -404,8 +406,8 @@ export default {
 }
 
 .padding-vertical {
-    padding-right: 0!important;
-    padding-left: 0!important
+    padding-right: 0 !important;
+    padding-left: 0 !important
 }
 
 .padding-xxlarge {
