@@ -6,3 +6,40 @@
 @import "_progress.css";
 @import "_scrollbars.css";
 @import "_table.css";
+div,
+ul,
+li,
+form,
+fieldset,
+input,
+button {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+li {
+    list-style: none;
+}
+
+input,
+button {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+input,
+button {
+    *font-size: 100%;
+}
+
+input,
+button {
+    outline: 0;
+}

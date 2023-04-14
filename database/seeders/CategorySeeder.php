@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,25 +14,13 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        //todo write seeder for
         $categories = [
-            ['name' => 'Physics'],
-            ['name' => 'Chemistry'],
-            ['name' => 'Mathematics'],
-            ['name' => 'Biology', ],
-            ['name' => 'History', ],
-            ['name' => 'Geography', ],
-            ['name' => 'Literature', ],
-            ['name' => 'Art' ],
-            ['name' => 'Music'],
-            ['name' => 'Computer Science'],
+            ['name' => 'Electronics', 'name_hy' => 'ասդ'],
         ];
 
         foreach ($categories as $category) {
-            DB::table('categories')->insert([
-                'name' => $category['name'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            Category::create($category);
         }
     }
 }

@@ -19,6 +19,8 @@ module.exports = {
             colors: {
                 'main': '#161616',
                 'second': '#333333',
+                'mine': '#303030',
+                'mine-second': '#272727',
             },
             zIndex: {
                 "-1": "-1",

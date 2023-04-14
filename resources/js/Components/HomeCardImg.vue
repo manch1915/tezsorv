@@ -10,6 +10,7 @@
             <h3 class="text-white"> {{zagalovok}} </h3>
         </div>
         <p>{{prov}}</p>
+        <a v-if="buttonHref" class="button" :href="buttonHref">{{ buttonText }}</a>
     </div>
 </template>
 
@@ -20,6 +21,8 @@ export default {
         image: String,
         zagalovok: String,
         prov: String,
+        buttonHref: String,
+        buttonText: String,
     }
 }
 </script>
@@ -56,5 +59,27 @@ p{
     margin-top: 0;
     margin-bottom: 0;
     color: rgba(216,213,209,.8);
+}
+.button {
+    display: inline-block;
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    padding: .75rem 1.5rem;
+    border: 1px solid #d8d5d1;
+    border-radius: .6rem;
+    background-color: #d8d5d1;
+    transition: .5s;
+    color: #161616;
+    font-size: 1.125rem;
+    font-weight: 500;
+    text-align: center;
+    flex: 0 0 auto
+}
+
+.button:hover {
+    border-color: #fff;
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 rgba(255, 255, 255, .5)
 }
 </style>

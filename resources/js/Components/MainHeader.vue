@@ -1,324 +1,184 @@
 <template>
-    <Popover class="relative main-bg">
-        <div class="px-6">
-            <div
-                class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-                <div class="flex justify-start lg:w-0 lg:flex-1">
-                    <a :href="route('home')">
-                        <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto sm:h-10"
-                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
-                    </a>
-                </div>
-                <div class="-my-2 -mr-2 md:hidden">
-                    <PopoverButton
-                        class="inline-flex items-center justify-center rounded-md dark:bg-white bg-gray-800 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                        <span class="sr-only">Open menu</span>
-                        <Bars3Icon class="h-6 w-6" aria-hidden="true"/>
-                    </PopoverButton>
-                </div>
-                <PopoverGroup as="nav" class="hidden space-x-10 md:flex items-center">
-                    <Popover class="relative" v-slot="{ open }">
-                        <PopoverButton
-                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-gray-800 text-base font-medium dark:hover:text-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
-                            <span>Categories</span>
-                            <ChevronDownIcon
-                                :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"
-                                aria-hidden="true"/>
-                        </PopoverButton>
-
-                        <transition enter-active-class="transition ease-out duration-200"
-                                    enter-from-class="opacity-0 translate-y-1"
-                                    enter-to-class="opacity-100 translate-y-0"
-                                    leave-active-class="transition ease-in duration-150"
-                                    leave-from-class="opacity-100 translate-y-0"
-                                    leave-to-class="opacity-0 translate-y-1">
-                            <PopoverPanel class="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
-                                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                    <div class="relative grid gap-6 dark:bg-white bg-gray-700 px-5 py-6 sm:gap-8 sm:p-8">
-                                        <a v-for="item in solutions" :key="item.name" :href="item.href"
-                                           class="-m-3 flex items-start rounded-lg p-3 dark:hover:bg-gray-50 hover:bg-gray-900">
-                                            <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"
-                                                       aria-hidden="true"/>
-                                            <div class="ml-4">
-                                                <p class="text-base font-medium dark:text-gray-900 text-gray-100 ">{{ item.name }}</p>
-                                                <p class="mt-1 text-sm dark:text-gray-500 text-gray-50">{{ item.description }}</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div
-                                        class="space-y-6 dark:bg-gray-50 bg-gray-800 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                                        <div v-for="item in callsToAction" :key="item.name" class="flow-root">
-                                            <a :href="item.href"
-                                               class="-m-3 flex items-center rounded-md p-3 text-base font-medium dark:text-gray-900 dark:hover:bg-gray-100 text-gray-400 hover:bg-gray-900">
-                                                <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-gray-400"
-                                                           aria-hidden="true"/>
-                                                <span class="ml-3">{{ item.name }}</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </PopoverPanel>
-                        </transition>
-                    </Popover>
-
-                    <a href="#" class="text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Pricing</a>
-                    <a href="#" class="text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Docs</a>
-
-                    <Popover class="relative" v-slot="{ open }">
-                        <PopoverButton
-                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-gray-800 text-base font-medium dark:hover:text-gray-900 hover:text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
-                            <span>More</span>
-                            <ChevronDownIcon
-                                :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"
-                                aria-hidden="true"/>
-                        </PopoverButton>
-
-                        <transition enter-active-class="transition ease-out duration-200"
-                                    enter-from-class="opacity-0 translate-y-1"
-                                    enter-to-class="opacity-100 translate-y-0"
-                                    leave-active-class="transition ease-in duration-150"
-                                    leave-from-class="opacity-100 translate-y-0"
-                                    leave-to-class="opacity-0 translate-y-1">
-                            <PopoverPanel
-                                class="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
-                                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                    <div class="relative grid gap-6  dark:bg-white bg-gray-700 px-5 py-6 sm:gap-8 sm:p-8">
-                                        <a v-for="item in resources" :key="item.name" :href="item.href"
-                                           class="-m-3 flex items-start rounded-lg p-3 dark:hover:bg-gray-50 hover:bg-gray-900">
-                                            <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"
-                                                       aria-hidden="true"/>
-                                            <div class="ml-4">
-                                                <p class="text-base font-medium dark:text-gray-900 text-gray-100 ">{{ item.name }}</p>
-                                                <p class="mt-1 text-sm dark:text-gray-500 text-gray-50">{{ item.description }}</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="dark:bg-gray-50 bg-gray-800 px-5 py-5 sm:px-8 sm:py-8">
-                                        <div>
-                                            <h3 class="text-base font-medium text-gray-500">Recent Posts</h3>
-                                            <ul role="list" class="mt-4 space-y-4">
-                                                <li v-for="post in recentPosts" :key="post.id"
-                                                    class="truncate text-base">
-                                                    <a :href="post.href"
-                                                       class="font-medium dark:text-gray-900 dark:hover:bg-gray-100 text-gray-400 hover:bg-gray-900">{{
-                                                            post.name
-                                                        }}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="mt-5 text-sm">
-                                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                                View all posts
-                                                <span aria-hidden="true"> &rarr;</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </PopoverPanel>
-                        </transition>
-                    </Popover>
-                    <LanguageSelect/>
-                    <ThemeSwitch/>
-                </PopoverGroup>
-                <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-
-                    <a v-if="!this.user.authenticated" :href="route('login')"
-                       class="whitespace-nowrap text-base font-medium text-gray-500 dark:hover:text-gray-900 hover:text-white">Sign in</a>
-                    <a v-if="!this.user.authenticated" :href="route('register')"
-                       class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign
-                        up</a>
-                    <Button v-if="this.user.authenticated" @click="logout">
-                        Log Out
-                    </Button>
-                </div>
-            </div>
-        </div>
-
-        <transition enter-active-class="duration-200 ease-out" enter-from-class="opacity-0 scale-95"
-                    enter-to-class="opacity-100 scale-100" leave-active-class="duration-100 ease-in"
-                    leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-            <PopoverPanel focus class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-                <div class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div class="px-5 pt-5 pb-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <img class="h-8 w-auto"
-                                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                     alt="Your Company"/>
-                            </div>
-                            <div class="-mr-2">
-                                <PopoverButton
-                                    class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                                    <span class="sr-only">Close menu</span>
-                                    <XMarkIcon class="h-6 w-6" aria-hidden="true"/>
-                                </PopoverButton>
-                            </div>
+    <header>
+        <div class="main-container">
+            <nav>
+                <div class="navTabs text-white">
+                    <ul class="publicTabs">
+                        <div class="mobileMenuButton hiddenResponsiveFull" style="">
+                            <!--todo mobile button icon-->
                         </div>
-                        <div class="mt-6">
-                            <nav class="grid gap-y-8">
-                                <a v-for="item in solutions" :key="item.name" :href="item.href"
-                                   class="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
-                                    <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"
-                                               aria-hidden="true"/>
-                                    <span class="ml-3 text-base font-medium text-gray-900">{{ item.name }}</span>
+                        <div class="hiddenWideUnder fl_l">
+                            <a id="neo-logo" :href="route('main')"><img alt="" src="/images/logo.svg"></a>
+                            <li class="navTab selected">
+                                <div class="tabLinks">
+                                    <ul class="secondaryContent blockLinksList">
+                                        <li>
+                                            <a href="https://lzt.market">
+                                                Հոդվածներ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="Popup">
+                                                <a class="NoPopupGadget PopupControl PopupClosed" rel="Menu">
+                                                    Սոց ցանցեր
+                                                    <span class="arrowWidget"></span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <Menu as="div" v-slot="{ open }" class="relative inline-block">
+                                                <div>
+                                                    <MenuButton class="inline-flex items-center w-full text justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                                        Ուրիշ
+                                                        <ChevronDownIcon :class="[open ? 'rotate-180' : 'rotate-0','w-4 ml-1 transition-transform']"/>
+                                                    </MenuButton>
+                                                </div>
+
+                                                <transition
+                                                    enter-active-class="transition duration-100 ease-out"
+                                                    enter-from-class="transform scale-95 opacity-0"
+                                                    enter-to-class="transform scale-100 opacity-100"
+                                                    leave-active-class="transition duration-75 ease-in"
+                                                    leave-from-class="transform scale-100 opacity-100"
+                                                    leave-to-class="transform scale-95 opacity-0"
+                                                >
+                                                    <MenuItems class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 z-40 rounded-md bg-mine-second shadow-lg ring-1 ring-purple-800 ring-opacity-1 focus:outline-none">
+                                                        <div class="px-1 py-1">
+                                                            <MenuItem v-slot="{ active }">
+                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">
+                                                                    Edit
+                                                                </button>
+                                                            </MenuItem>
+                                                            <MenuItem v-slot="{ active }">
+                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">
+                                                                    Duplicate
+                                                                </button>
+                                                            </MenuItem>
+                                                        </div>
+                                                        <div class="px-1 py-1">
+                                                            <MenuItem v-slot="{ active }">
+                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">
+                                                                    Archive
+                                                                </button>
+                                                            </MenuItem>
+                                                            <MenuItem v-slot="{ active }">
+                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">
+                                                                    Move
+                                                                </button>
+                                                            </MenuItem>
+                                                        </div>
+                                                        <div class="px-1 py-1">
+                                                            <MenuItem v-slot="{ active }">
+                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">
+                                                                    Delete
+                                                                </button>
+                                                            </MenuItem>
+                                                        </div>
+                                                    </MenuItems>
+                                                </transition>
+                                            </Menu>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                    <div class="account-links">
+                        <li id="searchBar" class="pageWidth">
+                            <fieldset class="QuickSearch" data-member-search-url="members/search">
+                                <form action="search/search" class="formPopup" method="get" target="_blank">
+                                    <div class="primaryControls">
+                                        <input autocomplete="off" class="textCtrl QuickSearchQuery" name="keywords" placeholder="Поиск..." title="Введите параметры поиска и нажмите ввод" type="text">
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </li>
+                        <ul class="account-links">
+                            <!-- account -->
+                            <!-- conversations popup -->
+                            <li class="navTab inbox Popup PopupControl PopupClosed  PopupContainerControl">
+                                <a class="navLink NoPopupGadget ConversationsPopupLink" href="conversations/"
+                                   rel="Menu">
+                                    <div class="counter-container">
+                                        <svg height="22" viewBox="0 0 20 20" width="22"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g id="message_outline_20__Page-2" fill="none" fill-rule="evenodd"
+                                               stroke="none" stroke-width="1">
+                                                <g id="message_outline_20__message_outline_20">
+                                                    <path id="message_outline_20__Shape" d="M0 0h20v20H0z"
+                                                          opacity=".4"></path>
+                                                    <path id="message_outline_20__Icon-Color"
+                                                          d="M6.83 15.75c.2-.23.53-.31.82-.2.81.3 1.7.45 2.6.45 3.77 0 6.75-2.7 6.75-6s-2.98-6-6.75-6S3.5 6.7 3.5 10c0 1.21.4 2.37 1.14 3.35.1.14.16.31.15.49-.04.76-.4 1.78-1.08 3.13 1.48-.11 2.5-.53 3.12-1.22ZM3.24 18.5a1.2 1.2 0 0 1-1.1-1.77A10.77 10.77 0 0 0 3.26 14 7 7 0 0 1 2 10c0-4.17 3.68-7.5 8.25-7.5S18.5 5.83 18.5 10s-3.68 7.5-8.25 7.5c-.92 0-1.81-.13-2.66-.4-1 .89-2.46 1.34-4.35 1.4Z"
+                                                          fill="currentColor" fill-rule="nonzero"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <div id="ConversationsMenu_Counter" class="itemCount Zero"
+                                             data-text="У Вас есть новые непрочитанные переписки: %d.">
+                                            <span class="Total">0</span>
+                                        </div>
+                                    </div>
                                 </a>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="space-y-6 py-6 px-5">
-                        <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-                            <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">Pricing</a>
-
-                            <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">Docs</a>
-                            <a v-for="item in resources" :key="item.name" :href="item.href"
-                               class="text-base font-medium text-gray-900 hover:text-gray-700">{{ item.name }}</a>
-                        </div>
-                        <LanguageSelect/>
-                        <div>
-                            <a :href="route('register')"
-                               class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign
-                                up</a>
-                            <p class="mt-6 text-center text-base font-medium text-gray-500">
-                                Existing customer?
-                                {{ ' ' }}
-                                <a :href="route('login')" class="text-indigo-600 hover:text-indigo-500">Sign in</a>
-                            </p>
-                        </div>
+                            </li>
+                            <!-- alerts popup -->
+                            <div class="liveAlerts navPopup DismissParent" style="display: none">
+                                <div class="DismissCtrl"></div>
+                            </div>
+                            <li class="navTab alerts Popup PopupControl PopupClosed PopupContainerControl">
+                                <a class="navLink NoPopupGadget" href="account/alerts" rel="Menu">
+                                    <div class="counter-container ">
+                                        <svg fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2.1c4.02 0 6.9 3.28 6.9 7.53v1.6c0 .23.2.53.72 1.08l.27.27c1.08 1.1 1.51 1.73 1.51 2.75 0 .44-.05.79-.27 1.2-.45.88-1.42 1.37-2.87 1.37h-1.9c-.64 2.33-2.14 3.6-4.36 3.6-2.25 0-3.75-1.3-4.37-3.67l.02.07H5.74c-1.5 0-2.47-.5-2.9-1.41-.2-.4-.24-.72-.24-1.16 0-1.02.43-1.65 1.51-2.75l.27-.27c.53-.55.72-.85.72-1.08v-1.6C5.1 5.38 7.99 2.1 12 2.1zm2.47 15.8H9.53c.46 1.25 1.25 1.8 2.47 1.8s2.01-.55 2.47-1.8zM12 3.9c-2.96 0-5.1 2.43-5.1 5.73v1.6c0 .85-.39 1.46-1.23 2.33l-.28.29c-.75.75-.99 1.11-.99 1.48 0 .19.01.29.06.38.1.22.43.39 1.28.39h12.52c.82 0 1.16-.17 1.28-.4.05-.1.06-.2.06-.37 0-.37-.24-.73-.99-1.48l-.28-.29c-.84-.87-1.23-1.48-1.23-2.33v-1.6c0-3.3-2.13-5.73-5.1-5.73z"
+                                                fill="currentColor"></path>
+                                        </svg>
+                                        <div id="AlertsMenu_Counter" class="itemCount Zero"
+                                             data-text="У Вас есть новые оповещения: %d.">
+                                            <span class="Total">0</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="navTab account Popup PopupControl  PopupContainerControl PopupClosed">
+         <span id="account-style" class="navLink accountPopup NoPopupGadget" rel="Menu">
+         <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">killerpvp</span></b>
+         <span id="NavigationAccountBalance" class="hiddenNarrowUnder hidden">
+         <span class="balanceLabel">
+         <span class="balanceValue">0</span>
+         <span class="svgIcon--rub"></span>
+         </span>
+         </span>
+         <span class="avatar">
+         <img alt="Текущий аватар" class="navTab--visitorAvatar"
+              src="https://zelenka.guru/data/avatars/s/797/797788.jpg?1678077751">
+         </span>
+         </span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </PopoverPanel>
-        </transition>
-    </Popover>
+            </nav>
+        </div>
+    </header>
 </template>
 
 <script>
-import {Popover, PopoverButton, PopoverGroup, PopoverPanel} from '@headlessui/vue'
-import { Link } from '@inertiajs/vue3';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
-import {
-    ArrowPathIcon,
-    Bars3Icon,
-    BookmarkSquareIcon,
-    CalendarIcon,
-    ChartBarIcon,
-    CursorArrowRaysIcon,
-    LifebuoyIcon,
-    PhoneIcon,
-    PlayIcon,
-    ShieldCheckIcon,
-    Squares2X2Icon,
-    XMarkIcon,
-} from '@heroicons/vue/24/outline'
-import {CalculatorIcon, ChevronDownIcon} from '@heroicons/vue/20/solid'
-import LanguageSelect from "@/Components/LanguageSelect.vue";
-import ThemeSwitch from "@/Components/ThemeSwitch.vue";
-//icons
-import CodeIcon from "@/Components/icons/CodeIcon.vue"
-import HistoryIcon from "@/Components/icons/HistoryIcon.vue";
-import Tun from "@/Components/icons/Tun.vue";
-import RulerIcon from "@/Components/icons/RulerIcon.vue";
-import PhysicsIcon from "@/Components/icons/PhysicsIcon.vue";
-import axios from "axios";
+
+import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
+import { ChevronDownIcon  } from '@heroicons/vue/24/outline'
+import { useMainStore } from "@/stores/main.js"
+
 export default {
-    components: {
-        ThemeSwitch,
-        Link,
-        LanguageSelect, Popover, PopoverButton, PopoverGroup, PopoverPanel, ArrowPathIcon,
-        Bars3Icon,
-        BookmarkSquareIcon,
-        CalendarIcon,
-        ChartBarIcon,
-        CursorArrowRaysIcon,
-        LifebuoyIcon,
-        PhoneIcon,
-        PlayIcon,
-        ShieldCheckIcon,
-        Squares2X2Icon,
-        XMarkIcon,ChevronDownIcon},
+    name: "MainHeader",
+    components: {Menu, MenuButton, MenuItems, MenuItem,ChevronDownIcon,useMainStore},
     data() {
         return {
-            solutions: [
-                {
-                    name: 'Ֆիզիկա',
-                    description: 'Get a better understanding of where your traffic is coming from.',
-                    href: route('physics'),
-                    icon: PhysicsIcon,
-                },
-                {
-                    name: 'Ծրագրաորում',
-                    description: 'Speak directly to your customers in a more meaningful way.',
-                    href: '#',
-                    icon: CodeIcon,
-                },
-                {
-                    name: 'Երկրաչափություն',
-                    description: "Your customers' data will be safe and secure.",
-                    href: '#',
-                    icon: RulerIcon
-                },
-                {
-                    name: 'Հանրահաշիվ',
-                    description: "Connect with third-party tools that you're already using.",
-                    href: '#',
-                    icon: CalculatorIcon ,
-                },
-                {
-                    name: 'Պատմություն',
-                    description: 'Build strategic funnels that will drive your customers to convert',
-                    href: '#',
-                    icon: HistoryIcon,
-                },],
-            callsToAction: [
-                {name: 'Watch Demo', href: '#', icon: PlayIcon},
-                {name: 'Contact Sales', href: '#', icon: PhoneIcon},
-            ],
-            resources: [
-                {
-                    name: 'Help Center',
-                    description: 'Get all of your questions answered in our forums or contact support.',
-                    href: '#',
-                    icon: LifebuoyIcon,
-                },
-                {
-                    name: 'Guides',
-                    description: 'Learn how to maximize our platform to get the most out of it.',
-                    href: '#',
-                    icon: BookmarkSquareIcon,
-                },
-                {
-                    name: 'Events',
-                    description: 'See what meet-ups and other events we might be planning near you.',
-                    href: '#',
-                    icon: CalendarIcon,
-                },
-                {
-                    name: 'Security',
-                    description: 'Understand how we take your privacy seriously.',
-                    href: '#',
-                    icon: ShieldCheckIcon
-                },
-            ],
-            recentPosts: [
-                {id: 1, name: 'Boost your conversion rate', href: '#'},
-                {id: 2, name: 'How to use search engine optimization to drive traffic to your site', href: '#'},
-                {id: 3, name: 'Improve your customer experience', href: '#'},
-            ],
-            translations: {
-                en: "Last Friday I saw a spotted striped blue worm shake hands with a legless lizard.",
-                es: "El viernes pasado vi un gusano azul a rayas manchado estrecharle la mano con un lagarto sin patas.",
-                de: "Letzten Freitag sah ich einen gefleckten gestreiften blauen Wurm, der einer beinlosen Eidechse die Hand schüttelte.",
-                fr: "Vendredi dernier, j'ai vu un ver bleu rayé tacheté serrer la main d'un lézard sans pattes.",
-                it: "Venerdì scorso ho visto un verme blu striato macchiato stringere la mano a una lucertola senza gambe.",
-                jp: "先週の金曜日、縞模様の青いワームが脚のないトカゲと握手するのを見ました。",
-                cn: "上周五，我看到一只斑点的蓝色蠕虫与一只无腿的蜥蜴握手。"
-            },
-            user:{
-                authenticated: false,
-                user: {}
-            }
+            iconRotate: false,
+            active: false,
         }
-
+    },
+    props:{
+      auth: Object,
     },
     created() {
         this.checkAuth();
@@ -335,7 +195,7 @@ export default {
                 console.log(error)
             }
         },
-        logout(){
+        logout() {
             axios.post('api/logout').then(res => {
                 this.user.authenticated = false
             })
@@ -343,3 +203,188 @@ export default {
     }
 }
 </script>
+<style scoped>
+header {
+    background-color: #272727;
+}
+li {
+    margin: auto;
+}
+
+#neo-logo {
+    height: 45px;
+    width: 45px;
+    margin: 4px 10px 0 0;
+}
+
+#neo-logo {
+    stroke: green;
+    stroke-width: 1;
+    stroke-linecap: butt;
+    stroke-dasharray: 0;
+    filter: drop-shadow(0 0 5px #ffffff);
+    transition: all .5s;
+}
+
+#neo-logo:hover {
+    filter: drop-shadow(0 0 3px rgba(88, 40, 139, 0.8));
+}
+
+.main-container {
+    position: relative;
+    width: 1076px;
+    margin: 0 auto;
+}
+
+.navTabs {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.account-links {
+    display: flex;
+    justify-content: center;
+}
+
+.secondaryContent {
+    display: flex;
+}
+
+.counter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding: 0 10px 0 0;
+}
+
+.hiddenWideUnder {
+    display: flex;
+    align-items: center;
+}
+
+.QuickSearch .primaryControls {
+    margin-right: 20px;
+}
+
+.QuickSearch .primaryControls input.textCtrl {
+    width: 100%;
+    border-radius: 6px;
+    padding-left: 35px;
+    box-sizing: border-box;
+    border: none;
+    margin-right: 10px;
+}
+
+.QuickSearchQuery {
+    padding-right: 30px;
+}
+
+#searchBar .primaryControls:before {
+    color: rgb(34, 142, 93);
+    display: inline-block;
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 600;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f002";
+    float: left;
+    margin-right: -36px;
+    width: 36px;
+    text-align: center;
+    position: relative;
+    line-height: 30px;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.textCtrl {
+    font-size: 13px;
+    color: rgb(214, 214, 214);
+    background-color: rgb(45, 45, 45);
+    padding: 0 10px;
+    border: 0 none black;
+    border-radius: 6px;
+    line-height: 30px;
+    outline: none;
+    box-sizing: border-box;
+    height: 30px;
+}
+
+input.textCtrl:focus, select.textCtrl:focus, textarea.textCtrl:focus, div.textCtrl:focus-within {
+    box-shadow: 0 0 0px 2px rgba(98, 72, 255, .5);
+}
+
+.account {
+    margin-left: 5px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.account:hover {
+    background-color: #2D2D2D;
+}
+
+.username .style2 {
+    color: rgb(148, 148, 148);
+}
+
+.avatar img, .avatar .img, .avatarCropper {
+    border-radius: 50%;
+    image-rendering: optimizeSpeed;
+}
+
+.navTab--visitorAvatar {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 0 2px 0 4px;
+}
+
+.counter-container svg {
+    width: 22px;
+    height: 22px;
+    color: rgb(148, 148, 148);
+}
+
+.navTabs .navTab.PopupClosed .navLink:hover .counter-container svg, .navTabs .navTab.PopupOpen .navLink .counter-container svg {
+    color: rgb(0, 186, 120);
+}
+
+.navTabs .navTab.PopupOpen .navLink .itemCount {
+    border: 2px solid rgb(54, 54, 54);
+}
+
+.navTabs .navLink .itemCount.Zero {
+    display: none;
+}
+
+.navTabs .navLink .itemCount {
+    padding: 1px 4px 1px 5px;
+    border: 2px solid rgb(54, 54, 54);
+    border-radius: 12px;
+    color: #f5f5f5;
+    font-size: 9px;
+    height: 11px;
+    line-height: 11px;
+    min-width: 5px;
+    top: 1px;
+    left: 11px;
+    background-color: rgb(34, 142, 93);
+    text-align: center;
+    position: absolute;
+}
+
+.navTabs .navTab.selected .tabLinks a {
+    padding: 0 12px;
+    display: block;
+    font-weight: 600;
+    color: rgb(214, 214, 214);
+}
+
+</style>

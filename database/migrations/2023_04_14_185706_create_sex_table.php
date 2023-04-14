@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cheat_sheets', function (Blueprint $table) {
+        Schema::create('sex', function (Blueprint $table) {
             $table->id();
-            $table->string('header');
-            $table->string('body');
-            $table->string('picture');
-            $table->string('file');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cheat_sheets');
+        Schema::dropIfExists('sex');
     }
 };

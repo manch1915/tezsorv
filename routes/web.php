@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Models\CheatSheet;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \App\Http\Controllers\DashboardController as Dashboard;
+use \App\Http\Controllers\Main\MainController as Main;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +19,11 @@ use \App\Http\Controllers\DashboardController as Dashboard;
 
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
+Route::get('/catalog', [\App\Http\Controllers\IndexController::class, 'catalog'])->name('catalog');
 
+Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
+    Route::get('/', [Main::class, 'index'])->name('main');
+});
 
 Route::group(['prefix' => 'dashboard'],function (){
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
@@ -31,11 +35,6 @@ Route::group(['prefix' => 'dashboard'],function (){
     Route::get('/style', [Dashboard::class, 'style'])->name('style');
     Route::get('/profile', [Dashboard::class, 'profile'])->name('profile');
     Route::get('/error', [Dashboard::class, 'error'])->name('error');
-});
-
-
-Route::group(['prefix' => 'subjects'], function (){
-    Route::get('/physics', [\App\Http\Controllers\SubjectController::class, 'getPhysics'])->name('physics');
 });
 
 Route::middleware('auth')->group(function () {

@@ -5,8 +5,7 @@
                 <div class="flex justify-start lg:w-0 lg:flex-1">
                     <a :href="route('home')">
                         <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto sm:h-10"
-                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
+                        <img class="h-8 w-auto sm:h-16 logo" src="/images/logo.svg" alt=""/>
                     </a>
                 </div>
                 <div class="-my-2 -mr-2 sm:hidden">
@@ -17,60 +16,15 @@
                     </PopoverButton>
                 </div>
                 <PopoverGroup as="nav" class="hidden space-x-2 sm:flex items-center navbar-container">
-<!--                    <Popover class="relative" v-slot="{ open }">-->
-<!--                        <PopoverButton-->
-<!--                            :class="[open ? 'dark:text-gray-900 text-gray-50' : 'text-gray-500', 'group inline-flex items-center rounded-md dark:bg-white bg-main text-base font-medium dark:hover:text-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">-->
-<!--                            <span>Categories</span>-->
-<!--                            <ChevronDownIcon-->
-<!--                                :class="[open ? 'dark:text-gray-600 text-gray-50' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']"-->
-<!--                                aria-hidden="true"/>-->
-<!--                        </PopoverButton>-->
 
-<!--                        <transition enter-active-class="transition ease-out duration-200"-->
-<!--                                    enter-from-class="opacity-0 translate-y-1"-->
-<!--                                    enter-to-class="opacity-100 translate-y-0"-->
-<!--                                    leave-active-class="transition ease-in duration-150"-->
-<!--                                    leave-from-class="opacity-100 translate-y-0"-->
-<!--                                    leave-to-class="opacity-0 translate-y-1">-->
-<!--                            <PopoverPanel class="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">-->
-<!--                                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">-->
-<!--                                    <div class="relative grid gap-6 dark:bg-white bg-gray-700 px-5 py-6 sm:gap-8 sm:p-8">-->
-<!--                                        <a v-for="item in solutions" :key="item.name" :href="item.href"-->
-<!--                                           class="-m-3 flex items-start rounded-lg p-3 dark:hover:bg-gray-50 hover:bg-gray-900">-->
-<!--                                            <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-indigo-600"-->
-<!--                                                       aria-hidden="true"/>-->
-<!--                                            <div class="ml-4">-->
-<!--                                                <p class="text-base font-medium dark:text-gray-900 text-gray-100 ">{{ item.name }}</p>-->
-<!--                                                <p class="mt-1 text-sm dark:text-gray-500 text-gray-50">{{ item.description }}</p>-->
-<!--                                            </div>-->
-<!--                                        </a>-->
-<!--                                    </div>-->
-<!--                                    <div-->
-<!--                                        class="space-y-6 dark:bg-gray-50 bg-gray-800 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">-->
-<!--                                        <div v-for="item in callsToAction" :key="item.name" class="flow-root">-->
-<!--                                            <a :href="item.href"-->
-<!--                                               class="-m-3 flex items-center rounded-md p-3 text-base font-medium dark:text-gray-900 dark:hover:bg-gray-100 text-gray-400 hover:bg-gray-900">-->
-<!--                                                <component :is="item.icon" class="h-6 w-6 flex-shrink-0 text-gray-400"-->
-<!--                                                           aria-hidden="true"/>-->
-<!--                                                <span class="ml-3">{{ item.name }}</span>-->
-<!--                                            </a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </PopoverPanel>-->
-<!--                        </transition>-->
-<!--                    </Popover>-->
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Categories</a>
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Pricing</a>
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Docs</a>
-
-
+                    <a :href="route('catalog')" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Catalog</a>
+                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Forum</a>
+                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Blog</a>
 
                 </PopoverGroup>
                 <LanguageSelect/>
 
                 <div class="hidden items-center justify-end sm:flex md:flex-1 lg:w-0">
-
                     <a v-if="!this.user.authenticated" :href="route('login')" class="login"><UserIcon/><div>Sign in</div></a>
                     <Button v-if="this.user.authenticated" @click="logout">
                         Log Out
@@ -105,8 +59,6 @@
                     </div>
                     <div class="space-y-6 py-6 px-5">
                         <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-                            <a href="#" class="text-base font-medium text-white hover:text-gray-700">Pricing</a>
-                            <a href="#" class="text-base font-medium text-white hover:text-gray-700">Docs</a>
                             <a v-for="item in resources" :key="item.name" :href="item.href" class="text-base font-medium text-white hover:text-gray-700">{{ item.name }}</a>
                         </div>
                         <LanguageSelect/>
@@ -144,12 +96,10 @@ import {
     XMarkIcon,
     UserIcon,
 } from '@heroicons/vue/24/outline'
-import {CalculatorIcon, ChevronDownIcon} from '@heroicons/vue/20/solid'
+import {CalculatorIcon, ChevronDownIcon, AcademicCapIcon} from '@heroicons/vue/20/solid'
 import LanguageSelect from "@/Components/LanguageSelect.vue";
 //icons
 import CodeIcon from "@/Components/icons/CodeIcon.vue"
-import HistoryIcon from "@/Components/icons/HistoryIcon.vue";
-import Tun from "@/Components/icons/Tun.vue";
 import RulerIcon from "@/Components/icons/RulerIcon.vue";
 import PhysicsIcon from "@/Components/icons/PhysicsIcon.vue";
 import axios from "axios";
@@ -175,7 +125,7 @@ export default {
                 {
                     name: 'Ֆիզիկա',
                     description: 'Get a better understanding of where your traffic is coming from.',
-                    href: route('physics'),
+                    href: route('login'),
                     icon: PhysicsIcon,
                 },
                 {
@@ -197,10 +147,10 @@ export default {
                     icon: CalculatorIcon ,
                 },
                 {
-                    name: 'Պատմություն',
+                    name: 'Փիլիսոփայություն',
                     description: 'Build strategic funnels that will drive your customers to convert',
                     href: '#',
-                    icon: HistoryIcon,
+                    icon: AcademicCapIcon,
                 },],
             callsToAction: [
                 {name: 'Watch Demo', href: '#', icon: PlayIcon},
@@ -208,27 +158,27 @@ export default {
             ],
             resources: [
                 {
-                    name: 'Help Center',
+                    name: 'Forum',
                     description: 'Get all of your questions answered in our forums or contact support.',
                     href: '#',
                     icon: LifebuoyIcon,
                 },
                 {
-                    name: 'Guides',
+                    name: 'Telegram',
                     description: 'Learn how to maximize our platform to get the most out of it.',
                     href: '#',
                     icon: BookmarkSquareIcon,
                 },
                 {
-                    name: 'Events',
+                    name: 'Blog',
                     description: 'See what meet-ups and other events we might be planning near you.',
                     href: '#',
                     icon: CalendarIcon,
                 },
                 {
-                    name: 'Security',
+                    name: 'Catalog',
                     description: 'Understand how we take your privacy seriously.',
-                    href: '#',
+                    href: route('catalog'),
                     icon: ShieldCheckIcon
                 },
             ],
@@ -334,5 +284,12 @@ export default {
 }
 .login svg{
     width: 1rem;
+}
+.logo{
+    filter: drop-shadow(0 0 10px rgba(88, 40, 139, 0.8));
+    transition: all .5s;
+}
+.logo:hover{
+    filter: drop-shadow(0 0 40px rgb(90, 42, 141));
 }
 </style>

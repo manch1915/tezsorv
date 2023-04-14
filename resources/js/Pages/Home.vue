@@ -1,6 +1,5 @@
 <template>
     <main class="bg-main">
-
         <section class="bg-lines">
             <div class="mx-auto max-w-7xl ">
                 <Header/>
@@ -10,7 +9,7 @@
                         class="text-highlight-orange">թյուր</span> ռեսուրսներ
                     </div>
                     <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ վտանգը։</p>
-                    <a href="#" class="glow-button">Կատալոգ</a>
+                    <a :href="route('catalog')" class="glow-button">Կատալոգ</a>
                 </div>
             </div>
         </section>
@@ -46,7 +45,8 @@ export default {
     mounted() {
 
     },
-    methods: {}
+    methods: {
+    }
 }
 </script>
 

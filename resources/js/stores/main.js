@@ -11,7 +11,6 @@ export const useMainStore = defineStore("main", {
     loading: false,
     isFieldFocusRegistered: false,
 
-
     clients: [],
     history: [],
     cheatsheets: [],

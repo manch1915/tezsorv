@@ -5,13 +5,13 @@
                 <div class="padding-vertical padding-xxlarge">
                     <div class="grid grid-cols-1 md:grid-cols-2 rl-footer_slack-cta">
                         <div class=" rl-footer_slack-text-wrapper">
-                            <img alt="" class="rl-footer_slack-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/641b9dd374e097246ef585df_slack.svg">
+                            <img alt="" class="rl-footer_slack-icon" loading="lazy" src="/svg/discord.svg">
                             <div class="max-width-large">
                                 <div class="margin-bottom margin-tiny"><h5>Join our awesome community</h5></div>
                                 <p>Share work, seek support, vote on components, stay updated and network with other Lumers.<br></p>
                             </div>
                         </div>
-                        <a class="button dont-shrink w-button" href="http://slack.relume.io/" target="_blank">Join our Slack</a></div>
+                        <a class="button dont-shrink w-button" href="https://discord.gg/e469yVEy" target="_blank">Join our Discord</a></div>
                     <div class="padding-bottom padding-xxlarge">
                         <div class="grid grid-cols-1 md:grid-cols-2 footer3_top-wrapper">
                             <div class="footer3_left-wrapper">
@@ -193,7 +193,7 @@ export default {
     border: 1px solid rgba(22, 22, 22, .15);
     border-radius: .5rem;
     background-color: transparent;
-    filter: invert(100%)
+    filter: drop-shadow(0 0 3px #ffffff);
 }
 
 .max-width-large {
