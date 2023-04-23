@@ -3,18 +3,18 @@
         <div class="nodeInfo forumNodeInfo">
             <div @click.prevent="active = !active" class="nodeText">
                 <h3 class="nodeTitle flex">
-                    <a href="#">
-                        {{ menuHead }}
+                    <a href="#" v-if="list">
+                        {{ list['name'] }}
                     </a>
                     <ChevronDownIcon :class="active ? 'w-6 rotate-180 transition cursor-pointer' : 'w-6 rotate-0 transition cursor-pointer'"/>
                 </h3>
             </div>
             <TransitionExpand>
                 <ol v-if="active" class="subForumList">
-                <li v-for="item in list" class="node node766 forum level-n">
+                <li v-for="item in list.subcategories" class="node node766 forum level-n">
                     <div class="unread">
                         <h4 class="nodeTitle">
-                            <a class="menuRow" :href="item.href">{{ item.head }}</a>
+                            <a class="menuRow" :href="item.id">{{ item.name }}</a>
                         </h4>
                     </div>
                 </li>
@@ -36,8 +36,7 @@ export default {
         }
     },
     props: {
-        menuHead: String,
-        list: Array,
+        list: Object,
     }
 }
 </script>

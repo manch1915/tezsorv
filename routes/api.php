@@ -24,5 +24,6 @@ Route::get('/user', function () {
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
-Route::get('/cheatsheets', [\App\Http\Controllers\CheatSheetController::class, 'show']);
-Route::delete('/cheatsheets/{id}', [\App\Http\Controllers\CheatSheetController::class, 'destroy']);
+Route::get('/slideList', [\App\Http\Controllers\Main\SlideController::class, 'show']);
+
+Route::get('/member/{id}', [App\Http\Controllers\Main\MainController::class, 'showMember']);

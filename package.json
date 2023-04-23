@@ -14,6 +14,7 @@
         "axios": "^1.1.2",
         "chart.js": "^4.2.1",
         "laravel-vite-plugin": "^0.7.2",
+        "naive-ui": "^2.34.3",
         "numeral": "^2.0.6",
         "pinia": "^2.0.32",
         "postcss": "^8.4.18",
@@ -24,6 +25,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.10",
         "@heroicons/vue": "^2.0.15",
+        "@vicons/ionicons5": "^0.12.0",
         "@vueuse/core": "^9.12.0",
         "@vueuse/motion": "^2.0.0-beta.12",
         "flag-icons": "^6.6.6",

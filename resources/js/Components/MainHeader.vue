@@ -8,7 +8,7 @@
                             <!--todo mobile button icon-->
                         </div>
                         <div class="hiddenWideUnder fl_l">
-                            <a id="neo-logo" :href="route('main')"><img alt="" src="/images/logo.svg"></a>
+                            <Link id="neo-logo" :href="route('main')"><img alt="" src="/images/logo.svg"></Link>
                             <li class="navTab selected">
                                 <div class="tabLinks">
                                     <ul class="secondaryContent blockLinksList">
@@ -139,21 +139,24 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="navTab account Popup PopupControl  PopupContainerControl PopupClosed">
-         <span id="account-style" class="navLink accountPopup NoPopupGadget" rel="Menu">
-         <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">killerpvp</span></b>
-         <span id="NavigationAccountBalance" class="hiddenNarrowUnder hidden">
-         <span class="balanceLabel">
-         <span class="balanceValue">0</span>
-         <span class="svgIcon--rub"></span>
-         </span>
-         </span>
-         <span class="avatar">
-         <img alt="Текущий аватар" class="navTab--visitorAvatar"
-              src="https://zelenka.guru/data/avatars/s/797/797788.jpg?1678077751">
-         </span>
-         </span>
-                            </li>
+                            <n-dropdown class="custom-dropdown" :options="options">
+                                <li class="navTab account">
+                                     <span id="account-style" class="navLink accountPopup NoPopupGadget" rel="Menu">
+                                         <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">{{ auth.user.username }}</span></b>
+                                         <span id="NavigationAccountBalance" class="hiddenNarrowUnder">
+                                             <span class="balanceLabel hidden">
+                                                    <!--Badge-->
+                                                 <span class="balanceValue">0</span>
+                                                 <span class="svgIcon--rub"></span>
+                                             </span>
+                                         </span>
+                                         <span class="avatar">
+                                            <img alt="Текущий аватар" class="navTab--visitorAvatar" src="https://zelenka.guru/data/avatars/s/797/797788.jpg?1678077751">
+                                         </span>
+                                     </span>
+                                </li>
+
+                            </n-dropdown>
                         </ul>
                     </div>
                 </div>
@@ -162,46 +165,57 @@
     </header>
 </template>
 
-<script>
-
+<script setup>
+import {h, ref} from "vue";
 import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
 import { ChevronDownIcon  } from '@heroicons/vue/24/outline'
-import { useMainStore } from "@/stores/main.js"
+import { router } from '@inertiajs/vue3'
+import {NDropdown,NIcon} from "naive-ui";
+import {
+    PersonCircleOutline as UserIcon,
+    Pencil as EditIcon,
+    LogOutOutline as LogoutIcon
+} from "@vicons/ionicons5";
+import { Link } from '@inertiajs/vue3';
+//todo fix icons to mdi
 
-export default {
-    name: "MainHeader",
-    components: {Menu, MenuButton, MenuItems, MenuItem,ChevronDownIcon,useMainStore},
-    data() {
-        return {
-            iconRotate: false,
-            active: false,
-        }
-    },
-    props:{
-      auth: Object,
-    },
-    created() {
-        this.checkAuth();
-    },
-    methods: {
-        async checkAuth() {
-            try {
-                axios.defaults.withCredentials = true;
-                await axios.get('/sanctum/csrf-cookie');
-                const response = await axios.get('/api/user');
-                this.user.authenticated = response.data.authenticated
-                this.user.uesr = response.data.user
-            } catch (error) {
-                console.log(error)
+const props =  defineProps({
+    auth: Object,
+})
+
+const renderIcon = (icon) => {
+    return () => {
+        return h(NIcon, null, {
+            default: () => h(icon)
+        });
+    };
+};
+
+const options = ref([
+    {
+        label: "Profile",
+        key: "member",
+        icon: renderIcon(UserIcon),
+        props: {
+            onClick: () => {
+                router.visit(route('member',props.auth.user.id))
             }
-        },
-        logout() {
-            axios.post('api/logout').then(res => {
-                this.user.authenticated = false
-            })
         }
-    }
-}
+    },
+    {
+        label: "Edit Profile",
+        key: "editProfile",
+        icon: renderIcon(EditIcon)
+    },
+    {
+        label: "Logout",
+        key: "logout",
+        icon: renderIcon(LogoutIcon)
+    }]
+)
+
+const iconRotate = ref(false)
+const active = ref(false)
 </script>
 <style scoped>
 header {
@@ -232,7 +246,7 @@ li {
 
 .main-container {
     position: relative;
-    width: 1076px;
+    max-width: 1076px;
     margin: 0 auto;
 }
 
@@ -387,4 +401,21 @@ input.textCtrl:focus, select.textCtrl:focus, textarea.textCtrl:focus, div.textCt
     color: rgb(214, 214, 214);
 }
 
+</style>
+<style>
+.custom-dropdown{
+    background-color: #272727 !important;
+}
+.n-dropdown-menu .n-dropdown-option .n-dropdown-option-body:not(.n-dropdown-option-body--disabled).n-dropdown-option-body--pending::before {
+    background-color:  rgb(45, 45, 45);
+}
+.custom-dropdown .n-dropdown-option-body__label{
+    color: rgb(239, 231, 231);
+}
+.n-dropdown-menu .n-dropdown-option .n-dropdown-option-body .n-dropdown-option-body__prefix {
+    color: rgb(239, 231, 231);
+}
+.n-dropdown-menu .n-dropdown-option .n-dropdown-option-body:not(.n-dropdown-option-body--disabled).n-dropdown-option-body--pending .n-dropdown-option-body__prefix, .n-dropdown-menu .n-dropdown-option .n-dropdown-option-body:not(.n-dropdown-option-body--disabled).n-dropdown-option-body--pending .n-dropdown-option-body__suffix {
+    color: #228E5D;
+}
 </style>

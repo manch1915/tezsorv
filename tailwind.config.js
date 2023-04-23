@@ -17,10 +17,11 @@ module.exports = {
         },
         extend: {
             colors: {
-                'main': '#161616',
+                'main': '#080808',
                 'second': '#333333',
                 'mine': '#303030',
                 'mine-second': '#272727',
+                'mainText': '#949494',
             },
             zIndex: {
                 "-1": "-1",

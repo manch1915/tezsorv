@@ -5,18 +5,17 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
+import {NInput, NSpace, darkTheme, NConfigProvider} from "naive-ui";
 const form = useForm({
-    name: '',
+    username: '',
     email: '',
     password: '',
-    password_confirmation: '',
     terms: false,
 });
 
 const submit = () => {
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => form.reset('password'),
     });
 };
 </script>
@@ -24,67 +23,30 @@ const submit = () => {
 <template>
     <GuestLayout>
         <Head title="Register" />
-
+        <n-config-provider :theme="darkTheme">
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+                <p class="label pb-1">Username</p>
+                <n-space vertical>
+                    <n-input v-model:value="form.username" id="first_name" maxlength="30" show-count clearable placeholder="Username"/>
+                </n-space>
+                <InputError class="mt-2" :message="form.errors.username" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
+                <p class="label pb-1">Email</p>
+                <n-space vertical>
+                    <n-input v-model:value="form.email" type="email" show-count clearable placeholder="Email"/>
+                </n-space>
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
+                <p class="label pb-1">Password</p>
+                <n-space vertical>
+                    <n-input v-model:value="form.password" type="password" show-password-on="click"/>
+                </n-space>
                 <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -100,5 +62,12 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+        </n-config-provider>
     </GuestLayout>
 </template>
+<style scoped>
+    .label{
+        color: #bebebe;
+        text-shadow: 0 0 10px rgba(88, 40, 139, 0.8);
+    }
+</style>

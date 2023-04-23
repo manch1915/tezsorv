@@ -2,9 +2,8 @@
 import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
+import {NInput, NSpace, darkTheme, NConfigProvider} from "naive-ui";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -32,35 +31,23 @@ const submit = () => {
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>
-
+        <n-config-provider :theme="darkTheme">
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
+                <p class="label pb-1">Email</p>
+                <n-space vertical>
+                    <n-input v-model:value="form.email" type="email" name="emall" placeholder="Email"/>
+                </n-space>
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
+
+                <p class="label pb-1">Password</p>
+                <n-space vertical>
+                    <n-input v-model:value="form.password" type="password" placeholder="password" show-password-on="click"/>
+                </n-space>
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
@@ -86,5 +73,12 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+            </n-config-provider>
     </GuestLayout>
 </template>
+<style scoped>
+.label{
+    color: #bebebe;
+    text-shadow: 0 0 10px rgba(88, 40, 139, 0.8);
+}
+</style>

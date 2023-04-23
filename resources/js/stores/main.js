@@ -11,9 +11,10 @@ export const useMainStore = defineStore("main", {
     loading: false,
     isFieldFocusRegistered: false,
 
+    slideList: [],
     clients: [],
     history: [],
-    cheatsheets: [],
+    member: null,
   }),
   actions: {
       setUser(payload) {
@@ -27,17 +28,19 @@ export const useMainStore = defineStore("main", {
               this.userAvatar = payload.avatar;
           }
       },
-      async deleteCheatSheet( delItemId) {
-          this.loading = true
-          try {
-              const response = await axios.delete(this.apiUrl + 'cheatsheets/' + delItemId.value)
-              this.cheatsheets = this.cheatsheets.filter((item) => item.id !== delItemId.value)
-          } catch (error) {
-              console.error(error)
-          }
-          this.loading = false
 
+      async fetchSlideList() {
+          this.loading = true
+          await axios.get(`${this.apiUrl}slideList`)
+              .then((response) => {
+                  this.loading = false;
+                  this.slideList = response.data;
+              })
+              .catch((error) => {
+                  alert(error.message);
+              });
       },
+
       async fetchClients() {
           await axios.get("https://jsonplaceholder.typicode.com/users")
               .then((response) => {
@@ -47,10 +50,13 @@ export const useMainStore = defineStore("main", {
                   alert(error.message);
               });
       },
-      async fetchCheatSheets() {
-          await axios.get(`${this.apiUrl}cheatsheets`)
+
+      async fetchMember(id) {
+          this.loading  = true;
+          await axios.get(`${this.apiUrl}member/${id}`)
               .then((response) => {
-                  this.cheatsheets = response.data;
+                  this.loading = false;
+                  this.member = response.data;
               })
               .catch((error) => {
                   alert(error.message);

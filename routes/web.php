@@ -20,9 +20,19 @@ use \App\Http\Controllers\Main\MainController as Main;
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
 Route::get('/catalog', [\App\Http\Controllers\IndexController::class, 'catalog'])->name('catalog');
+Route::get('/logout', function (){
+    \Illuminate\Support\Facades\Auth::logout();
+});
 
 Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
     Route::get('/', [Main::class, 'index'])->name('main');
+    Route::get('/member/{id}', [Main::class, 'member'])->name('member');
+
+    //account settings routes
+    Route::get('/account/personal-details', [Main::class, 'personalDetails'])->name('personalDetails');
+    Route::get('/account/contact-details', [Main::class, 'contactDetails'])->name('contactDetails');
+    Route::get('/account/upgrade', [Main::class, 'upgrade'])->name('upgrade');
+    Route::get('/account/security', [Main::class, 'security'])->name('security');
 });
 
 Route::group(['prefix' => 'dashboard'],function (){

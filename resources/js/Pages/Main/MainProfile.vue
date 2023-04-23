@@ -3,30 +3,31 @@
         <MainHeader :auth="auth"/>
         <MainLayout>
             <template #main>
-                <DiscussionList/>
+                <MainProfileContainer/>
             </template>
             <template #sidebar>
-                <NavSidebar/>
+                <SidebarProfile/>
             </template>
         </MainLayout>
     </main>
 </template>
 
 <script>
-import MainLayout from "@/Layouts/MainLayout.vue";
-import DiscussionList from "@/Components/DiscussionList.vue";
+import MainProfileContainer from "@/Components/MainProfileContainer.vue";
+import SidebarProfile from "@/Components/SidebarProfile.vue";
 import MainHeader from "@/Components/MainHeader.vue";
-import NavSidebar from "@/Components/NavSidebar.vue";
+import MainLayout from "@/Layouts/MainLayout.vue";
 
 export default {
-    name: "Main",
-    components: {NavSidebar, MainHeader, DiscussionList, MainLayout},
+    name: "MainProfile",
+    components: {MainLayout, MainHeader, SidebarProfile, MainProfileContainer},
     props: {
         auth: Object
     }
 }
 </script>
-<style>
+
+<style scoped>
 main{
     background-color: #303030;
 }
