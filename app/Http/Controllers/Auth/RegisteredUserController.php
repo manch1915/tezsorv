@@ -49,4 +49,27 @@ class RegisteredUserController extends Controller
 
         return redirect()->route('main');
     }
+    public function update(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:15',
+            'first_name' => 'required|string|max:15',
+            'last_name' => 'required|string|max:25',
+            'about' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'gender' => 'required|numeric|max:255',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $user->username = $request->username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->about = $request->about;
+        $user->country = $request->country;
+        $user->sex_id = $request->gender;
+        $user->save();
+        //return errors
+        return response()->json('User updated successfully');
+    }
+
 }

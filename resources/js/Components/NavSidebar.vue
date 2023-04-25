@@ -2,8 +2,8 @@
     <div class="section">
         <a class="CreateThreadButton button primary full callToAction" href="#">Создать тему</a>
     </div>
-    <div class="flex justify-center my-2" v-if="loading">
-        <ring-loader :loading="loading"/>
+    <div class="flex justify-center my-2" v-if="state.loading">
+        <ring-loader :loading="state.loading"/>
     </div>
     <div class="section pt-4" v-if="categories[0]">
         <ol class="nodeList NodeList forums text-slate-300">
@@ -110,15 +110,20 @@
 import SideBarListItem from "@/Components/SideBarListItem.vue";
 
 import { useMainStore } from "@/stores/main";
-import { computed, onMounted } from 'vue';
+import {computed, onMounted, reactive} from 'vue';
 import RingLoader from "vue-spinner/src/RingLoader.vue";
 
-const store = useMainStore();
-onMounted(() => {
-    store.fetchSlideList();
+const state = reactive({
+    loading: false,
 });
 
-const loading = computed(() => store.loading);
+const store = useMainStore();
+onMounted(async () => {
+    state.loading = true;
+    await store.fetchSlideList();
+    state.loading = false;
+});
+
 const categories = computed(() => store.slideList);
 
 

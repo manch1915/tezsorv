@@ -25,5 +25,6 @@ Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
 Route::get('/slideList', [\App\Http\Controllers\Main\SlideController::class, 'show']);
+Route::get('/sexes', [\App\Http\Controllers\Main\SlideController::class, 'showSexes']);
 
 Route::get('/member/{id}', [App\Http\Controllers\Main\MainController::class, 'showMember']);

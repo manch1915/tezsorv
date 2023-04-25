@@ -27,6 +27,7 @@ Route::get('/logout', function (){
 Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
     Route::get('/', [Main::class, 'index'])->name('main');
     Route::get('/member/{id}', [Main::class, 'member'])->name('member');
+    Route::post('/avatarUpload', [Main::class, 'avatarUpload'])->name('avatarUpload');
 
     //account settings routes
     Route::get('/account/personal-details', [Main::class, 'personalDetails'])->name('personalDetails');

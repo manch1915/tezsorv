@@ -3,10 +3,10 @@
         <div class="px-6">
             <div class="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                 <div class="flex justify-start lg:w-0 lg:flex-1">
-                    <a :href="route('home')">
+                    <Link :href="route('home')">
                         <span class="sr-only">Your Company</span>
                         <img class="h-8 w-auto sm:h-16 logo" src="/images/logo.svg" alt=""/>
-                    </a>
+                    </Link>
                 </div>
                 <div class="-my-2 -mr-2 sm:hidden">
                     <PopoverButton
@@ -17,19 +17,13 @@
                 </div>
                 <PopoverGroup as="nav" class="hidden space-x-2 sm:flex items-center navbar-container">
 
-                    <a :href="route('catalog')" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Catalog</a>
+                    <Link :href="route('catalog')" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Catalog</Link>
                     <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Forum</a>
                     <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Blog</a>
 
                 </PopoverGroup>
-                <LanguageSelect/>
 
-                <div class="hidden items-center justify-end sm:flex md:flex-1 lg:w-0">
-                    <a v-if="!this.user.authenticated" :href="route('login')" class="login"><UserIcon/><div>Sign in</div></a>
-                    <Button v-if="this.user.authenticated" @click="logout">
-                        Log Out
-                    </Button>
-                </div>
+                <div class="w-2/6"></div>
             </div>
         </div>
 
@@ -62,14 +56,6 @@
                             <a v-for="item in resources" :key="item.name" :href="item.href" class="text-base font-medium text-white hover:text-gray-700">{{ item.name }}</a>
                         </div>
                         <LanguageSelect/>
-                        <div>
-                            <a :href="route('register')" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign up</a>
-                            <p class="mt-6 text-center text-base font-medium text-gray-500">
-                                Existing customer?
-                                {{ ' ' }}
-                                <a :href="route('login')" class="text-indigo-600 hover:text-indigo-500">Sign in</a>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </PopoverPanel>

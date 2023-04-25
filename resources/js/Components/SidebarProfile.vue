@@ -1,11 +1,12 @@
 <template>
     <img v-if="member" :src="member.profile_picture" alt="" srcset="" class="profile__picture">
+    <ImageUpload/>
 </template>
 
 <script setup>
 import { useMainStore } from "@/stores/main";
-import { computed, onMounted } from 'vue';
-import RingLoader from "vue-spinner/src/RingLoader.vue";
+import { computed} from 'vue';
+import ImageUpload from "@/Components/ImageUpload.vue";
 const store = useMainStore();
 const member = computed(() => store.member);
 

@@ -1,16 +1,11 @@
 <template>
-
     <div class="headerMover">
         <div class="breadBoxTop"></div>
         <div class="pageContent">
-            <div class="mainContainer">
-                <div class="mainContent">
-                    <div class="sidebar">
+                    <div class="sidebar ">
 
                     </div>
                     <slot name="main"></slot>
-                </div>
-            </div>
             <aside>
                 <div class="sidebar">
                     <div class="sidebarWrapper">
@@ -28,7 +23,7 @@ import DiscussionList from "@/Components/DiscussionList.vue";
 
 export default {
     name: "MainLayout",
-    components: {DiscussionList},
+    components: { DiscussionList},
 }
 </script>
 

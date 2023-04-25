@@ -1,4 +1,5 @@
 <template>
+    <section>
     <div class="mainContainer">
         <div class="mainContent">
             <div v-if="member" class="userInfo">
@@ -45,12 +46,13 @@
 
         </div>
     </div>
+    </section>
 </template>
 
 <script setup>
 import {useMainStore} from "@/stores/main";
 import {computed, onMounted} from "vue";
-import {NButton} from "naive-ui";
+import {NButton, NIcon} from "naive-ui";
 import { mdiNoteMultipleOutline } from '@mdi/js';
 import BaseIcon from "@/Components/BaseIcon.vue";
 

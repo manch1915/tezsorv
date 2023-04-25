@@ -84,13 +84,15 @@
                         </div>
                     </ul>
                     <div class="account-links">
-                        <li id="searchBar" class="pageWidth">
+                        <li id="searchBar" class="pageWidth pr-2">
                             <fieldset class="QuickSearch" data-member-search-url="members/search">
-                                <form action="search/search" class="formPopup" method="get" target="_blank">
-                                    <div class="primaryControls">
-                                        <input autocomplete="off" class="textCtrl QuickSearchQuery" name="keywords" placeholder="Поиск..." title="Введите параметры поиска и нажмите ввод" type="text">
-                                    </div>
-                                </form>
+                                <n-config-provider :theme="darkTheme">
+                                    <n-input round  placeholder="Поиск">
+                                        <template #prefix>
+                                            <BaseIcon :path="mdiMagnify"/>
+                                        </template>
+                                    </n-input>
+                                </n-config-provider>
                             </fieldset>
                         </li>
                         <ul class="account-links">
@@ -170,13 +172,16 @@ import {h, ref} from "vue";
 import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
 import { ChevronDownIcon  } from '@heroicons/vue/24/outline'
 import { router } from '@inertiajs/vue3'
-import {NDropdown,NIcon} from "naive-ui";
+import { mdiMagnify } from '@mdi/js';
+import {NConfigProvider, NDropdown, NIcon, NInput} from "naive-ui";
 import {
     PersonCircleOutline as UserIcon,
     Pencil as EditIcon,
     LogOutOutline as LogoutIcon
 } from "@vicons/ionicons5";
 import { Link } from '@inertiajs/vue3';
+import BaseIcon from "@/Components/BaseIcon.vue";
+import {darkTheme } from 'naive-ui'
 //todo fix icons to mdi
 
 const props =  defineProps({
@@ -205,7 +210,12 @@ const options = ref([
     {
         label: "Edit Profile",
         key: "editProfile",
-        icon: renderIcon(EditIcon)
+        icon: renderIcon(EditIcon),
+        props: {
+            onClick: () => {
+                router.visit(route('personalDetails'))
+            }
+        }
     },
     {
         label: "Logout",

@@ -8,10 +8,10 @@ export const useMainStore = defineStore("main", {
     userEmail: null,
     userAvatar: null,
     apiUrl: 'http://127.0.0.1:8000/api/',
-    loading: false,
     isFieldFocusRegistered: false,
 
     slideList: [],
+    sexes: [],
     clients: [],
     history: [],
     member: null,
@@ -30,11 +30,19 @@ export const useMainStore = defineStore("main", {
       },
 
       async fetchSlideList() {
-          this.loading = true
           await axios.get(`${this.apiUrl}slideList`)
               .then((response) => {
-                  this.loading = false;
                   this.slideList = response.data;
+              })
+              .catch((error) => {
+                  alert(error.message);
+              });
+      },
+
+      async fetchSexes() {
+          await axios.get(`${this.apiUrl}sexes`)
+              .then((response) => {
+                  this.sexes = response.data;
               })
               .catch((error) => {
                   alert(error.message);
