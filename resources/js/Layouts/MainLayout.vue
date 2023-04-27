@@ -2,11 +2,9 @@
     <div class="headerMover">
         <div class="breadBoxTop"></div>
         <div class="pageContent">
-                    <div class="sidebar ">
-
-                    </div>
+                    <div v-show="false" class="sidebar"></div>
                     <slot name="main"></slot>
-            <aside>
+            <aside class="md:mt-0 mt-10">
                 <div class="sidebar">
                     <div class="sidebarWrapper">
                         <slot name="sidebar"></slot>
@@ -28,9 +26,6 @@ export default {
 </script>
 
 <style scoped>
-.mainContainer {
-    width: 100%;
-}
 .sidebar {
     float: left;
     margin-right: 15px;
@@ -41,12 +36,6 @@ export default {
     padding: 15px 20px;
     background: rgb(39, 39, 39);
     border-radius: 10px;
-}
-
-@media (min-width: 1025px) {
-    .mainContainer {
-        width: 821px;
-    }
 }
 
 .pageContent {
@@ -78,5 +67,26 @@ export default {
 
 #asd {
     height: 2000px;
+}
+
+@media only screen and (max-width: 1122px) {
+    .pageContent {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .sidebar{
+        float: none;
+        margin-right: 15px;
+        width: 100%;
+    }
+
+    .sidebar .sidebarWrapper, aside{
+        width: 100%;
+
+    }
+
 }
 </style>

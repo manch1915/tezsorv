@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="lg:mt-0 mt-4">
     <div class="mainContainer">
         <div class="mainContent">
             <div v-if="member" class="userInfo">
@@ -79,12 +79,10 @@ const member = computed(() => store.member);
 </script>
 
 <style scoped>
-@media (min-width: 1025px) {
-    .mainContainer {
-        width: 821px;
-    }
-}
 
+.mainContainer, section {
+    width:100%;
+}
 .mainContent {
     border-radius: 10px;
     padding: 15px 20px;
@@ -100,4 +98,5 @@ const member = computed(() => store.member);
     color: rgb(148, 148, 148);
     font-size: 20px;
 }
+
 </style>

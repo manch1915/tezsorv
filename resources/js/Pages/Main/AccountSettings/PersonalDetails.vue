@@ -77,7 +77,7 @@ store.fetchSexes();
         <MainLayout>
             <template #main>
                 <n-config-provider :theme="darkTheme">
-                    <div class="mainContainer">
+                    <div class="mainContainer  mt-5">
                         <div class="mainContent flex flex-col">
                             <SettingsInput title="Ник">
                                 <div class="text-white">

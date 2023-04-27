@@ -1,11 +1,42 @@
+<script setup>
+import SideBarListItem from "@/Components/SideBarListItem.vue";
+
+import { useMainStore } from "@/stores/main";
+import {computed, onMounted, reactive, ref} from 'vue';
+import RingLoader from "vue-spinner/src/RingLoader.vue";
+import TransitionExpand from "@/Components/TransitionExpand.vue";
+
+const state = reactive({
+    loading: false,
+});
+
+const openList = ref(true);
+
+if (window.innerWidth < 1122){
+    openList.value = false
+}
+
+const store = useMainStore();
+onMounted(async () => {
+    state.loading = true;
+    await store.fetchSlideList();
+    state.loading = false;
+});
+
+const categories = computed(() => store.slideList);
+
+
+</script>
 <template>
-    <div class="section">
-        <a class="CreateThreadButton button primary full callToAction" href="#">Создать тему</a>
+    <div class="section flex flex-col gap-y-3">
+        <a class="CreateThreadButton buttons button primary full callToAction" href="#">Создать тему</a>
+        <a @click="openList = !openList" class="hidden OpenList buttons button  full callToAction" href="#">Открыть раздели</a>
     </div>
     <div class="flex justify-center my-2" v-if="state.loading">
         <ring-loader :loading="state.loading"/>
     </div>
-    <div class="section pt-4" v-if="categories[0]">
+    <TransitionExpand>
+    <div v-show="openList" class="section pt-4" v-if="categories[0]">
         <ol class="nodeList NodeList forums text-slate-300">
             <ul class="generalTabs"  >
                 <li class="list node node0 forum level_2 current">
@@ -104,33 +135,13 @@
             </li>
         </ol>
     </div>
+    </TransitionExpand>
 </template>
 
-<script setup>
-import SideBarListItem from "@/Components/SideBarListItem.vue";
 
-import { useMainStore } from "@/stores/main";
-import {computed, onMounted, reactive} from 'vue';
-import RingLoader from "vue-spinner/src/RingLoader.vue";
-
-const state = reactive({
-    loading: false,
-});
-
-const store = useMainStore();
-onMounted(async () => {
-    state.loading = true;
-    await store.fetchSlideList();
-    state.loading = false;
-});
-
-const categories = computed(() => store.slideList);
-
-
-</script>
 
 <style scoped>
-.CreateThreadButton {
+.buttons{
     font-size: 13px;
     text-decoration: none;
     background-position: center;
@@ -146,9 +157,14 @@ const categories = computed(() => store.slideList);
     overflow: hidden;
     height: 34px;
     width: 100%;
-    display: block;
+}
+.CreateThreadButton {
     color: #f5f5f5;
     background-color: rgb(34, 142, 93);
+}
+.OpenList {
+    color: #f5f5f5;
+    background-color: rgb(134, 142, 139);
 }
 
 .nodeList .generalTabs {
@@ -160,7 +176,7 @@ const categories = computed(() => store.slideList);
 }
 
 .node .nodeText h3.nodeTitle {
-    padding: 0px 12px;
+    padding: 0 12px;
     margin: 0 -12px;
     border-radius: 6px;
     transition: background .2s;
@@ -173,7 +189,7 @@ const categories = computed(() => store.slideList);
 }
 
 .node .nodeText .nodeTitle a {
-    padding: 0px 12px;
+    padding: 0 12px;
     border-radius: 6px;
     line-height: 36px;
     overflow: hidden;
@@ -194,5 +210,11 @@ const categories = computed(() => store.slideList);
 .node h3.nodeTitle > a:hover {
     background: rgb(45, 45, 45);
     color: inherit;
+}
+
+@media only screen and (max-width: 1122px)  {
+    .OpenList{
+        display: block;
+    }
 }
 </style>

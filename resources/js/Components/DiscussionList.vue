@@ -1,21 +1,16 @@
 <template>
-    <section>
-    <div class="mainContainer">
+    <div class="mainContainer lg:mr-2 mr-0 lg:mt-0 mt-4">
         <div class="mainContent">
             <div class="discussionList">
                 <div class="aboveThreadList">
                     <div class="ads"></div>
                     <div class="discussionListItems">
                         <DiscussionListItem/>
-                        <DiscussionListItem/>
-                        <DiscussionListItem/>
-                        <DiscussionListItem/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </section>
 </template>
 
 <script>
@@ -29,11 +24,11 @@ export default {
 
 <style scoped>
 @media (min-width: 1025px) {
-    .mainContainer {
-        width: 821px;
-    }
-}
 
+}
+.mainContainer {
+    width: 100%;
+}
 .mainContent {
     border-radius: 10px;
     padding: 15px 20px;

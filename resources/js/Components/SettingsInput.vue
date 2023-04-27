@@ -8,7 +8,7 @@ const props = defineProps({
 })
 </script>
 <template>
-    <div class="inline-grid w-2/4 grid-cols-2 content-center items-center pt-5">
+    <div class="inline-grid md:w-2/4 w-full grid-cols-2 content-center items-center pt-5">
         <div class="pr-10 text-mainText">
             {{ props.title }}:
         </div>

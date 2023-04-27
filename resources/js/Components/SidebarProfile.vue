@@ -16,4 +16,10 @@ const member = computed(() => store.member);
 .profile__picture{
     width: 100%;
 }
+@media only screen and (max-width: 1122px) {
+    .profile__picture{
+        width: 200px;
+        margin: 0 auto;
+    }
+}
 </style>

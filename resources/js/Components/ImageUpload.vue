@@ -1,26 +1,24 @@
 <template>
     <n-config-provider :theme="darkTheme">
-    <n-button @click="showModal = true">
-        Start Me up
+    <n-button class="w-full mt-2" @click="showModal = true">
+        Upload pfp
     </n-button>
     <n-modal v-model:show="showModal">
         <n-card
             style="width: 600px"
-            title="Modal"
+            title="Upload pfp"
             :bordered="false"
             size="huge"
             role="dialog"
             aria-modal="true"
         >
-            <template #header-extra>
-                <n-upload
-                    :show-upload-list="false"
-                    accept="image/*"
-                    @change="handleFileChange"
-                >
-                    <n-button>Upload File</n-button>
-                </n-upload>
-            </template>
+            <n-upload
+                :show-upload-list="false"
+                accept="image/jpeg, image/png"
+                @change="handleFileChange"
+            >
+                <n-button class="w-full">Upload Image</n-button>
+            </n-upload>
             <VuePictureCropper
                 :boxStyle="{
                   width: '100%',
@@ -35,23 +33,23 @@
                   aspectRatio: 1,
                 }"
             />
-            <n-button @click="getResult">Crop</n-button>
+            <n-button v-show="imagePreview !== null" class="w-full mt-5" :loading="loading" @click="getResult">Crop</n-button>
         </n-card>
     </n-modal>
     </n-config-provider>
 </template>
 <script setup>
-import {reactive, ref} from "vue";
+import { ref} from "vue";
 import {darkTheme, NConfigProvider} from 'naive-ui'
 import {NButton, NCard, NModal, NUpload} from "naive-ui";
 import VuePictureCropper, { cropper } from 'vue-picture-cropper'
 import axios from 'axios'
 
 const showModal = ref(false);
+const loading = ref(false);
 
 const selectedFile = ref(null);
 const imagePreview = ref(null);
-const blobURL = ref(null);
 const blobFile = ref(null);
 
 const handleFileChange = (e) => {
@@ -63,12 +61,12 @@ async function getResult() {
     if (!cropper) return
     const blob = await cropper.getBlob()
     if (!blob) return
-    blobURL.value = URL.createObjectURL(blob)
     blobFile.value = blob
     saveAvatar()
 }
 
 const saveAvatar = () => {
+    loading.value = true
     const formData = new FormData();
     formData.append('avatar', blobFile.value);
 
@@ -77,7 +75,8 @@ const saveAvatar = () => {
             'Content-Type': 'multipart/form-data'
         }
     }).then(res => {
-        console.log(res)
+        loading.value = false
+        showModal.value = false
     }).catch(err => {
         console.log(err)
     })
@@ -96,5 +95,8 @@ const saveAvatar = () => {
 .preview-wrapper img {
     max-width: 100%;
     max-height: 300px;
+}
+.n-upload-trigger{
+    width: 100%;
 }
 </style>

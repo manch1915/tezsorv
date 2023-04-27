@@ -20,7 +20,7 @@ module.exports = {
                 'main': '#080808',
                 'second': '#333333',
                 'mine': '#303030',
-                'mine-second': '#272727',
+                'mine-second': '#242424',
                 'mainText': '#949494',
             },
             zIndex: {

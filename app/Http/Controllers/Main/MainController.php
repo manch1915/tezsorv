@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yish\Imgur\Facades\Upload as Imgur;
 
 class MainController extends Controller
 {
@@ -58,19 +59,10 @@ class MainController extends Controller
 
         $image = $request->file('avatar');
 
-        Imgur::setHeaders([
-            'headers' => [
-                'authorization' => 'Client-ID ' . env('IMGUR_CLIENT_ID'),
-                'content-type' => 'application/x-www-form-urlencoded',
-            ]
-        ])->setFormParams([
-            'form_params' => [
-                'image' => $image,
-            ]
-        ])->upload($image);
+        $image = Imgur::upload($image);
 
         $user = auth()->user();
-        $user->profile_picture = $body->data->link;
+        $user->profile_picture = $image->link();
         $user->save();
         return response()->json('Avatar uploaded successfully');
     }
