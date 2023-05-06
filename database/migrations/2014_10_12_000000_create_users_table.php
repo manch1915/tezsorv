@@ -26,14 +26,21 @@ return new class extends Migration
             $table->text('about')->nullable();
             $table->foreignId('status_id')->default(1)->constrained();
             $table->string('mobile_number')->nullable();
+            $table->boolean('mobile_number_verified')->default(false);
             $table->string('profile_picture')->nullable();
+
+            $table->bigInteger('neo')->default(0);
+            $table->unsignedInteger('likes_count')->default(0);
+
+
+
+            $table->string('instagram')->nullable();
+            $table->string('telegram')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
 
-            //todo avelacnel soc cancner
-
-            $table->index('email');
-            $table->index(['first_name', 'last_name']);
+            $table->index('username');
             $table->foreign('sex_id')->references('id')->on('sexes')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
         });

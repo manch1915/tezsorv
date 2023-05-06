@@ -4,19 +4,26 @@ import MainHeader from "@/Components/MainHeader.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import NavSettings from "@/Components/NavSettings.vue";
 import {NButton, NConfigProvider, NInput, NRadio, NRadioGroup, NSelect, NSpace} from "naive-ui";
-import {darkTheme } from 'naive-ui'
+import {darkTheme} from 'naive-ui'
 import {useForm} from "@inertiajs/vue3";
 import SettingsInput from "@/Components/SettingsInput.vue";
 import BaseIcon from "@/Components/BaseIcon.vue";
-import { mdiContentSaveAll } from '@mdi/js';
-import {reactive} from "vue";
+import {mdiContentSaveAll} from '@mdi/js';
+import {reactive, ref} from "vue";
 import axios from 'axios';
 import InputError from "@/Components/InputError.vue";
-
+import {toast} from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps({
     auth: Object,
 })
+
+const state = reactive({
+    loading: false
+})
+
+const errors = ref([]);
 
 const form = useForm({
     username: props.auth.user.username,
@@ -27,8 +34,6 @@ const form = useForm({
     gender: props.auth.user.sex_id,
     terms: false,
 })
-
-
 
 const countryNames = [
     {
@@ -49,15 +54,27 @@ const countryNames = [
     }
 ]
 
-const state = reactive({
-    loading: false
-})
-
 const saveData = async () => {
     try {
         state.loading = true
-        const response = await axios.post(route('user.update'), form)
-        console.log(response.data)
+        await axios.post(route('user.update'), form).then(res => {
+            const username = res?.data?.data?.username?.[0];
+            if (username) {
+                toast(username, {
+                    autoClose: 3000,
+                    theme: "dark",
+                    type: "warning"
+                });
+            }else{
+                toast("Data changed successfully", {
+                    autoClose: 3000,
+                    theme: "dark",
+                    type: "success"
+                });
+            }
+
+        })
+
     } catch (error) {
         console.error(error)
     }
@@ -83,7 +100,7 @@ store.fetchSexes();
                                 <div class="text-white">
                                     <n-input v-model:value="form.username" placeholder="Изминить Ник" type="text"/>
                                 </div>
-                                <InputError class="mt-2" :message="form.errors.username" />
+                                <InputError v-if="errors.username" :message="errors.username[0]" class="mt-2"/>
                             </SettingsInput>
 
                             <SettingsInput title="Имя">
@@ -92,15 +109,15 @@ store.fetchSexes();
                                 </div>
                             </SettingsInput>
 
-                            <SettingsInput title="Фамилия" border>
+                            <SettingsInput border title="Фамилия">
                                 <div class="text-white">
                                     <n-input v-model:value="form.last_name" placeholder="Изминить Фамилия" type="text"/>
                                 </div>
                             </SettingsInput>
 
-                            <SettingsInput title="Био" border>
+                            <SettingsInput border title="Био">
                                 <div class="text-white">
-                                    <n-input v-model:value="form.about" type="textarea" placeholder="Био"/>
+                                    <n-input v-model:value="form.about" placeholder="Био" type="textarea"/>
                                 </div>
                             </SettingsInput>
 
@@ -117,8 +134,8 @@ store.fetchSexes();
                                 </n-radio-group>
                             </SettingsInput>
 
-                            <SettingsInput title="Страна" border>
-                                <n-select v-model:value="form.country" :options="countryNames" />
+                            <SettingsInput border title="Страна">
+                                <n-select v-model:value="form.country" :options="countryNames"/>
                             </SettingsInput>
                             <n-button :loading="state.loading" @click.prevent="saveData">
                                 <template #icon>

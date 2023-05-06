@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,5 +45,15 @@ class User extends Authenticatable
     public function sex()
     {
         return $this->belongsTo(Sex::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'user_id', 'liked_user_id');
+    }
+
+    public function likesCount()
+    {
+        return $this->likes()->count();
     }
 }

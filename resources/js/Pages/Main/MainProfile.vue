@@ -1,3 +1,14 @@
+<script setup>
+import MainProfileContainer from "@/Components/MainProfileContainer.vue";
+import SidebarProfile from "@/Components/SidebarProfile.vue";
+import MainHeader from "@/Components/MainHeader.vue";
+import MainLayout from "@/Layouts/MainLayout.vue";
+
+const props = defineProps({
+    auth: Object,
+})
+</script>
+
 <template>
     <main>
         <MainHeader :auth="auth"/>
@@ -6,26 +17,11 @@
                 <MainProfileContainer/>
             </template>
             <template #sidebar>
-                <SidebarProfile/>
+                <SidebarProfile :auth="props.auth"/>
             </template>
         </MainLayout>
     </main>
 </template>
-
-<script>
-import MainProfileContainer from "@/Components/MainProfileContainer.vue";
-import SidebarProfile from "@/Components/SidebarProfile.vue";
-import MainHeader from "@/Components/MainHeader.vue";
-import MainLayout from "@/Layouts/MainLayout.vue";
-
-export default {
-    name: "MainProfile",
-    components: {MainLayout, MainHeader, SidebarProfile, MainProfileContainer},
-    props: {
-        auth: Object
-    }
-}
-</script>
 
 <style scoped>
 main{

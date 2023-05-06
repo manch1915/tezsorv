@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Like;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +20,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Like::created(function ($like) {
+            $likedUser = $like->likedUser;
+            $likedUser->increment('likes_count');
+        });
+
+        Like::deleted(function ($like) {
+            $likedUser = $like->likedUser;
+            $likedUser->decrement('likes_count');
+        });
     }
 
 }

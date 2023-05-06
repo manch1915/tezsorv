@@ -50,7 +50,12 @@ const options = ref([
     {
         label: "Logout",
         key: "logout",
-        icon: renderIcon(LogoutIcon)
+        icon: renderIcon(LogoutIcon),
+        props: {
+            onClick: () => {
+                router.post(route('logout'))
+            }
+        }
     }]
 )
 
@@ -159,31 +164,6 @@ const active = ref(false)
                         </li>
                         <ul class="account-links md:p-0 p-2">
                             <!-- account -->
-                            <!-- conversations popup -->
-                            <li class="navTab inbox Popup PopupControl PopupClosed  PopupContainerControl">
-                                <a class="navLink NoPopupGadget ConversationsPopupLink" href="conversations/"
-                                   rel="Menu">
-                                    <div class="counter-container">
-                                        <svg height="22" viewBox="0 0 20 20" width="22"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <g id="message_outline_20__Page-2" fill="none" fill-rule="evenodd"
-                                               stroke="none" stroke-width="1">
-                                                <g id="message_outline_20__message_outline_20">
-                                                    <path id="message_outline_20__Shape" d="M0 0h20v20H0z"
-                                                          opacity=".4"></path>
-                                                    <path id="message_outline_20__Icon-Color"
-                                                          d="M6.83 15.75c.2-.23.53-.31.82-.2.81.3 1.7.45 2.6.45 3.77 0 6.75-2.7 6.75-6s-2.98-6-6.75-6S3.5 6.7 3.5 10c0 1.21.4 2.37 1.14 3.35.1.14.16.31.15.49-.04.76-.4 1.78-1.08 3.13 1.48-.11 2.5-.53 3.12-1.22ZM3.24 18.5a1.2 1.2 0 0 1-1.1-1.77A10.77 10.77 0 0 0 3.26 14 7 7 0 0 1 2 10c0-4.17 3.68-7.5 8.25-7.5S18.5 5.83 18.5 10s-3.68 7.5-8.25 7.5c-.92 0-1.81-.13-2.66-.4-1 .89-2.46 1.34-4.35 1.4Z"
-                                                          fill="currentColor" fill-rule="nonzero"></path>
-                                                </g>
-                                            </g>
-                                        </svg>
-                                        <div id="ConversationsMenu_Counter" class="itemCount Zero"
-                                             data-text="У Вас есть новые непрочитанные переписки: %d.">
-                                            <span class="Total">0</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
                             <!-- alerts popup -->
                             <li class="navTab alerts Popup PopupControl PopupClosed PopupContainerControl">
                                 <a class="navLink NoPopupGadget" href="account/alerts" rel="Menu">
@@ -212,7 +192,8 @@ const active = ref(false)
                                              </span>
                                          </span>
                                          <span class="avatar">
-                                            <img alt="Текущий аватар" class="navTab--visitorAvatar" :src="auth.user.profile_picture">
+                                            <img v-if="auth.user.profile_picture" alt="Текущий аватар" class="navTab--visitorAvatar" :src="auth.user.profile_picture">
+                                            <img v-else alt="Текущий аватар" class="navTab--visitorAvatar" src="/images/unuser.jpg">
                                          </span>
                                      </span>
                                 </li>

@@ -2,7 +2,7 @@
     <section class="lg:mt-0 mt-4">
     <div class="mainContainer">
         <div class="mainContent">
-            <div v-if="member" class="userInfo">
+            <div v-if="member" class="userInfo flex flex-col">
                 <div class="username"><p>{{ member.username }}</p></div>
                 <div class="inline-grid grid-cols-2">
                     <div class="pr-10 text-mainText">
@@ -20,7 +20,7 @@
                         <ul>
                             <li>{{ member.first_name }}</li>
                             <li>{{ member.last_name }}</li>
-                            <li>{{ member.created_at }}</li>
+                            <li>{{ memberCreatedAt }}</li>
                             <li>{{ member.sex.name }}</li>
                             <li>{{ member.status.name }}</li>
                             <li>{{ member.country }}</li>
@@ -28,8 +28,35 @@
                         </ul>
                     </div>
                 </div>
+                <a :href="`https://www.instagram.com/${member.instagram}`" target="_blank" class="w-2 mt-4">
+                    <n-button dashed icon-placement="left" class="text-gray-500">
+                        <template #icon>
+                            <n-icon>
+                                <BaseIcon :path="mdiInstagram"/>
+                            </n-icon>
+                        </template>
+                        Insta {{ member?.username ?? '' }}
+                    </n-button>
+                </a>
+                <a :href="`https://www.t.me/${member.instagram}`" target="_blank" class="w-2 mt-4">
+                    <n-button dashed icon-placement="left" class="text-gray-500">
+                        <template #icon>
+                            <n-icon>
+                                <BaseIcon :path="mdiSendCircleOutline"/>
+                            </n-icon>
+                        </template>
+                        Tg {{ member?.username ?? '' }}
+                    </n-button>
+                </a>
             </div>
-            <div class="themes pt-5">
+            <div class="themes pt-5 flex justify-start items-start content-start flex-col">
+                <n-button quaternary  class="text-gray-500 my-2">
+                    <template #icon>
+                        <n-icon size="40">
+                            <BaseIcon size="30" w="w-full" h="h-full" :path="mdiHeartBoxOutline"/>
+                        </n-icon>
+                    </template>
+                </n-button>
                 <n-button icon-placement="left" text class="text-gray-500">
                     <template #icon>
                         <n-icon>
@@ -53,7 +80,7 @@
 import {useMainStore} from "@/stores/main";
 import {computed, onMounted} from "vue";
 import {NButton, NIcon} from "naive-ui";
-import { mdiNoteMultipleOutline } from '@mdi/js';
+import { mdiNoteMultipleOutline,mdiInstagram,  mdiSendCircleOutline,mdiHeartBoxOutline } from '@mdi/js';
 import BaseIcon from "@/Components/BaseIcon.vue";
 
 const store = useMainStore();
@@ -76,6 +103,10 @@ onMounted(() => {
 
 const loading = computed(() => store.loading);
 const member = computed(() => store.member);
+
+const memberCreatedAt = computed(() =>
+    new Date(member.value.created_at).toLocaleString()
+)
 </script>
 
 <style scoped>

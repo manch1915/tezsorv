@@ -10,14 +10,17 @@ import BaseIcon from "@/Components/BaseIcon.vue";
 import {mdiContentSaveAll} from "@mdi/js";
 import {NButton, NConfigProvider, NInput} from "naive-ui";
 import {darkTheme } from 'naive-ui'
+import {toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps({
     auth: Object,
 })
 
 const form = useForm({
-    username: props.auth.user.username,
-
+    username: props.auth.user.username, //todo username uxarkvum e avelord
+    telegram: props.auth.user.telegram,
+    instagram: props.auth.user.instagram,
 })
 
 const state = reactive({
@@ -27,12 +30,18 @@ const state = reactive({
 const saveData = async () => {
     try {
         state.loading = true
-        const response = await axios.post(route('user.update'), form)
-        console.log(response.data)
+        await axios.post(route('user.update'), form).then(() => {
+            state.loading = false
+            toast("Data changed successfully", {
+                autoClose: 3000,
+                theme: "dark",
+                type: "success"
+            });
+        })
     } catch (error) {
         console.error(error)
     }
-    state.loading = false
+
 }
 
 </script>
@@ -45,11 +54,15 @@ const saveData = async () => {
                 <n-config-provider :theme="darkTheme">
                     <div class="mainContainer mt-5">
                         <div class="mainContent flex flex-col">
-                            <SettingsInput title="Тг" border>
+                            <SettingsInput title="tg" border>
                                 <div class="text-white">
-                                    <n-input v-model:value="form.tg" placeholder="Изминить tg" type="text"/>
+                                    <n-input v-model:value="form.telegram" placeholder="Փոխել տելեգրամի նիկը" type="text"/>
                                 </div>
-
+                            </SettingsInput>
+                            <SettingsInput title="ig" border>
+                                <div class="text-white">
+                                    <n-input v-model:value="form.instagram" placeholder="Փոխել ինստագրամի նիկը" type="text"/>
+                                </div>
                             </SettingsInput>
 
                             <n-button :loading="state.loading" @click.prevent="saveData" class="mt-5">

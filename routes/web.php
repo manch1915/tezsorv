@@ -20,9 +20,7 @@ use \App\Http\Controllers\Main\MainController as Main;
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
 Route::get('/catalog', [\App\Http\Controllers\IndexController::class, 'catalog'])->name('catalog');
-Route::get('/logout', function (){
-    \Illuminate\Support\Facades\Auth::logout();
-});
+Route::get('/wysiwyg', [\App\Http\Controllers\IndexController::class, 'wysiwyg'])->name('wysiwyg');
 
 Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
     Route::get('/', [Main::class, 'index'])->name('main');
@@ -53,5 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

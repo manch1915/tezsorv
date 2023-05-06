@@ -11,14 +11,8 @@ use Illuminate\Http\Request;
 class SlideController extends Controller
 {
     public function show(){
-        $categories = Category::all();
-        $subcategories = Subcategory::all();
-        $categoriesWithSubcategories = $categories->map(function ($category) use ($subcategories) {
-            $categorySubcategories = $subcategories->where('category_id', $category->id)->all();
-            $category->subcategories = $categorySubcategories;
-            return $category;
-        });
-        return response()->json($categoriesWithSubcategories);
+        $categories = Category::with('subcategories')->get();
+        return response()->json($categories);
     }
 
     public function showSexes()

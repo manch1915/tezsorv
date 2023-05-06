@@ -16,6 +16,9 @@ class SexSeeder extends Seeder
         $sexes = [
             ['name' => 'female'],
             ['name' => 'male'],
+            ['name' => 'other'],
+            ['name' => 'giga chad'],
+            ['name' => 'sigma'],
         ];
 
         foreach ($sexes as $sex) {

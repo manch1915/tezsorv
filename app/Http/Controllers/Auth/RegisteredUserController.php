@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -27,7 +28,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -49,27 +50,18 @@ class RegisteredUserController extends Controller
 
         return redirect()->route('main');
     }
-    public function update(Request $request)
+    /**
+     * Handle an incoming registration request.
+     *
+     * @throws ValidationException
+     */
+    public function update(UserUpdateRequest $request) : \Illuminate\Http\JsonResponse
     {
-        $request->validate([
-            'username' => 'required|string|max:15',
-            'first_name' => 'required|string|max:15',
-            'last_name' => 'required|string|max:25',
-            'about' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'gender' => 'required|numeric|max:255',
-        ]);
+        $validated = $request->validated();
 
-        $user = User::find(Auth::user()->id);
-        $user->username = $request->username;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->about = $request->about;
-        $user->country = $request->country;
-        $user->sex_id = $request->gender;
-        $user->save();
-        //return errors
-        return response()->json('User updated successfully');
+        User::find(Auth::user()->id)->update($validated);
+
+        return response()->json();
     }
 
 }
