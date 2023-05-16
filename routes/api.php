@@ -25,7 +25,7 @@ Route::get('/user', function () {
 
 Route::get('/slideList', [\App\Http\Controllers\Main\SlideController::class, 'show']);
 
-Route::get('/threadList/{category}/{subcategory?}', [\App\Http\Controllers\ThreadController::class, 'show']);
+Route::get('/threadList/{category?}/{subcategory?}', [\App\Http\Controllers\ThreadController::class, 'show']);
 
 Route::get('/sexes', [\App\Http\Controllers\Main\SlideController::class, 'showSexes']);
 

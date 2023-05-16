@@ -17,6 +17,7 @@ import MainLayout from "@/Layouts/MainLayout.vue";
 import DiscussionList from "@/Components/DiscussionList.vue";
 import MainHeader from "@/Components/MainHeader.vue";
 import NavSidebar from "@/Components/NavSidebar.vue";
+//todo options api
 
 export default {
     name: "Main",

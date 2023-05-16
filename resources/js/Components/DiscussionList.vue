@@ -6,11 +6,13 @@ import {router} from "@inertiajs/vue3"
 
 
 const loading = ref(false);
+
+
 const url = router.page.url.split('/')
 
 let category = parseInt(url[3]);
 let subcategory = parseInt(url[4]);
-console.log(category, subcategory)
+
 const store = useMainStore();
 onMounted(async () => {
     loading.value = true;

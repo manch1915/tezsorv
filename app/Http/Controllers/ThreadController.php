@@ -78,17 +78,19 @@ class ThreadController extends Controller
         return response()->json($thread);
     }
 
-    public function show( $category, $subcategory){
-        //if == NaN, return all posts
-        if ($category == "NaN" && $subcategory == "NaN") {
-            // If both category and subcategory are null, return the last 20 posts
-            $posts = Post::with('user')->orderBy('created_at', 'desc')->limit(20)->get();
-        } else {
-            // Otherwise, filter the posts by category and subcategory
-            $posts = Post::where('category_id', $category)
-                ->where('subcategory_id', $subcategory)->with('user')
-                ->get();
+    public function show(?int $category = null, ?int $subcategory = null)
+    {
+        $query = Post::with('user')->orderBy('created_at', 'desc');
+
+        if ($category !== null) {
+            $query->where('category_id', $category);
         }
+
+        if ($subcategory !== null) {
+            $query->where('subcategory_id', $subcategory);
+        }
+
+        $posts = $query->limit(20)->get();
 
         return response()->json($posts);
     }
