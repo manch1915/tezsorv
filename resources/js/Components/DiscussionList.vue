@@ -1,3 +1,26 @@
+<script setup>
+import DiscussionListItem from "@/Components/DiscussionListItem.vue";
+import {useMainStore} from "@/stores/main";
+import {computed, onMounted, ref} from "vue";
+import {router} from "@inertiajs/vue3"
+
+
+const loading = ref(false);
+const url = router.page.url.split('/')
+
+let category = parseInt(url[3]);
+let subcategory = parseInt(url[4]);
+console.log(category, subcategory)
+const store = useMainStore();
+onMounted(async () => {
+    loading.value = true;
+    await store.fetchThreadList(category,subcategory);
+    loading.value = false;
+});
+
+const threads = computed(() => store.threadList);
+
+</script>
 <template>
     <div class="mainContainer lg:mr-2 mr-0 lg:mt-0 mt-4">
         <div class="mainContent">
@@ -5,22 +28,22 @@
                 <div class="aboveThreadList">
                     <div class="ads"></div>
                     <div class="discussionListItems">
-                        <DiscussionListItem/>
+                        <template v-for="thread in threads">
+                        <DiscussionListItem
+                            :user-avatar="thread.user.profile_picture"
+                            :created_at="thread.created_at"
+                            :title="thread.title"
+                            :username="thread.user.username"
+                            :user_id="thread.user.id"
+                            :id="thread.id"
+                        />
+                        </template>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
-<script>
-import DiscussionListItem from "@/Components/DiscussionListItem.vue";
-
-export default {
-    name: "DiscussionList",
-    components: {DiscussionListItem}
-}
-</script>
 
 <style scoped>
 @media (min-width: 1025px) {

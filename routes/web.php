@@ -22,10 +22,18 @@ Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('
 Route::get('/catalog', [\App\Http\Controllers\IndexController::class, 'catalog'])->name('catalog');
 Route::get('/wysiwyg', [\App\Http\Controllers\IndexController::class, 'wysiwyg'])->name('wysiwyg');
 
+
 Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
     Route::get('/', [Main::class, 'index'])->name('main');
     Route::get('/member/{id}', [Main::class, 'member'])->name('member');
     Route::post('/avatarUpload', [Main::class, 'avatarUpload'])->name('avatarUpload');
+
+    Route::get('/thread/new', [\App\Http\Controllers\ThreadController::class, 'newThread'])->name('thread.new');
+    Route::get('/thread/{id}', [\App\Http\Controllers\ThreadController::class, 'showThread'])->name('thread.view');
+    Route::get('/threads/{category}/{subcategory?}', [\App\Http\Controllers\ThreadController::class, 'showThreads'])->where(['category' => '[0-9]+', 'subcategory' => '[0-9]+'])->name('thread.showThreads');
+    Route::post('/thread/new', [\App\Http\Controllers\ThreadController::class, 'storeThread'])->name('thread.store');
+    Route::get('/thread/fetchUrl', [\App\Http\Controllers\ThreadController::class, 'fetchUrl'])->name('thread.fetchUrl');
+    Route::post('/thread/uploadFile', [\App\Http\Controllers\ThreadController::class, 'uploadFile'])->name('thread.uploadFile');
 
     //account settings routes
     Route::get('/account/personal-details', [Main::class, 'personalDetails'])->name('personalDetails');

@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    //TODO duznel ayza redirectin momenty
     public function index(Request $request){
-        $user = auth()->user();
-        return inertia('Home', compact('user'));
+        return inertia('Home');
     }
     public function catalog(Request $request){
         return inertia('Catalog');

@@ -6,6 +6,25 @@
 @import "_progress.css";
 @import "_scrollbars.css";
 @import "_table.css";
+
+@font-face {
+    font-family: 'Yerevanyan';
+    src: url('fonts/Yerevanyan-Bold.woff2') format('woff2'),
+    url('fonts/Yerevanyan-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Yerevanyan';
+    src: url('fonts/Yerevanyan-Regular.woff2') format('woff2'),
+    url('fonts/Yerevanyan-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 div,
 ul,
 li,
@@ -42,4 +61,8 @@ button {
 input,
 button {
     outline: 0;
+}
+p,h1,h2,h3,h4,h5,a,div{
+    font-family: 'Yerevanyan';
+    font-weight: normal;
 }

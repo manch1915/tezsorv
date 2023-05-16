@@ -1,5 +1,6 @@
 <script setup>
 import SideBarListItem from "@/Components/SideBarListItem.vue";
+import {Link} from "@inertiajs/vue3";
 
 import { useMainStore } from "@/stores/main";
 import {computed, onMounted, reactive, ref} from 'vue';
@@ -29,7 +30,7 @@ const categories = computed(() => store.slideList);
 </script>
 <template>
     <div class="section flex flex-col gap-y-3">
-        <a class="CreateThreadButton buttons button primary full callToAction" href="#">Создать тему</a>
+        <Link class="CreateThreadButton buttons button primary full callToAction" :href="route('thread.new')">Создать тему</Link>
         <a @click="openList = !openList" class="hidden OpenList buttons button  full callToAction" href="#">Открыть раздели</a>
     </div>
     <div class="flex justify-center my-2" v-if="state.loading">

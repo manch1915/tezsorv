@@ -38,7 +38,7 @@
                         Insta {{ member?.username ?? '' }}
                     </n-button>
                 </a>
-                <a :href="`https://www.t.me/${member.instagram}`" target="_blank" class="w-2 mt-4">
+                <a :href="`https://www.t.me/${member.telegram}`" target="_blank" class="w-2 mt-4">
                     <n-button dashed icon-placement="left" class="text-gray-500">
                         <template #icon>
                             <n-icon>

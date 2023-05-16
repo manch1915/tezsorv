@@ -1,33 +1,64 @@
+<script setup>
+import {Link} from '@inertiajs/vue3'
+import {computed} from "vue";
+const props = defineProps({
+        title: String,
+        username: String,
+        user_id: Number,
+        id: Number,
+        created_at: String,
+        userAvatar: String,
+    });
+const months =  [
+    "Հունվարի",
+    "Փետրվարի",
+    "Մարտի",
+    "Ապրիլի",
+    "Մայիսի",
+    "Հունիսի",
+    "Հուլիսի",
+    "Օգոստոսի",
+    "Սեպտեմբերի",
+    "Հոկտեմբերի",
+    "Նոյեմբերի",
+    "Դեկտեմբերի"
+]
+//todo optimize plus in thread view
+const created_at = computed(() => {
+    const d = new Date(props.created_at)
+    const month = months[d.getMonth()]
+    const day = d.getDate()
+    const year = d.getFullYear()
+
+    return `${month} ${day} ${year}`
+})
+
+</script>
+
 <template>
     <div class="discussionListItem" data-author="">
         <div class="discussionListItem--Wrapper">
             <div class="listBlock account">
-                <a class="avatar Av4845447s" data-avatarhtml="true" href="members/4845447/" title="zamonary1">
-                    <img alt="zamonary1" height="48" src="https://zelenka.guru/data/avatars/s/4904/4904582.jpg" width="48">
-                </a>
-                <div class="bold lastPostInfo"><a class="username" href="members/4845447/"><span class="style2">zamonary1</span></a>
+                <Link class="avatar" data-avatarhtml="true" :href="route('member', props.user_id)" :title="props.username">
+                    <img :alt="props.username" height="48" :src="props.userAvatar" width="48">
+                </Link>
+                <div class="bold lastPostInfo"><Link class="username" :href="route('member', props.user_id)"><span class="style2">{{ props.username }}</span></Link>
                 </div>
             </div>
-            <a class="listBlock main" href="">
-                <span class="threadNode">Кошельки, верификация</span>
-                <h3 class="title">Qiwi Профессиональный</h3>
+            <Link class="listBlock main" :href="route('thread.view', id)">
+                <h3 class="title">{{ props.title }}</h3>
                 <span class="secondRow">
-                    <span class="username style1">tsukuyomidream</span>
+                    <span class="username style1">{{props.username}}</span>
                     <span class="info-separator"></span>
-                    <span class="startDate"> 1 min later</span>
+                    <span class="startDate">{{created_at}}</span>
                     <span class="replyCount"></span>
                 </span>
-            </a>
+            </Link>
 
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: "discussionListItem"
-}
-</script>
 
 <style scoped>
 .discussionListItem{
@@ -57,6 +88,7 @@ export default {
 }
 .username{
     font-size: 14px;
+    color:#d6d6d6;
 }
 .main {
     display: block;
@@ -89,17 +121,17 @@ export default {
     max-width: 100%;
     padding-left: 1px;
     text-overflow: ellipsis;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     font-weight: 600;
-    color: rgb(148, 148, 148);
+    color:#d6d6d6;
 }
 
 .secondRow {
     margin: 12px 0 0;
     line-height: 18px;
-    font-size: 12px;
+    font-size: 10px;
     display: block;
 }
 

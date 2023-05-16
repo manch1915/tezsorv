@@ -14,7 +14,7 @@
                 <li v-for="item in list.subcategories" class="node node766 forum level-n">
                     <div class="unread">
                         <h4 class="nodeTitle">
-                            <a class="menuRow" :href="item.id">{{ item.name }}</a>
+                            <Link class="menuRow" :href="route('thread.showThreads', [item.category_id,item.id] )">{{ item.name }}</Link>
                         </h4>
                     </div>
                 </li>
@@ -27,9 +27,11 @@
 <script>
 import { ChevronDownIcon  } from '@heroicons/vue/24/outline'
 import TransitionExpand from "@/Components/TransitionExpand.vue";
+import {Link} from "@inertiajs/vue3"
+//todo composition api
 export default {
     name: "SideBarListItem",
-    components: {TransitionExpand, ChevronDownIcon},
+    components: {TransitionExpand, ChevronDownIcon,Link},
     data(){
         return{
             active: false,

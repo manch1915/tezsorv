@@ -14,6 +14,7 @@ export const useMainStore = defineStore("main", {
     sexes: [],
     clients: [],
     history: [],
+    threadList: [],
     member: null,
   }),
   actions: {
@@ -39,20 +40,22 @@ export const useMainStore = defineStore("main", {
               });
       },
 
-      async fetchSexes() {
-          await axios.get(`${this.apiUrl}sexes`)
+      //fetch fetchThreadList with arguments category and subcategory if they are not null
+      async fetchThreadList(category, subcategory) {
+          console.log(category, subcategory)
+          await axios.get(`${this.apiUrl}threadList/${category}/${subcategory}`)
               .then((response) => {
-                  this.sexes = response.data;
+                  this.threadList = response.data;
               })
               .catch((error) => {
                   alert(error.message);
               });
       },
 
-      async fetchClients() {
-          await axios.get("https://jsonplaceholder.typicode.com/users")
+      async fetchSexes() {
+          await axios.get(`${this.apiUrl}sexes`)
               .then((response) => {
-                  this.clients = response.data;
+                  this.sexes = response.data;
               })
               .catch((error) => {
                   alert(error.message);
