@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\ThreadStoreRequest;
+use App\Models\Category;
 use App\Models\Post;
 use DOMDocument;
 use DOMXPath;
@@ -74,8 +75,7 @@ class ThreadController extends Controller
             'subcategory_id' => $request->subcategory
             ]);
 
-//        return redirect()->route('thread', $thread->id);
-        return response()->json($thread);
+        return redirect()->route('thread.view', $thread->id);
     }
 
     public function show(?int $category = null, ?int $subcategory = null)
@@ -84,14 +84,14 @@ class ThreadController extends Controller
 
         if ($category !== null) {
             $query->where('category_id', $category);
+            $posts['category'] = Category::find($category)->name;
         }
 
         if ($subcategory !== null) {
             $query->where('subcategory_id', $subcategory);
         }
 
-        $posts = $query->limit(20)->get();
-
+        $posts['data'] = $query->limit(20)->get();
         return response()->json($posts);
     }
 

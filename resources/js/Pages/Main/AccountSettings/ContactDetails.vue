@@ -52,7 +52,7 @@ const saveData = async () => {
         <MainLayout>
             <template #main>
                 <n-config-provider :theme="darkTheme">
-                    <div class="mainContainer mt-5">
+                    <div class="mainContainer sm:mt-0 mt-5">
                         <div class="mainContent flex flex-col">
                             <SettingsInput title="tg" border>
                                 <div class="text-white">

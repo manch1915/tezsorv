@@ -38,7 +38,7 @@ const created_at = computed(() => {
 <template>
     <div class="discussionListItem" data-author="">
         <div class="discussionListItem--Wrapper">
-            <div class="listBlock account">
+            <div class="listBlock account hidden sm:block">
                 <Link class="avatar" data-avatarhtml="true" :href="route('member', props.user_id)" :title="props.username">
                     <img :alt="props.username" height="48" :src="props.userAvatar" width="48">
                 </Link>

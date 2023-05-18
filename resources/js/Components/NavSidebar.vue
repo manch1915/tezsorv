@@ -30,8 +30,8 @@ const categories = computed(() => store.slideList);
 </script>
 <template>
     <div class="section flex flex-col gap-y-3">
-        <Link class="CreateThreadButton buttons button primary full callToAction" :href="route('thread.new')">Создать тему</Link>
-        <a @click="openList = !openList" class="hidden OpenList buttons button  full callToAction" href="#">Открыть раздели</a>
+        <Link class="CreateThreadButton buttons button primary full callToAction" :href="route('thread.new')">Սարքել հոդված</Link>
+        <a @click="openList = !openList" class="hidden OpenList buttons button  full callToAction" href="#">Բացել բաժինները</a>
     </div>
     <div class="flex justify-center my-2" v-if="state.loading">
         <ring-loader :loading="state.loading"/>
@@ -44,7 +44,7 @@ const categories = computed(() => store.slideList);
                     <div class="nodeInfo forumNodeInfo">
                         <div class="nodeText">
                             <h3 class="nodeTitle">
-                                <a href="#">Все обсуждения</a>
+                                <Link :href="route('main')">Բոլոր հոդվածները</Link>
                             </h3>
                         </div>
                     </div>
@@ -58,7 +58,7 @@ const categories = computed(() => store.slideList);
                                 <div class="nodeText">
                                     <h3 class="nodeTitle">
                                         <a href="#">
-                                            <span class="personalTabTitle"> Мои темы </span>
+                                            <span class="personalTabTitle">Իմ հոդվածները</span>
                                         </a>
                                     </h3>
                                 </div>
@@ -98,8 +98,6 @@ const categories = computed(() => store.slideList);
     </div>
     </TransitionExpand>
 </template>
-
-
 
 <style scoped>
 .buttons{
@@ -144,8 +142,6 @@ const categories = computed(() => store.slideList);
 }
 
 .nodeList .node.current > .nodeInfo > .nodeText > .nodeTitle > a, .nodeList .node .current > div > .nodeTitle > a {
-    background: rgb(45, 45, 45);
-    color: rgb(0, 186, 120);
     font-weight: 600;
 }
 

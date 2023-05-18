@@ -12,7 +12,7 @@ const url = router.page.url.split('/')
 
 let category = parseInt(url[3]);
 let subcategory = parseInt(url[4]);
-
+console.log(category, subcategory)
 const store = useMainStore();
 onMounted(async () => {
     loading.value = true;
@@ -21,7 +21,7 @@ onMounted(async () => {
 });
 
 const threads = computed(() => store.threadList);
-
+const threadCategory = computed(() => store.threadCategory);
 </script>
 <template>
     <div class="mainContainer lg:mr-2 mr-0 lg:mt-0 mt-4">
@@ -30,6 +30,7 @@ const threads = computed(() => store.threadList);
                 <div class="aboveThreadList">
                     <div class="ads"></div>
                     <div class="discussionListItems">
+                        <h1 class="text-xl text-white pb-2">{{threadCategory}}</h1>
                         <template v-for="thread in threads">
                         <DiscussionListItem
                             :user-avatar="thread.user.profile_picture"
@@ -64,7 +65,13 @@ const threads = computed(() => store.threadList);
     padding: 15px 20px;
     background: rgb(39, 39, 39);
 }
-
+@media screen and (max-width: 768px) {
+    .discussionList {
+        border-radius: 10px;
+        padding: 15px 0;
+        background: rgb(39, 39, 39);
+    }
+}
 .aboveThreadList {
     margin: 0 0 15px;
     box-sizing: border-box;

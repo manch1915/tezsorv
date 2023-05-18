@@ -10,6 +10,7 @@ export const useMainStore = defineStore("main", {
     apiUrl: 'http://127.0.0.1:8000/api/',
     isFieldFocusRegistered: false,
 
+    threadCategory: '',
     slideList: [],
     sexes: [],
     clients: [],
@@ -53,7 +54,8 @@ export const useMainStore = defineStore("main", {
 
           try {
               const response = await axios.get(url);
-              this.threadList = response.data;
+              this.threadList = response.data['data'];
+              this.threadCategory = response.data['category'];
           } catch (error) {
               console.error(error);
 
