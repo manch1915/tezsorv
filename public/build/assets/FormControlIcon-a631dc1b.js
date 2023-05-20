@@ -1,0 +1,1 @@
+import{_ as e}from"./BaseIcon-e9972e82.js";import{o as n,c as o}from"./app-21f7968e.js";const s={__name:"FormControlIcon",props:{icon:{type:String,default:null},h:{type:String,default:null}},setup(t){return(a,r)=>(n(),o(e,{path:t.icon,w:"w-10",h:t.h,class:"absolute top-0 left-0 z-10 pointer-events-none text-gray-500 dark:text-slate-400"},null,8,["path","h"]))}};export{s as _};
