@@ -31,7 +31,7 @@ const form = useForm({
     last_name: props.auth.user.last_name,
     about: props.auth.user.about,
     country: props.auth.user.country,
-    gender: props.auth.user.sex_id,
+    sex_id: props.auth.user.sex_id,
     terms: false,
 })
 
@@ -94,35 +94,35 @@ store.fetchSexes();
         <MainLayout>
             <template #main>
                 <n-config-provider :theme="darkTheme">
-                    <div class="mainContainer  mt-5">
+                    <div class="mainContainer sm:mt-0 mt-5">
                         <div class="mainContent flex flex-col">
-                            <SettingsInput title="Ник">
+                            <SettingsInput title="Նիկ">
                                 <div class="text-white">
-                                    <n-input v-model:value="form.username" placeholder="Изминить Ник" type="text"/>
+                                    <n-input v-model:value="form.username" placeholder="Փոխել Նիկը" type="text"/>
                                 </div>
                                 <InputError v-if="errors.username" :message="errors.username[0]" class="mt-2"/>
                             </SettingsInput>
 
-                            <SettingsInput title="Имя">
+                            <SettingsInput title="Անուն">
                                 <div class="text-white">
-                                    <n-input v-model:value="form.first_name" placeholder="Изминить Имя" type="text"/>
+                                    <n-input v-model:value="form.first_name" placeholder="Փոխել Անունը" type="text"/>
                                 </div>
                             </SettingsInput>
 
-                            <SettingsInput border title="Фамилия">
+                            <SettingsInput border title="Ազգանուն">
                                 <div class="text-white">
-                                    <n-input v-model:value="form.last_name" placeholder="Изминить Фамилия" type="text"/>
+                                    <n-input v-model:value="form.last_name" placeholder="Փոխել Ազգանունը" type="text"/>
                                 </div>
                             </SettingsInput>
 
-                            <SettingsInput border title="Био">
+                            <SettingsInput border title="Բիո">
                                 <div class="text-white">
-                                    <n-input v-model:value="form.about" placeholder="Био" type="textarea"/>
+                                    <n-input v-model:value="form.about" placeholder="Բիո" type="textarea"/>
                                 </div>
                             </SettingsInput>
 
-                            <SettingsInput border title="Пол">
-                                <n-radio-group v-model:value="form.gender" name="radiogroup">
+                            <SettingsInput border title="Սեռ">
+                                <n-radio-group v-model:value="form.sex_id" name="radiogroup">
                                     <n-space>
                                         <n-radio
                                             v-for="item in store.sexes"

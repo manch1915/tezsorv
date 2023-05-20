@@ -8,22 +8,22 @@ import {
 export default [
       {
         icon: mdiMemory,
-        label: "Персональная информация",
+        label: "Անձնական տվյալներ",
         to: "personalDetails",
       },
       {
         icon: mdiAccountBox,
-        label: "Контактная информация",
+        label: "Կոնտակտային տվյալներ",
         to: "contactDetails",
       },
       {
         icon: mdiChevronDoubleUp,
-        label: "Повышение статуса",
+        label: "Կարգավիճակի բարձրացում",
         to: "upgrade",
       },
       {
         icon: mdiSecurity,
-        label: "Безопасность",
+        label: "Անվտանգություն",
         to: "security",
       },
 

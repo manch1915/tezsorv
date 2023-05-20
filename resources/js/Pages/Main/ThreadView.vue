@@ -76,7 +76,7 @@ const editor = new EditorJS({
 },)
 </script>
 <template>
-    <main>
+    <main class="min-h-screen">
         <MainHeader :auth="props.auth"/>
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">
@@ -97,7 +97,6 @@ const editor = new EditorJS({
                 <div id="editorjs" class="text-white"></div>
             </div>
         </section>
-        <div class="h-6"></div>
     </main>
 </template>
 

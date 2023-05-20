@@ -32,8 +32,6 @@
 import RingLoader from "vue-spinner/src/RingLoader.vue";
 import menuSettings from "@/menuSettings";
 import { Link } from '@inertiajs/vue3';
-import BaseIcon from "@/Components/BaseIcon.vue";
-
 
 </script>
 

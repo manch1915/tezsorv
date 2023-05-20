@@ -10,6 +10,7 @@ export const useMainStore = defineStore("main", {
     apiUrl: 'http://127.0.0.1:8000/api/',
     isFieldFocusRegistered: false,
 
+    threadCategory: '',
     slideList: [],
     sexes: [],
     clients: [],
@@ -40,16 +41,25 @@ export const useMainStore = defineStore("main", {
               });
       },
 
-      //fetch fetchThreadList with arguments category and subcategory if they are not null
       async fetchThreadList(category, subcategory) {
-          console.log(category, subcategory)
-          await axios.get(`${this.apiUrl}threadList/${category}/${subcategory}`)
-              .then((response) => {
-                  this.threadList = response.data;
-              })
-              .catch((error) => {
-                  alert(error.message);
-              });
+
+          let url = `${this.apiUrl}threadList/`;
+
+          if (!isNaN(category)) {
+              url += category;
+              if (!isNaN(subcategory)) {
+                  url += `/${subcategory}`;
+              }
+          }
+
+          try {
+              const response = await axios.get(url);
+              this.threadList = response.data['data'];
+              this.threadCategory = response.data['category'];
+          } catch (error) {
+              console.error(error);
+
+          }
       },
 
       async fetchSexes() {

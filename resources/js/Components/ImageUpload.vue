@@ -1,43 +1,3 @@
-<template>
-    <n-config-provider :theme="darkTheme">
-    <n-button class="w-full mt-2" @click="showModal = true">
-        Upload pfp
-    </n-button>
-    <n-modal v-model:show="showModal">
-        <n-card
-            style="width: 600px"
-            title="Upload pfp"
-            :bordered="false"
-            size="huge"
-            role="dialog"
-            aria-modal="true"
-        >
-            <n-upload
-                :show-upload-list="false"
-                accept="image/jpeg, image/png"
-                @change="handleFileChange"
-            >
-                <n-button class="w-full">Upload Image</n-button>
-            </n-upload>
-            <VuePictureCropper
-                :boxStyle="{
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: '#f8f8f8',
-                  margin: 'auto',
-                }"
-                :img="imagePreview"
-                :options="{
-                  viewMode: 1,
-                  dragMode: 'crop',
-                  aspectRatio: 1,
-                }"
-            />
-            <n-button v-show="imagePreview !== null" class="w-full mt-5" :loading="loading" @click="getResult">Crop</n-button>
-        </n-card>
-    </n-modal>
-    </n-config-provider>
-</template>
 <script setup>
 import { ref} from "vue";
 import {darkTheme, NConfigProvider} from 'naive-ui'
@@ -85,6 +45,47 @@ const saveAvatar = () => {
 
 
 </script>
+<template>
+    <n-config-provider :theme="darkTheme">
+    <n-button class="w-full mt-2" @click="showModal = true">
+        Upload pfp
+    </n-button>
+    <n-modal v-model:show="showModal">
+        <n-card
+            style="width: 600px"
+            title="Upload pfp"
+            :bordered="false"
+            size="huge"
+            role="dialog"
+            aria-modal="true"
+        >
+            <n-upload
+                :show-upload-list="false"
+                accept="image/jpeg, image/png"
+                @change="handleFileChange"
+            >
+                <n-button class="w-full">Upload Image</n-button>
+            </n-upload>
+            <VuePictureCropper
+                :boxStyle="{
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: '#f8f8f8',
+                  margin: 'auto',
+                }"
+                :img="imagePreview"
+                :options="{
+                  viewMode: 1,
+                  dragMode: 'crop',
+                  aspectRatio: 1,
+                }"
+            />
+            <n-button v-show="imagePreview !== null" class="w-full mt-5" :loading="loading" @click="getResult">Crop</n-button>
+        </n-card>
+    </n-modal>
+    </n-config-provider>
+</template>
+
 <style>
 .preview-wrapper {
     display: flex;

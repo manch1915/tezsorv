@@ -32,7 +32,7 @@ class UserUpdateRequest extends FormRequest
             'last_name' => ['string','max:25','nullable'],
             'about' => ['string','max:255','nullable'],
             'country' => ['string','max:255','nullable'],
-            'gender' => ['numeric','max:255'],
+            'sex_id' => ['numeric','max:255'],
             'telegram' => ['string','max:255','nullable'],
             'instagram' => ['string','max:255','nullable'],
         ];
