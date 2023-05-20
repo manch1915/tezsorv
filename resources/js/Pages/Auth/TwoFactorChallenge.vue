@@ -1,7 +1,6 @@
 <script setup>
 import { useForm, Head } from '@inertiajs/vue3'
 import { nextTick, ref } from 'vue'
-import LayoutGuest from '@/layouts/LayoutGuest.vue'
 import SectionFullScreen from '@/components/SectionFullScreen.vue'
 import CardBox from '@/components/CardBox.vue'
 import FormControl from '@/components/FormControl.vue'
@@ -41,7 +40,7 @@ const submit = () => {
 </script>
 
 <template>
-  <LayoutGuest>
+
     <Head title="Two-factor Confirmation" ></Head>
 
     <SectionFullScreen
@@ -122,5 +121,5 @@ const submit = () => {
         </BaseLevel>
       </CardBox>
     </SectionFullScreen>
-  </LayoutGuest>
+
 </template>

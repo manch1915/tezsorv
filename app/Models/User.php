@@ -47,13 +47,14 @@ class User extends Authenticatable
         return $this->belongsTo(Sex::class);
     }
 
-    public function likes()
+    public function likesReceived()
     {
-        return $this->belongsToMany(User::class, 'likes', 'liked_user_id','user_id');
+        return $this->hasMany(Like::class, 'liked_user_id');
     }
 
-    public function likesCount()
+    public function likesGiven()
     {
-        return $this->likes()->count();
+        return $this->hasMany(Like::class, 'user_id');
     }
+
 }
