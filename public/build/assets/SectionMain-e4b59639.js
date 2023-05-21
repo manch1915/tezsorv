@@ -1,1 +1,0 @@
-import{o as a,f as s,r as n,n as o,u as r,Q as t}from"./app-21f7968e.js";const i={__name:"SectionMain",setup(c){return(e,l)=>(a(),s("section",{class:o(["p-6",r(t)])},[n(e.$slots,"default")],2))}};export{i as _};

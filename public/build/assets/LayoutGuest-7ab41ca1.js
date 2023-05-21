@@ -1,1 +1,0 @@
-import{E as a,o as t,f as r,b as o,r as l,n,u as c}from"./app-21f7968e.js";const d={class:"bg-gray-50 dark:bg-slate-800 dark:text-slate-100"},k={__name:"LayoutGuest",setup(_){const e=a();return(s,u)=>(t(),r("div",{class:n({dark:c(e).darkMode})},[o("div",d,[l(s.$slots,"default")])],2))}};export{k as _};

@@ -5,19 +5,19 @@
                 <div class="padding-vertical padding-xxlarge">
                     <div class="grid grid-cols-1 md:grid-cols-2 rl-footer_slack-cta">
                         <div class=" rl-footer_slack-text-wrapper">
-                            <img alt="" class="rl-footer_slack-icon" loading="lazy" src="/svg/discord.svg">
+                            <img alt="" class="rl-footer_slack-icon" loading="lazy" src="/svg/telegram.svg">
                             <div class="max-width-large">
-                                <div class="margin-bottom margin-tiny"><h5>Join our awesome community</h5></div>
-                                <p>Share work, seek support, vote on components, stay updated and network with other Lumers.<br></p>
+                                <div class="margin-bottom margin-tiny"><h5>Միացեք մեր տելեգրամյան ալիքին</h5></div>
+                                <p class="text-sm">Նորություններ, հետագա թարմացումներ, և ընդհանուր տեղեկություններ<br></p>
                             </div>
                         </div>
-                        <a class="button dont-shrink w-button" href="https://discord.gg/e469yVEy" target="_blank">Join our Discord</a></div>
+                        <a class="button dont-shrink w-button" href="https://discord.gg/e469yVEy" target="_blank">Միանալ</a></div>
                     <div class="padding-bottom padding-xxlarge">
                         <div class="grid grid-cols-1 md:grid-cols-2 footer3_top-wrapper">
                             <div class="footer3_left-wrapper">
                                 <div class="margin-bottom margin-medium">
                                     <a class="footer3_logo-link w-nav-brand" href="#">
-                                        <img alt="" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6404607f156eb1a0c6bc462c_Relume%20Ipsum%20Logo.svg">
+                                        <img alt="" loading="lazy" class="w-20" src="/images/logo.svg">
                                     </a>
                                 </div>
                                 <div class="margin-bottom margin-medium">
@@ -25,67 +25,36 @@
                                         <div class="text-size-small">
                                             <span class="text-size-medium">Made by </span>
                                             <a class="text-style-link" href="http://relume.io/links" target="_blank">
-                                                <span class="text-size-medium text-style-link">Relume</span>
+                                                <span class="text-size-medium text-style-link">Narcis</span>
                                             </a>
                                         </div>
                                     </div>
                                     <div class="margin-top margin-xxsmall">
                                         <div class="max-width-medium">
-                                            <div class="text-size-small text-color-gray">Relume Ipsum is still in early
-                                                Beta, so please keep in mind that there may be some imperfections as we
-                                                continue to work on improving it.
+                                            <div class="text-size-small text-color-gray">narcis.guru-ն հայկական ռեսուրսային ցանց է, նախատեսված բոլորի համար
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="rl-footer_social-link-wrapper">
-                                    <a class="rl-footer_social-link w-inline-block" href="https://www.figma.com/@relume" target="_blank">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e494b8fd3f05331d446f_icon-figma.svg" width="24">
+                                    <a class="rl-footer_social-link w-inline-block" href="https://t.me/narcisbin" target="_blank">
+                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="/svg/telegram.svg" width="24">
                                     </a>
-                                    <a class="rl-footer_social-link w-inline-block" href="http://twitter.com/relume_io">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da47cbb8e5e3_twitter.png" width="24">
-                                    </a>
-                                    <a class="rl-footer_social-link w-inline-block" href="http://slack.relume.io/" target="_blank">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da49f1b8e5db_slack.png" width="24">
-                                    </a>
-                                    <a class="rl-footer_social-link w-inline-block" href="https://www.youtube.com/channel/UC36lpnNYIg_c81NOLGhoxLA" target="_blank">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9daa438b8e5e1_youtube.png" width="24">
-                                    </a>
-                                    <a class="rl-footer_social-link w-inline-block" href="https://www.tiktok.com/@relume.io" target="_blank">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e4e3d4b9da4346b8f41c_tiktok-logo.png" width="24">
-                                    </a>
-                                    <a class="rl-footer_social-link w-inline-block" href="https://webflow.com/relume" target="_blank">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da51ccb8e5df_webflow.png" width="24">
-                                    </a>
-                                    <a class="rl-footer_social-link w-inline-block" href="https://au.linkedin.com/company/relume" target="_blank">
-                                        <img alt="" class="rl-footer_social-icon" loading="lazy" src="https://assets.website-files.com/63f5d36e1bfb159570f6408c/6406e43ad4b9da0ecfb8e5dd_linkedin_square.png" width="24">
+                                    <a class="rl-footer_social-link w-inline-block" href="https://www.instagram.com/narcisbin/">
+                                        <img alt="" class="rl-footer_social-icon invert" loading="lazy" src="/svg/instagram-icon.svg" width="24">
                                     </a>
                                 </div>
                             </div>
-                            <div class="w-layout-grid footer3_menu-wrapper">
-                                <div class="footer3_link-list">
-                                    <a class="footer3_link" href="https://www.figma.com/community/plugin/1208279655592025559">Install</a>
-                                    <a class="footer3_link" href="https://www.youtube.com/watch?v=gK7Zl-tUTiY" target="_blank">Watch Demo</a>
-                                    <a class="footer3_link" href="#features">Features</a>
-                                    <a class="footer3_link" href="#Pricing">Pricing</a>
-                                    <a class="footer3_link" href="https://www.figma.com/community/file/1214956185011458089" target="_blank">Learn</a>
-                                </div>
-                                <div class="footer3_link-list">
-                                    <a class="footer3_link" href="mailto:relume-ipsum-feedback@relume.io">Feedback</a>
-                                    <a class="footer3_link" href="mailto:relume-ipsum-support@relume.io">Contact</a>
-                                    <a class="footer3_link" href="http://slack.relume.io/" target="_blank">Slack</a>
-                                    <a class="footer3_link" href="https://relume.getrewardful.com/signup?campaign=relume-ipsum" target="_blank">Become an Affiliate</a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="line-divider"></div>
                     <div class="padding-top padding-medium">
                         <div class="footer3_bottom-wrapper">
-                            <div class="footer3_credit-text">© 2023 Relume. All rights reserved.</div>
+                            <div class="footer3_credit-text">© 2023 Narcis. Բոլոր իրավունքները պաշտպանված են:</div>
                             <div class="w-layout-grid footer3_legal-list">
-                                <a class="footer3_legal-link" href="/legal/privacy-policy">Privacy Policy</a>
-                                <a class="footer3_legal-link" href="/legal/terms-of-service">Terms &amp;Conditions</a>
+                                <a class="footer3_legal-link" href="#">Privacy Policy</a>
+                                <a class="footer3_legal-link" href="#">Terms &amp;Conditions</a>
                             </div>
                         </div>
                     </div>
@@ -286,7 +255,6 @@ export default {
     border: 0;
     vertical-align: middle;
     display: inline-block;
-    filter: invert(100%)
 }
 
 .footer3_menu-wrapper {
@@ -411,6 +379,6 @@ export default {
 }
 
 .padding-xxlarge {
-    padding: 5rem
+    padding: 2rem
 }
 </style>

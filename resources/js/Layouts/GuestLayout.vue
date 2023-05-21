@@ -4,9 +4,9 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-main">
+    <div class="screen flex flex-col sm:mt-0 -mt-20 justify-center items-center pt-6 sm:pt-0 bg-main">
         <div>
-            <Link href="/">
+            <Link :href="route('home')">
                 <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
             </Link>
         </div>
@@ -18,3 +18,14 @@ import { Link } from '@inertiajs/vue3';
         </div>
     </div>
 </template>
+
+<style scoped>
+@media screen and (max-width: 768px) {
+    .screen{
+        min-height: calc(100vh + 5rem);
+    }
+}
+.screen{
+    min-height: calc(100vh);
+}
+</style>

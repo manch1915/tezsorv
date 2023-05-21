@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{o,f as _}from"./app-21f7968e.js";const c={},t={src:"/images/logo.svg",alt:""};function s(n,a){return o(),_("img",t)}const p=e(c,[["render",s],["__scopeId","data-v-95ce36e4"]]);export{p as A};

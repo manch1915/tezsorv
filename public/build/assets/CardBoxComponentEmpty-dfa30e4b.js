@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{o as t,f as o,b as s}from"./app-21f7968e.js";const r={},c={class:"text-center py-24 text-gray-500 dark:text-slate-400"},n=s("p",null,"Nothing's here…",-1),a=[n];function _(d,i){return t(),o("div",c,a)}const f=e(r,[["render",_]]);export{f as C};
