@@ -115,6 +115,11 @@ section{
     zoom: 1;
     box-sizing: border-box;
 }
+@media screen and (max-width: 768px) {
+    .headerMover {
+        padding-top: 2rem;
+    }
+}
 .user__avatar{
 
 }

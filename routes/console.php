@@ -1,7 +1,9 @@
 <?php
 
+use App\Mail\DemoMail;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,13 @@ use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
+})->purpose('Display an inspiring quote');
+
+Artisan::command('sendmail', function () {
+    $mailData = [
+        'title' => 'Mail from ItSolutionStuff.com',
+        'body' => 'This is for testing email using smtp.'
+    ];
+
+    Mail::to('levon.10h.y@gmail.com')->send(new DemoMail($mailData));
 })->purpose('Display an inspiring quote');

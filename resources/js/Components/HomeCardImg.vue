@@ -2,7 +2,7 @@
     <div class="flex flex-col w-full items-center text-center box-item">
         <div class="mb-5">
             <div class="image-wrapper">
-                <img loading="lazy" :src=image alt="">
+                <img :src=image alt="">
                 <div class="item-overlay"/>
             </div>
         </div>
@@ -10,7 +10,8 @@
             <h3 class="text-white"> {{zagalovok}} </h3>
         </div>
         <p>{{prov}}</p>
-        <a class="button" :href="route('register')">{{ buttonText }}</a>
+        <a v-if="buttonText" class="button" :href="route('register')">{{ buttonText }}</a>
+
     </div>
 </template>
 

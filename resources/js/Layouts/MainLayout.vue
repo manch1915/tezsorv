@@ -1,5 +1,5 @@
 <template>
-    <div class="headerMover">
+    <div class="headerMover min-h-screen">
         <div class="breadBoxTop"></div>
         <div class="pageContent">
                     <div v-show="false" class="sidebar"></div>
@@ -13,7 +13,7 @@
             </aside>
         </div>
     </div>
-    <div id="asd"></div>
+
 </template>
 
 <script>
@@ -65,9 +65,6 @@ export default {
     margin: 1em auto 1em;
 }
 
-#asd {
-    height: 2000px;
-}
 
 @media only screen and (max-width: 1122px) {
     .pageContent {

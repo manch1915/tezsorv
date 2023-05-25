@@ -65,7 +65,8 @@ class ThreadController extends Controller
         return response()->json($arr);
     }
 
-    public function storeThread(ThreadStoreRequest $request){
+    public function storeThread(ThreadStoreRequest $request): array
+    {
         $request->validated();
         $thread = Post::create([
             'title' => $request->title,
@@ -75,7 +76,7 @@ class ThreadController extends Controller
             'subcategory_id' => $request->subcategory
             ]);
 
-        return redirect()->route('thread.view', $thread->id);
+        return ['redirect' => route('thread.view', $thread->id)];
     }
 
     public function show(?int $category = null, ?int $subcategory = null)

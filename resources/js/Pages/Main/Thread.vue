@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="min-h-screen">
         <MainHeader :auth="props.auth"/>
         <section class="headerMover bg-mine-second rounded">
             <div class="w-full p-6">
@@ -29,6 +29,9 @@ import NeoEditor from "@/Components/NeoEditor.vue";
 import { useMainStore } from "@/stores/main";
 import {computed, onMounted, ref, watch} from "vue";
 import axios from 'axios';
+import {toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
+import {router} from "@inertiajs/vue3";
 
 const props = defineProps({
     auth: Object,
@@ -72,9 +75,16 @@ const saveThread = (data) => {
         category: category.value,
         subcategory: subcategory.value,
         body: JSON.stringify(data)
+    }).then(function (response) {
+        router.visit(response.data.redirect);
     })
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
+        .catch(error => Object.entries(error.response.data.errors).forEach(([key,value]) => {
+            toast(value, {
+                autoClose: 3000,
+                theme: "dark",
+                type: "warning"
+            })
+    }))
 }
 const getEditorData = () => {
     editorRef.value.saveData()
