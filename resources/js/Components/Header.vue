@@ -15,15 +15,6 @@
                         <Bars3Icon class="h-6 w-6" aria-hidden="true"/>
                     </PopoverButton>
                 </div>
-                <PopoverGroup as="nav" class="hidden space-x-2 sm:flex items-center navbar-container">
-
-                    <Link :href="route('catalog')" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Catalog</Link>
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Forum</a>
-                    <a href="#" class=" transition text-base font-bold text-white hover:bg-second p-2 rounded">Blog</a>
-
-                </PopoverGroup>
-
-                <div class="w-2/6"></div>
             </div>
         </div>
 
@@ -272,7 +263,7 @@ export default {
     width: 1rem;
 }
 .logo{
-    filter: drop-shadow(0 0 10px rgba(88, 40, 139, 0.8));
+    filter: drop-shadow(0 0 2px rgba(255,255,255, 0.8));
     transition: all .5s;
 }
 .logo:hover{

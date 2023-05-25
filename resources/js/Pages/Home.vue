@@ -3,13 +3,13 @@
         <section class="bg-lines">
             <div class="mx-auto max-w-7xl ">
                 <Header/>
-                <div class="pt-10">
+                <div class="py-5">
                     <div class="heading-fade-2lines text-2xl md:text-6xl">Հանրահաշվի, Քիմիայի, <span
                         class="text-highlight-purple">Ֆիզիկայի</span>, Երկրաչափության, Ծրագրաորման <span
                         class="text-highlight-orange">թյուր</span> ռեսուրսներ
                     </div>
                     <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ վտանգը։</p>
-                    <a :href="route('catalog')" class="glow-button">Կատալոգ</a>
+                    <Link :href="route('catalog')" class="glow-button">Կատալոգ</Link>
                 </div>
             </div>
         </section>
@@ -26,7 +26,7 @@
 
 <script>
 import Footer from "@/Components/Footer.vue";
-
+import {Link} from "@inertiajs/vue3";
 import Statistics from "@/Components/Statistics.vue";
 import axios from 'axios';
 import AnimateOnVisible from "@/Components/AnimateOnVisible.vue";
@@ -35,7 +35,7 @@ import HomeCardImg from "@/Components/HomeCardImg.vue";
 
 export default {
     name: "Home",
-    components: {HomeCardImg, AnimateOnVisible, Statistics, Footer, Header},
+    components: {HomeCardImg, AnimateOnVisible, Statistics, Footer, Header,Link},
     props: {
         user: Object,
     },
