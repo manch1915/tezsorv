@@ -59,28 +59,24 @@ const options = ref([
     }]
 )
 
-
-
-
-const iconRotate = ref(false)
 const active = ref(false)
 </script>
 <template>
     <header>
         <div class="main-container">
-            <nav>
-                <div class="md:static fixed z-50 bg-mine-second w-full top-0 navTabs text-white">
+            <nav class="">
+                <div class="md:static py-2 px-2 rounded fixed z-50 bg-mine-second w-full top-0 navTabs text-white">
                     <ul class="publicTabs flex items-center">
                         <div class="mobileMenuButton hiddenResponsiveFull md:hidden block">
                             <BaseIcon @click="openNav = !openNav" class="text-mainText" w="w-auto" h="h-auto" size="30" :path="mdiViewHeadline"/>
                         </div>
                         <div class="hiddenWideUnder fl_l">
-                            <Link id="neo-logo" :href="route('main')"><img alt="" src="/images/logo.svg"></Link>
+                            <Link id="neo-logo" class="" :href="route('main')"><img alt="" src="/images/logo.svg"></Link>
                             <li class="navTab selected">
                                 <div class=" tabLinks">
                                     <ul class="secondaryContent blockLinksList">
                                         <li>
-                                            <a href="https://lzt.market">
+                                            <a href="#">
                                                 Հոդվածներ
                                             </a>
                                         </li>
@@ -92,59 +88,6 @@ const active = ref(false)
                                                 </a>
                                             </div>
                                         </li>
-<!--                                        <li>-->
-<!--                                            <Menu as="div" v-slot="{ open }" class="relative inline-block">-->
-<!--                                                <div>-->
-<!--                                                    <MenuButton class="inline-flex items-center w-full text justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">-->
-<!--                                                        Ուրիշ-->
-<!--                                                        <ChevronDownIcon :class="[open ? 'rotate-180' : 'rotate-0','w-4 ml-1 transition-transform']"/>-->
-<!--                                                    </MenuButton>-->
-<!--                                                </div>-->
-
-<!--                                                <transition-->
-<!--                                                    enter-active-class="transition duration-100 ease-out"-->
-<!--                                                    enter-from-class="transform scale-95 opacity-0"-->
-<!--                                                    enter-to-class="transform scale-100 opacity-100"-->
-<!--                                                    leave-active-class="transition duration-75 ease-in"-->
-<!--                                                    leave-from-class="transform scale-100 opacity-100"-->
-<!--                                                    leave-to-class="transform scale-95 opacity-0"-->
-<!--                                                >-->
-<!--                                                    <MenuItems class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 z-40 rounded-md bg-mine-second shadow-lg ring-1 ring-purple-800 ring-opacity-1 focus:outline-none">-->
-<!--                                                        <div class="px-1 py-1">-->
-<!--                                                            <MenuItem v-slot="{ active }">-->
-<!--                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">-->
-<!--                                                                    Edit-->
-<!--                                                                </button>-->
-<!--                                                            </MenuItem>-->
-<!--                                                            <MenuItem v-slot="{ active }">-->
-<!--                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">-->
-<!--                                                                    Duplicate-->
-<!--                                                                </button>-->
-<!--                                                            </MenuItem>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="px-1 py-1">-->
-<!--                                                            <MenuItem v-slot="{ active }">-->
-<!--                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">-->
-<!--                                                                    Archive-->
-<!--                                                                </button>-->
-<!--                                                            </MenuItem>-->
-<!--                                                            <MenuItem v-slot="{ active }">-->
-<!--                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">-->
-<!--                                                                    Move-->
-<!--                                                                </button>-->
-<!--                                                            </MenuItem>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="px-1 py-1">-->
-<!--                                                            <MenuItem v-slot="{ active }">-->
-<!--                                                                <button :class="[active ? 'bg-mine text-white' : 'text-white','group flex w-full items-center rounded-md px-2 py-2 text-sm',]">-->
-<!--                                                                    Delete-->
-<!--                                                                </button>-->
-<!--                                                            </MenuItem>-->
-<!--                                                        </div>-->
-<!--                                                    </MenuItems>-->
-<!--                                                </transition>-->
-<!--                                            </Menu>-->
-<!--                                        </li>-->
                                     </ul>
                                 </div>
                             </li>
@@ -154,7 +97,7 @@ const active = ref(false)
                         <li id="searchBar" class="pageWidth pr-2 md:block hidden">
                             <fieldset class="QuickSearch" data-member-search-url="members/search">
                                 <n-config-provider :theme="darkTheme">
-                                    <n-input round  placeholder="Поиск">
+                                    <n-input round  placeholder="Փնտրել">
                                         <template #prefix>
                                             <BaseIcon :path="mdiMagnify"/>
                                         </template>
@@ -166,7 +109,7 @@ const active = ref(false)
                             <!-- account -->
                             <!-- alerts popup -->
                             <li class="navTab alerts Popup PopupControl PopupClosed PopupContainerControl">
-                                <a class="navLink NoPopupGadget" href="account/alerts" rel="Menu">
+                                <a class="navLink NoPopupGadget" href="#" rel="Menu">
                                     <div class="counter-container ">
                                         <svg fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -207,7 +150,7 @@ const active = ref(false)
     <Transition>
     <div v-show="openNav" class="sideNav bg-mine-second z-10">
         <div class="p-5">
-        <Link id="neo-logo" :href="route('main')" ><img alt="" class="w-14" src="/images/logo.svg"></Link>
+        <Link id="neo-logo" :href="route('main')" ><img alt="" class="w-14 pt-2" src="/images/logo.svg"></Link>
             <ul class="sideUl text-white">
                 <li class="flex items-center"><BaseIcon :path="mdiBook"/>Հոդվածներ</li>
                 <li class="flex items-center"><BaseIcon :path="mdiSendVariantOutline"/>Սոց ցանցեր</li>
@@ -275,7 +218,11 @@ li {
     justify-content: space-between;
     align-content: center;
 }
-
+@media screen and (max-width: 768px) {
+    .navTabs {
+        box-shadow: 0px -7px 20px #ffffff;
+    }
+}
 .account-links {
     display: flex;
     justify-content: center;

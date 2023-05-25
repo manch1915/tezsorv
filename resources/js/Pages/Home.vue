@@ -3,51 +3,43 @@
         <section class="bg-lines">
             <div class="mx-auto max-w-7xl ">
                 <Header/>
-                <div class="pt-10">
+                <div class="py-5">
                     <div class="heading-fade-2lines text-2xl md:text-6xl">Հանրահաշվի, Քիմիայի, <span
                         class="text-highlight-purple">Ֆիզիկայի</span>, Երկրաչափության, Ծրագրաորման <span
                         class="text-highlight-orange">թյուր</span> ռեսուրսներ
                     </div>
-                    <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ վտանգը։</p>
-                    <a :href="route('catalog')" class="glow-button">Կատալոգ</a>
+                    <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ
+                        վտանգը։</p>
+                    <Link :href="route('catalog')" class="glow-button">Կատալոգ</Link>
                 </div>
             </div>
         </section>
         <div class="mx-auto max-w-7xl">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-5 p-2 gap-y-3">
-                <HomeCardImg image="images/fizika.png" prov="Ֆիզիկան նյութի, էներգիայի և դրանց փոխազդեցությունների ուսումնասիրությունն է:Ուսանեք մեխանիկայի, ջերմոդինամիկայի և այլնի մասին:" zagalovok="Ֆիզիկա"/>
-                <HomeCardImg image="images/prog.png" prov="Ծրագրավորումը համակարգչային ծրագրեր գրելու արվեստ է ՝ օգտագործելով ծրագրավորման լեզուներ:Ուսանեք վեբ զարգացման, խաղերի ձևավորման և այլնի մասին:" zagalovok="Ծրագրավորում"/>
-                <HomeCardImg image="images/qimia.png" prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
+                <HomeCardImg
+                             image="images/fizika.png"
+                             prov="Ֆիզիկան նյութի, էներգիայի և դրանց փոխազդեցությունների ուսումնասիրությունն է:Ուսանեք մեխանիկայի, ջերմոդինամիկայի և այլնի մասին:" zagalovok="Ֆիզիկա"/>
+                <HomeCardImg
+                             image="images/prog.png"
+                             prov="Ծրագրավորումը համակարգչային ծրագրեր գրելու արվեստ է ՝ օգտագործելով ծրագրավորման լեզուներ:Ուսանեք վեբ զարգացման, խաղերի ձևավորման և այլնի մասին:" zagalovok="Ծրագրավորում"/>
+                <HomeCardImg
+                             image="images/qimia.png"
+                             prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
             </div>
             <Footer/>
         </div>
     </main>
 </template>
 
-<script>
+<script setup>
 import Footer from "@/Components/Footer.vue";
-
-import Statistics from "@/Components/Statistics.vue";
-import axios from 'axios';
-import AnimateOnVisible from "@/Components/AnimateOnVisible.vue";
+import {Link} from "@inertiajs/vue3";
 import Header from "@/Components/Header.vue";
 import HomeCardImg from "@/Components/HomeCardImg.vue";
 
-export default {
-    name: "Home",
-    components: {HomeCardImg, AnimateOnVisible, Statistics, Footer, Header},
-    props: {
-        user: Object,
-    },
-    data() {
-
-    },
-    mounted() {
-
-    },
-    methods: {
-    }
-}
+const props = defineProps({
+    user: Object,
+})
 </script>
 
 <style scoped>

@@ -37,19 +37,19 @@ const form = useForm({
 
 const countryNames = [
     {
-        label: 'Armenia',
+        label: 'Հայաստան',
         value: 'Armenia'
     },
     {
-        label: 'USA',
+        label: 'ԱՄՆ',
         value: 'USA'
     },
     {
-        label: 'Russia',
+        label: 'Ռուսաստան',
         value: 'Russia'
     },
     {
-        label: 'Afghanistan',
+        label: 'Աֆղանստան',
         value: 'Afghanistan'
     }
 ]
@@ -134,8 +134,8 @@ store.fetchSexes();
                                 </n-radio-group>
                             </SettingsInput>
 
-                            <SettingsInput border title="Страна">
-                                <n-select v-model:value="form.country" :options="countryNames"/>
+                            <SettingsInput border title="Երկիր">
+                                <n-select v-model:value="form.country" :options="countryNames" placeholder="Ընտրեք"/>
                             </SettingsInput>
                             <n-button :loading="state.loading" @click.prevent="saveData">
                                 <template #icon>

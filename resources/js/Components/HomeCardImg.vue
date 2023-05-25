@@ -10,7 +10,8 @@
             <h3 class="text-white"> {{zagalovok}} </h3>
         </div>
         <p>{{prov}}</p>
-        <a v-if="buttonHref" class="button" :href="buttonHref">{{ buttonText }}</a>
+        <a v-if="buttonText" class="button" :href="route('register')">{{ buttonText }}</a>
+
     </div>
 </template>
 
@@ -21,7 +22,6 @@ export default {
         image: String,
         zagalovok: String,
         prov: String,
-        buttonHref: String,
         buttonText: String,
     }
 }
