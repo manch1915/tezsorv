@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \App\Http\Controllers\DashboardController as Dashboard;
 use \App\Http\Controllers\Main\MainController as Main;
-use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

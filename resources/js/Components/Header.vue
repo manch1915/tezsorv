@@ -3,9 +3,10 @@
         <div class="px-6">
             <div class="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                 <div class="flex justify-start lg:w-0 lg:flex-1">
-                    <Link :href="route('home')">
+                    <Link :href="route('home')" class="flex items-center">
                         <span class="sr-only">Your Company</span>
                         <img class="h-8 w-auto sm:h-16 logo" src="/images/logo.svg" alt=""/>
+                        <p class="text-3xl pl-2" style="color: #32256a;filter: drop-shadow(0 0 1px rgba(255,255,255, 0.8));">Նեո</p>
                     </Link>
                 </div>
                 <div class="-my-2 -mr-2 sm:hidden">

@@ -8,8 +8,7 @@
                         class="text-highlight-purple">Ֆիզիկայի</span>, Երկրաչափության, Ծրագրաորման <span
                         class="text-highlight-orange">թյուր</span> ռեսուրսներ
                     </div>
-                    <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ
-                        վտանգը։</p>
+                    <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ վտանգը։</p>
                     <Link :href="route('catalog')" class="glow-button">Կատալոգ</Link>
                 </div>
             </div>
@@ -26,6 +25,9 @@
                              image="images/qimia.png"
                              prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
             </div>
+            <div class="flex justify-center glow">
+                <BaseIcon :path="mdiStar" size="300" w="w-auto" h="h-auto" fill="yellow"/>
+            </div>
             <Footer/>
         </div>
     </main>
@@ -36,7 +38,8 @@ import Footer from "@/Components/Footer.vue";
 import {Link} from "@inertiajs/vue3";
 import Header from "@/Components/Header.vue";
 import HomeCardImg from "@/Components/HomeCardImg.vue";
-
+import { mdiStar } from '@mdi/js';
+import BaseIcon from "@/Components/BaseIcon.vue";
 const props = defineProps({
     user: Object,
 })
@@ -52,7 +55,25 @@ const props = defineProps({
     background-clip: padding-box;
     -webkit-text-fill-color: inherit;
 }
-
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+.glow {
+    filter: drop-shadow(0 0 20px #ffdc00);
+    animation-name: spin;
+    animation-duration: 16s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
 .heading-fade-2lines {
     -webkit-text-size-adjust: 100%;
     color: #f1f0ee;

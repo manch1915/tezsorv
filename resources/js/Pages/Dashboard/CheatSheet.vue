@@ -46,7 +46,7 @@ const transactionBarItems = computed(() => mainStore.history);
         <SectionMain>
             <h1>CheatSheet Crud</h1>
             <CardBox class="mb-6" has-table>
-            <TableSampleCheetSheets/>
+                <TableSampleCheetSheets/>
             </CardBox>
         </SectionMain>
     </LayoutAuthenticated>
