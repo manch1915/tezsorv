@@ -98,7 +98,7 @@ class ThreadController extends Controller
 
     public function showThread($id){
         $thread = Post::with('user', 'subcategory', 'category')->find($id);
-        return inertia('Main/ThreadView', ['thread' => $thread]);
+        return inertia('Main/ThreadView', ['thread' => $thread, 'hasFavorite' => auth()->user()?->hasFavorited($thread) ?? false]);
     }
 
     public function showThreads()

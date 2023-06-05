@@ -40,9 +40,10 @@ const created_at = computed(() => {
         <div class="discussionListItem--Wrapper">
             <div class="listBlock account hidden sm:block">
                 <Link class="avatar" data-avatarhtml="true" :href="route('member', props.user_id)" :title="props.username">
-                    <img :alt="props.username" height="48" :src="props.userAvatar" width="48">
+                    <img height="48" :src="props.userAvatar" width="48">
                 </Link>
-                <div class="bold lastPostInfo"><Link class="username" :href="route('member', props.user_id)"><span class="style2">{{ props.username }}</span></Link>
+                <div class="bold lastPostInfo">
+                    <Link class="username" :href="route('member', props.user_id)"><span class="style2">{{ props.username }}</span></Link>
                 </div>
             </div>
             <Link class="listBlock main" :href="route('thread.view', id)">

@@ -25,9 +25,9 @@
                              image="images/qimia.png"
                              prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
             </div>
-            <div class="flex justify-center glow">
-                <BaseIcon :path="mdiStar" size="300" w="w-auto" h="h-auto" fill="yellow"/>
-            </div>
+                <div class="flex justify-center glow overflow-hidden">
+                    <BaseIcon class="star_animation" :path="mdiStar" size="300" w="w-auto" h="h-auto" fill="yellow"/>
+                </div>
             <Footer/>
         </div>
     </main>
@@ -69,6 +69,8 @@ const props = defineProps({
 }
 .glow {
     filter: drop-shadow(0 0 20px #ffdc00);
+}
+.star_animation{
     animation-name: spin;
     animation-duration: 16s;
     animation-iteration-count: infinite;

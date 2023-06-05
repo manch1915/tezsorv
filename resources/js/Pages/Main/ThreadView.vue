@@ -1,18 +1,17 @@
 <script setup>
 import MainHeader from "@/Components/MainHeader.vue";
-import List from '@editorjs/list';
-import ImageTool from '@editorjs/image';
-import LinkTool from '@editorjs/link';
 import EditorJS from '@editorjs/editorjs';
-import Header from "@editorjs/header";
 import {Link} from "@inertiajs/vue3";
 import {computed} from "vue";
+
+import AddToFavorites from "@/Components/AddToFavorites.vue";
 
 const props = defineProps({
     auth: Object,
     thread: Object,
+    hasFavorite: Boolean,
 })
-const months =  [
+const months = [
     "Հունվարի",
     "Փետրվարի",
     "Մարտի",
@@ -39,40 +38,6 @@ const editor = new EditorJS({
     holder: 'editorjs',
     readOnly: true,
     data: JSON.parse(props.thread.body),
-    tools: {
-        paragraph: {
-            config: {
-                placeholder: 'Tell your story...'
-            }
-        },
-        header: {
-            class: Header,
-            config: {
-                placeholder: 'Enter a header',
-                levels: [2, 3, 4],
-                defaultLevel: 3
-            }
-        },
-        list: {
-            class: List,
-            inlineToolbar: true,
-        },
-        image: {
-            class: ImageTool,
-            config: {
-                endpoints: {
-                    byFile: 'http://localhost:8000/main/thread/uploadFile', // Your backend file uploader endpoint
-                }
-            }
-        },
-        linkTool: {
-            class: LinkTool,
-            config: {
-                endpoint: 'http://localhost:8000/main/thread/fetchUrl', // Your backend endpoint for url data fetching,
-            }
-        }
-
-    },
 },)
 </script>
 <template>
@@ -80,19 +45,27 @@ const editor = new EditorJS({
         <MainHeader :auth="props.auth"/>
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">
-                <h1 class="text-start text-white text-2xl mb-2">{{ thread.title}}</h1>
-                <h1 class="text-start text-mainText text-sm mb-6">Հոդված {{ thread.category.name}} -> {{ thread.subcategory.name}} բաժնում ստեղծվել է {{ thread.user.username }}-ի կողմից {{ created_at }} | {{thread.views}} դիտում</h1>
+                <h1 class="text-start text-white text-2xl mb-2">{{ thread.title }}</h1>
+                <h1 class="text-start text-mainText text-sm mb-6">Հոդված {{ thread.category.name }} ->
+                    {{ thread.subcategory.name }} բաժնում ստեղծվել է {{ thread.user.username }}-ի կողմից {{
+                        created_at
+                    }} | {{ thread.views }} դիտում</h1>
             </div>
         </section>
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">
-                <div class="user__data flex">
-                    <div class="user__avatar w-16">
-                        <img class="rounded-full" :src="thread.user.profile_picture" alt="">
+                <div class="user__data flex justify-between">
+                    <div class="flex">
+                        <div class="user__avatar w-16">
+                            <img class="rounded-full" :src="thread.user.profile_picture" alt="">
+                        </div>
+                        <Link :href="route('member', thread.user.id)"
+                              class="pl-5 text-lg text-white hover:text-green-800 transition">{{ thread.user.username }}
+                        </Link>
+                        <div>
+                            <p class="ml-5 bg-second text-sm p-2 rounded text-mainText">Հոդվածի հեղինակ</p></div>
                     </div>
-                    <Link :href="route('member', thread.user.id)" class="pl-5 text-lg text-white hover:text-green-800 transition">{{ thread.user.username }}</Link>
-                    <div>
-                    <p class="ml-5 bg-second text-sm p-2 rounded text-mainText">Հոդվածի հեղինակ</p></div>
+                    <add-to-favorites :thread-id="thread.id" :hasFavorite="hasFavorite"/>
                 </div>
                 <div id="editorjs" class="text-white"></div>
             </div>
@@ -102,12 +75,14 @@ const editor = new EditorJS({
 
 <style>
 
-main{
+main {
     background-color: #303030;
 }
-section{
+
+section {
     max-width: 1076px;
 }
+
 .headerMover {
     max-width: 1076px;
     margin: 20px auto;
@@ -115,12 +90,14 @@ section{
     zoom: 1;
     box-sizing: border-box;
 }
+
 @media screen and (max-width: 768px) {
     .headerMover {
         padding-top: 2rem;
     }
 }
-.user__avatar{
+
+.user__avatar {
 
 }
 </style>

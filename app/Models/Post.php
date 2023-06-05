@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 
 class Post extends Model
 {
     use HasFactory;
-
+    use Favoriteable;
     protected $fillable = [
         'title',
         'body',

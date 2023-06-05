@@ -1,6 +1,8 @@
 <?php
 
 use App\Mail\DemoMail;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
@@ -20,11 +22,8 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('sendmail', function () {
-    $mailData = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp.'
-    ];
+Artisan::command('favorite', function () {
+    $user = User::find(1);
 
-    Mail::to('levon.10h.y@gmail.com')->send(new DemoMail($mailData));
+    dd($user->getFavoriteItems(Post::class));
 })->purpose('Display an inspiring quote');

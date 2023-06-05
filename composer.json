@@ -6,15 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-dom": "*",
+        "ext-libxml": "*",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "overtrue/laravel-favorite": "^5.1",
         "tightenco/ziggy": "^1.0",
-        "yish/imgur": "^2.0",
-        "ext-libxml": "*",
-        "ext-dom": "*"
+        "yish/imgur": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
