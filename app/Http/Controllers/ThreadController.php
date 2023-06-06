@@ -105,4 +105,10 @@ class ThreadController extends Controller
     {
         return inertia('Main/Main');
     }
+
+    public function showFavorites(){
+        $favorites = auth()->user()?->getFavoriteItems(Post::class)->with('user', 'subcategory', 'category')->get();
+        return inertia('Main/Favorites', ['favorites' => $favorites]);
+    }
+
 }

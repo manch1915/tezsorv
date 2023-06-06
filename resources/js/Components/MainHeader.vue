@@ -6,11 +6,12 @@ import {NConfigProvider, NDropdown, NIcon, NInput,darkTheme} from "naive-ui";
 import {
     PersonCircleOutline as UserIcon,
     Pencil as EditIcon,
-    LogOutOutline as LogoutIcon
+    LogOutOutline as LogoutIcon,
+    HeartOutline as SaveIcon
 } from "@vicons/ionicons5";
 import { Link } from '@inertiajs/vue3';
 import BaseIcon from "@/Components/BaseIcon.vue";
-//todo fix icons to mdi
+
 
 const props =  defineProps({
     auth: Object,
@@ -44,6 +45,16 @@ const options = ref([
         props: {
             onClick: () => {
                 router.visit(route('personalDetails'))
+            }
+        }
+    },
+    {
+        label: "Favorites",
+        key: "showFavorites",
+        icon: renderIcon(SaveIcon),
+        props: {
+            onClick: () => {
+                router.visit(route('thread.showFavorites'))
             }
         }
     },

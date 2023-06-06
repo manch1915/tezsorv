@@ -31,6 +31,7 @@ Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
     Route::get('/thread/new', [\App\Http\Controllers\ThreadController::class, 'newThread'])->name('thread.new');
     Route::get('/thread/{id}', [\App\Http\Controllers\ThreadController::class, 'showThread'])->name('thread.view');
     Route::get('/threads/{category}/{subcategory?}', [\App\Http\Controllers\ThreadController::class, 'showThreads'])->where(['category' => '[0-9]+', 'subcategory' => '[0-9]+'])->name('thread.showThreads');
+    Route::get('/threads/favorites', [\App\Http\Controllers\ThreadController::class, 'showFavorites'])->name('thread.showFavorites');
     Route::post('/thread/new', [\App\Http\Controllers\ThreadController::class, 'storeThread'])->name('thread.store');
     Route::get('/thread/fetchUrl', [\App\Http\Controllers\ThreadController::class, 'fetchUrl'])->name('thread.fetchUrl');
     Route::post('/thread/uploadFile', [\App\Http\Controllers\ThreadController::class, 'uploadFile'])->name('thread.uploadFile');
