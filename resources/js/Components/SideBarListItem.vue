@@ -4,14 +4,14 @@
             <div @click.prevent="active = !active" class="nodeText">
                 <h3 class="nodeTitle flex">
                     <a href="#" v-if="list">
-                        {{ list['name'] }}
+                        {{ props.list['name'] }}
                     </a>
                     <ChevronDownIcon :class="active ? 'w-6 rotate-180 transition cursor-pointer' : 'w-6 rotate-0 transition cursor-pointer'"/>
                 </h3>
             </div>
-            <TransitionExpand>
+            <div ref="parent">
                 <ol v-if="active" class="subForumList">
-                <li v-for="item in list.subcategories" class="node node766 forum level-n">
+                <li v-for="item in props.list.subcategories" class="node node766 forum level-n">
                     <div class="unread">
                         <h4 class="nodeTitle">
                             <Link class="menuRow" :href="route('thread.showThreads', [item.category_id,item.id] )">{{ item.name }}</Link>
@@ -19,28 +19,25 @@
                     </div>
                 </li>
             </ol>
-            </TransitionExpand>
+            </div>
         </div>
     </li>
 </template>
 
-<script>
+<script setup>
 import { ChevronDownIcon  } from '@heroicons/vue/24/outline'
-import TransitionExpand from "@/Components/TransitionExpand.vue";
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
+
 import {Link} from "@inertiajs/vue3"
-//todo composition api
-export default {
-    name: "SideBarListItem",
-    components: {TransitionExpand, ChevronDownIcon,Link},
-    data(){
-        return{
-            active: false,
-        }
-    },
-    props: {
-        list: Object,
-    }
-}
+import {ref} from "vue";
+
+const props = defineProps({
+    list: Object,
+})
+const active = ref(false)
+const [parent] = useAutoAnimate({
+    duration: 10
+})
 </script>
 
 <style scoped>
@@ -67,8 +64,6 @@ export default {
     color: inherit;
 }
 .subForumList{
-    height: 0px;
-    overflow: hidden;
     margin: 5px 0 5px 32px;
 }
 .node .subForumList li {

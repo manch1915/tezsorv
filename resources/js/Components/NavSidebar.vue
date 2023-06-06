@@ -36,7 +36,6 @@ const categories = computed(() => store.slideList);
     <div class="flex justify-center my-2" v-if="state.loading">
         <ring-loader :loading="state.loading"/>
     </div>
-    <TransitionExpand>
     <div v-show="openList" class="section pt-4" v-if="categories[0]">
         <ol class="nodeList NodeList forums text-slate-300">
             <ul class="generalTabs"  >
@@ -96,7 +95,6 @@ const categories = computed(() => store.slideList);
             </li>
         </ol>
     </div>
-    </TransitionExpand>
 </template>
 
 <style scoped>
