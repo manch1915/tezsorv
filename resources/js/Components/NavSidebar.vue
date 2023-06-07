@@ -5,7 +5,6 @@ import {Link} from "@inertiajs/vue3";
 import { useMainStore } from "@/stores/main";
 import {computed, onMounted, reactive, ref} from 'vue';
 import RingLoader from "vue-spinner/src/RingLoader.vue";
-import TransitionExpand from "@/Components/TransitionExpand.vue";
 
 const state = reactive({
     loading: false,
