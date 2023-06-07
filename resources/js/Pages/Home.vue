@@ -14,17 +14,9 @@
             </div>
         </section>
         <div class="mx-auto max-w-7xl">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-5 p-2 gap-y-3">
-                <HomeCardImg
-                             image="images/fizika.png"
-                             prov="Ֆիզիկան նյութի, էներգիայի և դրանց փոխազդեցությունների ուսումնասիրությունն է:Ուսանեք մեխանիկայի, ջերմոդինամիկայի և այլնի մասին:" zagalovok="Ֆիզիկա"/>
-                <HomeCardImg
-                             image="images/prog.png"
-                             prov="Ծրագրավորումը համակարգչային ծրագրեր գրելու արվեստ է ՝ օգտագործելով ծրագրավորման լեզուներ:Ուսանեք վեբ զարգացման, խաղերի ձևավորման և այլնի մասին:" zagalovok="Ծրագրավորում"/>
-                <HomeCardImg
-                             image="images/qimia.png"
-                             prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
-            </div>
+            <MainCatalogView text="Ֆիզիկա" image="Albert.png" side="left"/>
+            <MainCatalogView text="Քիմիա" image="Heisenberg.png" side="right"/>
+            <MainCatalogView text="Ծրագրավորում" image="Eliot.png" side="left"/>
                 <div class="flex justify-center glow overflow-hidden">
                     <BaseIcon class="star_animation" :path="mdiStar" size="300" w="w-auto" h="h-auto" fill="yellow"/>
                 </div>
@@ -40,6 +32,7 @@ import Header from "@/Components/Header.vue";
 import HomeCardImg from "@/Components/HomeCardImg.vue";
 import { mdiStar } from '@mdi/js';
 import BaseIcon from "@/Components/BaseIcon.vue";
+import MainCatalogView from "@/Components/MainCatalogView.vue";
 const props = defineProps({
     user: Object,
 })

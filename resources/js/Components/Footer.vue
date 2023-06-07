@@ -11,7 +11,7 @@
                                 <p class="text-sm">Նորություններ, հետագա թարմացումներ, և ընդհանուր տեղեկություններ<br></p>
                             </div>
                         </div>
-                        <a class="button dont-shrink w-button" href="https://discord.gg/e469yVEy" target="_blank">Միանալ</a></div>
+                        <a class="button dont-shrink w-button" href="https://t.me/narcisguru" target="_blank">Միանալ</a></div>
                     <div class="padding-bottom padding-xxlarge">
                         <div class="grid grid-cols-1 md:grid-cols-2 footer3_top-wrapper">
                             <div class="footer3_left-wrapper">
