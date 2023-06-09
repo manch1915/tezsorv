@@ -2,20 +2,30 @@
     <main class="px-4 my-11">
         <div class="flex justify-between items-center catalogcard px-4 min-h-[6rem]">
             <div v-if="props.side === 'left'" class="image-wrapper w-2/6">
-                <img :src="`/images/${props.image}`" class="w-full" alt="">
+                <n-image
+                    lazy
+                    class="w-full"
+                    :src="`/images/${props.image}`"
+                    :preview-disabled="true"
+                />
             </div>
             <div :class="props.side === 'right' ? 'flex w-4/6 justify-start' : 'flex w-4/6 justify-end'" >
                 <p class="card-text text-[7vw] glow max-w-fit ">{{ props.text }}</p>
             </div>
             <div v-if="props.side === 'right'" class="image-wrapper w-2/6">
-                <img :src="`/images/${props.image}`" alt="">
+                <n-image
+                    lazy
+                    class="w-full"
+                    :src="`/images/${props.image}`"
+                    :preview-disabled="true"
+                />
             </div>
         </div>
     </main>
 </template>
 
 <script setup>
-
+import { NImage} from 'naive-ui'
 const props = defineProps({
     text: String,
     image: String,
