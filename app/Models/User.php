@@ -58,4 +58,17 @@ class User extends Authenticatable
         return $this->hasMany(Like::class, 'user_id');
     }
 
+    public function getReferrals()
+    {
+        return ReferralProgram::all()->map(function ($program) {
+            return ReferralLink::getReferral($this, $program);
+        });
+    }
+
+    //add credits
+    public function addCredits($credits)
+        {
+            $this->neo += $credits;
+            $this->save();
+        }
 }

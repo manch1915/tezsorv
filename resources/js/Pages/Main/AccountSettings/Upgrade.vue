@@ -7,20 +7,20 @@ import {darkTheme} from 'naive-ui'
 import BaseIcon from "@/Components/BaseIcon.vue";
 import {mdiReload} from '@mdi/js';
 import {ref} from "vue";
-import axios from 'axios';
-import {toast} from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
 import ProgressItem from "@/Components/ProgressItem.vue";
 
 const props = defineProps({
     auth: Object,
+    referralLink: Object,
+    neoCount: Number
 })
 
 const loading = ref(false)
-const refLink = ref('asdsadsadasdasdasd')
+const refLink = `${route('register')}?ref=${props.referralLink.code}`;
+
 
 const copyToClipboard = () => {
-    navigator.clipboard.writeText(refLink.value)
+    navigator.clipboard.writeText(refLink)
 }
 
 </script>
@@ -37,23 +37,30 @@ const copyToClipboard = () => {
                                 <h1 class="text-xl text-slate-300">Պրոգրեսս</h1>
                                 <n-progress
                                     type="line"
-                                    :percentage="1"
+                                    :percentage="neoCount"
+                                    unit=""
                                     :height="24"
                                     border-radius="12px 0 12px 0"
                                     fill-border-radius="12px 0 12px 0"
                                 />
-                                <p class="text-lg text-slate-300">Կանչիր ընկերենրիդ narcis.guru և ստացիր նոր դեր թյուր բոնուսներով</p>
+                                <p class="text-lg text-slate-300">Կանչիր ընկերենրիդ narcis.guru և ստացիր նոր դեր թյուր
+                                    բոնուսներով</p>
                                 <p class="text-lg text-slate-300">Քո ռեֆ հղումը։</p>
                                 <n-input-group>
-                                <n-input readonly v-model:value="refLink"/>
-                                <n-button @click.prevent="copyToClipboard">Copy</n-button>
+                                    <n-input readonly v-model:value="refLink"/>
+                                    <n-button @click.prevent="copyToClipboard">Copy</n-button>
                                 </n-input-group>
                                 <n-space vertical align="center">
-                                    <progress-item title="Ալֆա - 10 ռեֆեռալ" src="https://media1.giphy.com/media/3o7bufgPP70ra2ZVi8/giphy.gif?cid=ecf05e47rxtnd0spv3mcuts2oyrees166v6pqpvkzodibg56&ep=v1_gifs_search&rid=giphy.gif&ct=g" />
-                                    <progress-item title="Բետա - 8 ռեֆեռալ" src="https://media2.giphy.com/media/XHjTpNqsepb3stp93A/giphy.gif?cid=ecf05e47v1py78df81jtu46ekboh7dpfl451u4fu1eghamvw&ep=v1_gifs_search&rid=giphy.gif&ct=g" />
-                                    <progress-item title="Դելտա - 5 ռեֆեռալ" src="https://media4.giphy.com/media/cjnuM6TGzVIQ0fa5yy/giphy.gif?cid=ecf05e47pmozd4kexlzna89d134sn6s2p0wdkoy9krv3jgqy&ep=v1_gifs_search&rid=giphy.gif&ct=g" />
-                                    <progress-item title="Գամմա - 3 ռեֆեռալ" src="https://media2.giphy.com/media/l0MYDGA3Du1hBR4xG/giphy.gif?cid=ecf05e473ba20i6mybbicgvw0pqvk5k1oi78h0ec7lsau8vn&ep=v1_gifs_search&rid=giphy.gif&ct=g" />
-                                    <progress-item title="Օմեգա - 1 ռեֆեռալ" src="https://media4.giphy.com/media/9tT0s3SBnDm4o/giphy.gif?cid=ecf05e476agvciuj95x2zxkv1dwxtlwkyqq26qv0vee8ko0w&ep=v1_gifs_search&rid=giphy.gif&ct=g" />
+                                    <progress-item title="Ալֆա - 100neo"
+                                                   src="https://media1.giphy.com/media/3o7bufgPP70ra2ZVi8/giphy.gif?cid=ecf05e47rxtnd0spv3mcuts2oyrees166v6pqpvkzodibg56&ep=v1_gifs_search&rid=giphy.gif&ct=g"/>
+                                    <progress-item title="Բետա - 60neo"
+                                                   src="https://media2.giphy.com/media/XHjTpNqsepb3stp93A/giphy.gif?cid=ecf05e47v1py78df81jtu46ekboh7dpfl451u4fu1eghamvw&ep=v1_gifs_search&rid=giphy.gif&ct=g"/>
+                                    <progress-item title="Դելտա - 45neo"
+                                                   src="https://media4.giphy.com/media/cjnuM6TGzVIQ0fa5yy/giphy.gif?cid=ecf05e47pmozd4kexlzna89d134sn6s2p0wdkoy9krv3jgqy&ep=v1_gifs_search&rid=giphy.gif&ct=g"/>
+                                    <progress-item title="Գամմա - 30neo"
+                                                   src="https://media2.giphy.com/media/l0MYDGA3Du1hBR4xG/giphy.gif?cid=ecf05e473ba20i6mybbicgvw0pqvk5k1oi78h0ec7lsau8vn&ep=v1_gifs_search&rid=giphy.gif&ct=g"/>
+                                    <progress-item title="Օմեգա - 15neo"
+                                                   src="https://media4.giphy.com/media/9tT0s3SBnDm4o/giphy.gif?cid=ecf05e476agvciuj95x2zxkv1dwxtlwkyqq26qv0vee8ko0w&ep=v1_gifs_search&rid=giphy.gif&ct=g"/>
                                 </n-space>
                             </n-space>
                             <n-button :loading="loading">

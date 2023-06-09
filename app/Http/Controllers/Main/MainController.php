@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\ReferralLink;
+use App\Models\ReferralProgram;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yish\Imgur\Facades\Upload as Imgur;
 
@@ -50,7 +53,9 @@ class MainController extends Controller
 
     public function upgrade()
     {
-        return inertia('Main/AccountSettings/Upgrade');
+        $referralLink = ReferralLink::getReferral(auth()->user()->id, 1);
+        $neoCount = auth()->user()->neo;
+        return inertia('Main/AccountSettings/Upgrade', ['referralLink' => $referralLink, 'neoCount' => $neoCount]);
     }
 
     public function avatarUpload(Request  $request)
