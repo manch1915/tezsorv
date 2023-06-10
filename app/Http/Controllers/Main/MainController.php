@@ -29,7 +29,7 @@ class MainController extends Controller
         $member = User::find($id);
         $member['status'] = $member->status;
         $member['sex'] = $member->sex;
-
+        $member['role'] = $member->getRoleNames()->last();
         if (!$member) {
             return response()->json(['message' => 'Member not found']);
         }
@@ -55,20 +55,23 @@ class MainController extends Controller
     {
         $referralLink = ReferralLink::getReferral(auth()->user()->id, 1);
         $neoCount = auth()->user()->neo;
-        return inertia('Main/AccountSettings/Upgrade', ['referralLink' => $referralLink, 'neoCount' => $neoCount]);
+        $userRole = auth()->user()->getRoleNames()->last();
+        return inertia('Main/AccountSettings/Upgrade', ['referralLink' => $referralLink, 'neoCount' => $neoCount,  'userRole' => $userRole]);
     }
 
     public function avatarUpload(Request  $request)
-
     {
 
-        $image = $request->file('avatar');
+        $avatar = $request->file('avatar');
+        if ($avatar->getClientOriginalExtension() === 'gif' && !auth()->user()->can('add-animated-pfp')){
+            return response()->json('Animated avatars are not allowed for your role');
+        }
 
-        $image = Imgur::upload($image);
-
+        $image = Imgur::upload($avatar);
         $user = auth()->user();
         $user->profile_picture = $image->link();
         $user->save();
+
         return response()->json('Avatar uploaded successfully');
     }
 
@@ -77,19 +80,23 @@ class MainController extends Controller
         $user = auth()->user();
         $neo = $user->neo;
 
-        if ($user->neo >= $neo){
-            $user->assignRole('omega');
-        }elseif ($user->neo >= $neo) {
-            $user->assignRole('gamma');
-        }elseif ($user->neo >= $neo){
-            $user->assignRole('delta');
-        }elseif ($user->neo >= $neo){
-            $user->assignRole('beta');
-        }elseif ($user->neo >= $neo){
-            $user->assignRole('alfa');
-        }else{
+        $roles = collect([
+            ['role' => 'alfa', 'threshold' => 100],
+            ['role' => 'beta', 'threshold' => 60],
+            ['role' => 'delta', 'threshold' => 45],
+            ['role' => 'gamma', 'threshold' => 30],
+            ['role' => 'omega', 'threshold' => 15],
+        ]);
+
+        $role = $roles->first(function ($item) use ($neo) {
+            return $neo >= $item['threshold'];
+        });
+
+        if ($role) {
+            $user->assignRole($role['role']);
+            return response()->json(['message' => 'Role upgraded successfully, your role is ' . $role['role']]);
+        } else {
             return response()->json(['message' => 'You need to upgrade your account']);
         }
-        return response()->json(['message' => 'Role upgraded successfully']);
     }
 }

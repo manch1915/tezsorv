@@ -39,12 +39,15 @@ Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {
 
     Route::post('/like', [App\Http\Controllers\LikeController::class, 'like'])->name('like');
 
-    Route::post('addToFavorites', [App\Http\Controllers\FavoritesController::class, 'addToFavorites'])->name('addToFavorites');
+    Route::post('addToFavorites', [App\Http\Controllers\FavoritesController::class, 'addToFavorites'])->middleware('can:add-to-favorites')->name('addToFavorites');
 
     //account settings routes
     Route::get('/account/personal-details', [Main::class, 'personalDetails'])->name('personalDetails');
     Route::get('/account/contact-details', [Main::class, 'contactDetails'])->name('contactDetails');
+
     Route::get('/account/upgrade', [Main::class, 'upgrade'])->name('upgrade');
+    Route::post('/account/upgradeRole', [Main::class, 'upgradeRole'])->name('upgradeRole');
+
     Route::get('/account/security', [Main::class, 'security'])->name('security');
 });
 

@@ -28,7 +28,12 @@ async function getResult() {
 const saveAvatar = () => {
     loading.value = true
     const formData = new FormData();
-    formData.append('avatar', blobFile.value);
+    console.log()
+    if (selectedFile.value.type.split('/').pop() === 'gif'){
+        formData.append('avatar', selectedFile.value);
+    }else{
+        formData.append('avatar', blobFile.value);
+    }
 
     axios.post(route('avatarUpload'), formData, {
         headers: {
@@ -37,6 +42,7 @@ const saveAvatar = () => {
     }).then(res => {
         loading.value = false
         showModal.value = false
+        console.log(res)
     }).catch(err => {
         console.log(err)
     })
@@ -61,7 +67,7 @@ const saveAvatar = () => {
         >
             <n-upload
                 :show-upload-list="false"
-                accept="image/jpeg, image/png"
+                accept="image/jpeg, image/png, image/gif"
                 @change="handleFileChange"
             >
                 <n-button class="w-full">Upload Image</n-button>

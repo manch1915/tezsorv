@@ -45,7 +45,7 @@ const memberCreatedAt = computed(() =>
                                 <li v-if="member.last_name">Ազգանուն:</li>
                                 <li v-if="memberCreatedAt ">Գրանցվել է:</li>
                                 <li v-if="member.sex.name">Սեռ:</li>
-                                <li v-if="member.status.name">Ստատուս:</li>
+                                <li v-if="member.role">Դեր:</li>
                                 <li v-if="member.country">Երկիր:</li>
                                 <li v-if="member.city">Քաղաք:</li>
                             </ul>
@@ -56,7 +56,7 @@ const memberCreatedAt = computed(() =>
                                 <li>{{ member.last_name }}</li>
                                 <li>{{ memberCreatedAt }}</li>
                                 <li>{{ member.sex.name }}</li>
-                                <li>{{ member.status.name }}</li>
+                                <li>{{ member.role }}</li>
                                 <li>{{ member.country }}</li>
                                 <li>{{ member.city }}</li>
                             </ul>

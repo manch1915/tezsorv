@@ -67,6 +67,9 @@ class ThreadController extends Controller
 
     public function storeThread(ThreadStoreRequest $request): array
     {
+        if (!auth()->user()->can('create-threads')){
+            abort(403,'Դուք չեք կարող ստեղծել նոր հոդված');
+        }
         $request->validated();
         $thread = Post::create([
             'title' => $request->title,

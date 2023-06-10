@@ -2,17 +2,20 @@
 import MainHeader from "@/Components/MainHeader.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import NavSettings from "@/Components/NavSettings.vue";
-import {NButton, NConfigProvider, NImage, NInput, NInputGroup, NProgress, NSpace} from "naive-ui";
-import {darkTheme} from 'naive-ui'
 import BaseIcon from "@/Components/BaseIcon.vue";
+import ProgressItem from "@/Components/ProgressItem.vue";
+import {NButton, NConfigProvider, NInput, NInputGroup, NProgress, NSpace, darkTheme} from "naive-ui";
 import {mdiReload} from '@mdi/js';
 import {ref} from "vue";
-import ProgressItem from "@/Components/ProgressItem.vue";
+import axios from 'axios';
+import {toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps({
     auth: Object,
     referralLink: Object,
-    neoCount: Number
+    neoCount: Number,
+    userRole: String
 })
 
 const loading = ref(false)
@@ -21,6 +24,15 @@ const refLink = `${route('register')}?ref=${props.referralLink.code}`;
 
 const copyToClipboard = () => {
     navigator.clipboard.writeText(refLink)
+}
+
+const upgradeRole = () => {
+    axios.post(route('upgradeRole'))
+        .then(res => toast(res.data.message, {
+            autoClose: 3000,
+            theme: "dark",
+            type: "success"
+        }))
 }
 
 </script>
@@ -35,6 +47,7 @@ const copyToClipboard = () => {
                         <div class="mainContent flex flex-col">
                             <n-space vertical>
                                 <h1 class="text-xl text-slate-300">Պրոգրեսս</h1>
+                                <h1 class="text-xl text-slate-300">Քո դերն է <span class="text-pink-600">{{ props.userRole }}</span></h1>
                                 <n-progress
                                     type="line"
                                     :percentage="neoCount"
@@ -63,7 +76,7 @@ const copyToClipboard = () => {
                                                    src="https://media4.giphy.com/media/9tT0s3SBnDm4o/giphy.gif?cid=ecf05e476agvciuj95x2zxkv1dwxtlwkyqq26qv0vee8ko0w&ep=v1_gifs_search&rid=giphy.gif&ct=g"/>
                                 </n-space>
                             </n-space>
-                            <n-button :loading="loading">
+                            <n-button @click.prevent="upgradeRole" :loading="loading">
                                 <template #icon>
                                     <BaseIcon :path="mdiReload "/>
                                 </template>
