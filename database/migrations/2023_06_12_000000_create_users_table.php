@@ -38,7 +38,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('username');
-            $table->foreign('sex_id')->references('id')->on('sexes')->onDelete('cascade');
         });
     }
     /**
