@@ -12,7 +12,9 @@ class StoreReferralCode
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param $request
+     * @param Closure(Request): (Response) $next
+     * @return mixed|Response
      */
     public function handle($request, Closure $next)
     {

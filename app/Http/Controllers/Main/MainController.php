@@ -72,5 +72,24 @@ class MainController extends Controller
         return response()->json('Avatar uploaded successfully');
     }
 
+    public function upgradeRole(Request $request)
+    {
+        $user = auth()->user();
+        $neo = $user->neo;
 
+        if ($user->neo >= $neo){
+            $user->assignRole('omega');
+        }elseif ($user->neo >= $neo) {
+            $user->assignRole('gamma');
+        }elseif ($user->neo >= $neo){
+            $user->assignRole('delta');
+        }elseif ($user->neo >= $neo){
+            $user->assignRole('beta');
+        }elseif ($user->neo >= $neo){
+            $user->assignRole('alfa');
+        }else{
+            return response()->json(['message' => 'You need to upgrade your account']);
+        }
+        return response()->json(['message' => 'Role upgraded successfully']);
+    }
 }

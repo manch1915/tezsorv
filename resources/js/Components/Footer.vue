@@ -51,7 +51,7 @@
                     <div class="line-divider"></div>
                     <div class="padding-top padding-medium">
                         <div class="footer3_bottom-wrapper">
-                            <div class="footer3_credit-text">© 2023 Narcis. Բոլոր իրավունքները պաշտպանված են:</div>
+                            <div class="footer3_credit-text">©2023 Narcis. Բոլոր իրավունքները պաշտպանված են: Կայքի ամբողջական կամ մասնակի պատճենումն արգելվում է:</div>
                             <div class="w-layout-grid footer3_legal-list">
                                 <a class="footer3_legal-link" href="#">Privacy Policy</a>
                                 <a class="footer3_legal-link" href="#">Terms &amp;Conditions</a>

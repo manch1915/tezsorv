@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \App\Http\Controllers\DashboardController as Dashboard;
 use \App\Http\Controllers\Main\MainController as Main;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +24,7 @@ Route::get('/catalog', [\App\Http\Controllers\IndexController::class, 'catalog']
 Route::get('/wysiwyg', [\App\Http\Controllers\IndexController::class, 'wysiwyg'])->name('wysiwyg');
 
 
-Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
+Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {
     Route::get('/', [Main::class, 'index'])->name('main');
     Route::get('/member/{id}', [Main::class, 'member'])->name('member');
     Route::post('/avatarUpload', [Main::class, 'avatarUpload'])->name('avatarUpload');
@@ -47,10 +48,10 @@ Route::group(['prefix' => 'main', 'middleware' => 'auth'], function (){
     Route::get('/account/security', [Main::class, 'security'])->name('security');
 });
 
-Route::group(['prefix' => 'dashboard'],function (){
+Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
     Route::get('/cheatsheet', [Dashboard::class, 'cheatsheet'])->name('cheatsheet');
-    Route::get('/tables',[Dashboard::class, 'tables'])->name('tables');
+    Route::get('/tables', [Dashboard::class, 'tables'])->name('tables');
     Route::get('/forms', [Dashboard::class, 'forms'])->name('forms');
     Route::get('/ui', [Dashboard::class, 'ui'])->name('ui');
     Route::get('/responsive', [Dashboard::class, 'responsive'])->name('responsive');
@@ -66,5 +67,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

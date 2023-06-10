@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             UsersSeeder::class,
             CategorySeeder::class,
-            SubcategorySeeder::class
+            SubcategorySeeder::class,
+            RoleAndPermissionSeeder::class,
             ]);
     }
 }
