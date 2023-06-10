@@ -24,15 +24,12 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->text('about')->nullable();
-            $table->foreignId('status_id')->default(1)->constrained();
             $table->string('mobile_number')->nullable();
             $table->boolean('mobile_number_verified')->default(false);
             $table->string('profile_picture')->nullable();
 
             $table->bigInteger('neo')->default(0);
             $table->unsignedInteger('likes_count')->default(0);
-
-
 
             $table->string('instagram')->nullable();
             $table->string('telegram')->nullable();
