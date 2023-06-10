@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('sex_id')->default(1)->constrained();
             $table->date('date_of_birth')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
@@ -41,7 +40,8 @@ return new class extends Migration
 
             $table->index('username');
             $table->foreign('sex_id')->references('id')->on('sexes')->onDelete('cascade');
-       });
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+        });
     }
     /**
      * Reverse the migrations.
