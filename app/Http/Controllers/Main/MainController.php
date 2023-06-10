@@ -27,7 +27,6 @@ class MainController extends Controller
     public function showMember(int $id)
     {
         $member = User::find($id);
-        $member['status'] = $member->status;
         $member['sex'] = $member->sex;
         $member['role'] = $member->getRoleNames()->last();
         if (!$member) {
