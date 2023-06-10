@@ -327,6 +327,7 @@ input.textCtrl:focus, select.textCtrl:focus, textarea.textCtrl:focus, div.textCt
 }
 
 .avatar img, .avatar .img, .avatarCropper {
+    object-fit: cover;
     border-radius: 50%;
     image-rendering: optimizeSpeed;
 }

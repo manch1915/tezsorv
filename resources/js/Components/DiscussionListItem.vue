@@ -74,6 +74,7 @@ const created_at = computed(() => {
     background: rgb(45, 45, 45);
 }
 .avatar img{
+    object-fit: cover;
     width: 40px;
     height: 40px;
     float: left;

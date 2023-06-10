@@ -41,7 +41,6 @@ const saveData = async () => {
     } catch (error) {
         console.error(error)
     }
-
 }
 
 </script>
