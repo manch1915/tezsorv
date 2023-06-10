@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SexSeeder::class,
-            StatusSeeder::class,
             UsersSeeder::class,
             CategorySeeder::class,
             SubcategorySeeder::class,
