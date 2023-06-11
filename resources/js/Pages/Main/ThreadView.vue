@@ -1,8 +1,9 @@
 <script setup>
 import MainHeader from "@/Components/MainHeader.vue";
-import EditorJS from '@editorjs/editorjs';
+import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import {Link} from "@inertiajs/vue3";
-import {computed} from "vue";
+import {computed, ref} from "vue";
 
 import AddToFavorites from "@/Components/AddToFavorites.vue";
 
@@ -33,12 +34,9 @@ const created_at = computed(() => {
 
     return `${month} ${day} ${year}`
 })
-
-const editor = new EditorJS({
-    holder: 'editorjs',
-    readOnly: true,
-    data: JSON.parse(props.thread.body),
-},)
+const threadContent = JSON.parse(props.thread.body);
+const converter = new QuillDeltaToHtmlConverter(threadContent.ops, {});
+const html = converter.convert();
 </script>
 <template>
     <main class="min-h-screen">
@@ -67,7 +65,7 @@ const editor = new EditorJS({
                     </div>
                     <add-to-favorites :thread-id="thread.id" :hasFavorite="hasFavorite"/>
                 </div>
-                <div id="editorjs" class="text-white"></div>
+                <div v-html="html"></div>
             </div>
         </section>
     </main>

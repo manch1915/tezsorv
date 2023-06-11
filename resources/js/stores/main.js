@@ -7,7 +7,7 @@ export const useMainStore = defineStore("main", {
     userName: null,
     userEmail: null,
     userAvatar: null,
-    apiUrl: 'http://127.0.0.1:8000/api/',
+    apiUrl: 'http://localhost:8000/api/',
     isFieldFocusRegistered: false,
 
     threadCategory: '',

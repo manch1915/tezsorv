@@ -55,18 +55,12 @@ class ThreadController extends Controller
         $file = $request->file('image');
         $image = Imgur::upload($file);
 
-        $arr = [
-            'success' => 1,
-            'file' => [
-                'url' => $image->link(),
-                ],
-        ];
-
-        return response()->json($arr);
+        return response()->json(['url' =>  $image->link()]);
     }
 
     public function storeThread(ThreadStoreRequest $request): array
     {
+
         if (!auth()->user()->can('create-threads')){
             abort(403,'Դուք չեք կարող ստեղծել նոր հոդված');
         }

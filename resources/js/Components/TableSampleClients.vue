@@ -15,7 +15,7 @@ defineProps({
 
 const mainStore = useMainStore();
 
-mainStore.fetchClients();
+
 const items = computed(() => mainStore.clients);
 console.log(items.value)
 const isModalActive = ref(false);
