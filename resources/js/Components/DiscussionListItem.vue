@@ -36,7 +36,7 @@ const created_at = computed(() => {
 </script>
 
 <template>
-    <div class="discussionListItem" data-author="">
+    <div class="discussionListItem border-b-[1px] border-second" data-author="">
         <div class="discussionListItem--Wrapper">
             <div class="listBlock account hidden sm:block">
                 <Link class="avatar" data-avatarhtml="true" :href="route('member', props.user_id)" :title="props.username">

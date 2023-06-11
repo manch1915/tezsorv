@@ -39,7 +39,7 @@ const converter = new QuillDeltaToHtmlConverter(threadContent.ops, {});
 const html = converter.convert();
 </script>
 <template>
-    <main class="min-h-screen">
+    <main class="min-h-screen pb-6">
         <MainHeader :auth="props.auth"/>
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">

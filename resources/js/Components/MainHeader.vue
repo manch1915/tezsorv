@@ -1,7 +1,7 @@
 <script setup>
 import {h, ref} from "vue";
 import { router } from '@inertiajs/vue3'
-import { mdiMagnify,mdiViewHeadline,mdiSendVariantOutline,mdiBook } from '@mdi/js';
+import { mdiMagnify,mdiViewHeadline,mdiSendVariantOutline,mdiBook,mdiFlowerTulip } from '@mdi/js';
 import {NConfigProvider, NDropdown, NIcon, NInput,darkTheme} from "naive-ui";
 import {
     PersonCircleOutline as UserIcon,
@@ -92,12 +92,9 @@ const active = ref(false)
                                             </a>
                                         </li>
                                         <li>
-                                            <div class="Popup">
-                                                <a class="NoPopupGadget PopupControl PopupClosed" rel="Menu">
-                                                    Սոց ցանցեր
-                                                    <span class="arrowWidget"></span>
-                                                </a>
-                                            </div>
+                                            <a href="https://t.me/narcisguru" target="_blank">
+                                                Տելեգրամ
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -136,8 +133,9 @@ const active = ref(false)
                             </li>
                             <n-dropdown class="custom-dropdown" :options="options">
                                 <li class="navTab account">
-                                     <span id="account-style" class="navLink accountPopup NoPopupGadget" rel="Menu">
-                                         <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">{{ auth.user.username }}</span></b>
+                                     <span id="account-style" class="navLink accountPopup NoPopupGadget flex items-center" rel="Menu">
+                                         <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">{{ auth.user.neo }}</span></b>
+                                         <BaseIcon :path="mdiFlowerTulip"  fill="purple"/>
                                          <span id="NavigationAccountBalance" class="hiddenNarrowUnder">
                                              <span class="balanceLabel hidden">
                                                     <!--Badge-->

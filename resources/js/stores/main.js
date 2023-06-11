@@ -7,7 +7,7 @@ export const useMainStore = defineStore("main", {
     userName: null,
     userEmail: null,
     userAvatar: null,
-    apiUrl: 'http://localhost:8000/api/',
+    apiUrl: 'https://narcis.guru/api/',
     isFieldFocusRegistered: false,
 
     threadCategory: '',

@@ -113,7 +113,6 @@ const memberCreatedAt = computed(() =>
 
 .username {
     padding: 0 0 15px;
-    border-bottom: 1px solid rgb(45, 45, 45);
 }
 
 .username p {
