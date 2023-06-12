@@ -1,8 +1,7 @@
 import {
   mdiMemory,
   mdiAccountBox,
-  mdiChevronDoubleUp,
-  mdiSecurity
+  mdiChevronDoubleUp
 } from "@mdi/js";
 
 export default [
@@ -21,10 +20,4 @@ export default [
         label: "Կարգավիճակի բարձրացում",
         to: "upgrade",
       },
-      {
-        icon: mdiSecurity,
-        label: "Անվտանգություն",
-        to: "security",
-      },
-
 ];

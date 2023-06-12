@@ -1,48 +1,34 @@
 import "../css/main.css";
-
 import { createPinia } from "pinia";
-import { useStyleStore } from "@/stores/style.js";
-import { darkModeKey, styleKey } from "@/config.js";
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 import { MotionPlugin } from "@vueuse/motion";
-const appName =
-  window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
+const appName = window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 const pinia = createPinia();
 
-createInertiaApp({
-  title: (title) => `${title} - ${appName}`,
-  resolve: (name) =>
-    resolvePageComponent(
-      `./Pages/${name}.vue`,
-      import.meta.glob("./Pages/**/*.vue")
-    ),
-  setup({ el, App, props, plugin }) {
-    return createApp({ render: () => h(App, props) })
-      .use(plugin)
-      .use(pinia)
-      .use(ZiggyVue)
-      .use(MotionPlugin)
-      .mount(el);
-  },
-  progress: {
-    color: "#4B5563",
-  },
-});
+(async () => {
+    await createInertiaApp({
+        title: (title) => `${title} - ${appName}`,
+        resolve: (name) =>
+            resolvePageComponent(
+                `./Pages/${name}.vue`,
+                import.meta.glob("./Pages/**/*.vue")
+            ),
+        async setup({el, App, props, plugin}) {
+            const app = createApp({render: () => h(App, props)});
 
-const styleStore = useStyleStore(pinia);
+            app.use(plugin);
+            app.use(pinia);
+            app.use(ZiggyVue);
+            app.use(MotionPlugin);
 
-/* App style */
-styleStore.setStyle(localStorage[styleKey] ?? "basic");
-
-/* Dark mode */
-if (
-  (!localStorage[darkModeKey] &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-  localStorage[darkModeKey] === "1"
-) {
-  styleStore.setDarkMode(true);
-}
+            app.mount(el);
+        },
+        progress: {
+            color: "#4B5563",
+        },
+    });
+})();

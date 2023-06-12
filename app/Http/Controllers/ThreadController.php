@@ -16,62 +16,28 @@ class ThreadController extends Controller
         return inertia('Main/Thread');
     }
 
-    public function fetchUrl(Request $request)
-    {
-
-        $url = $request->input('url');
-        $html = file_get_contents($url);
-
-        $title = '';
-        $description = '';
-        $image = '';
-
-        if ($html !== false) {
-            $doc = new DOMDocument();
-            libxml_use_internal_errors(true);
-            $doc->loadHTML($html);
-            $xpath = new DOMXPath($doc);
-            $title = $xpath->query('//meta[@property="og:title"]/@content')->item(0)->nodeValue;
-            $description = $xpath->query('//meta[@property="og:description"]/@content')->item(0)->nodeValue;
-            $image = $xpath->query('//meta[@property="og:image"]/@content')->item(0)->nodeValue;
-
-            // Do something with the title, description, and image
-        }
-
-        $arr = [
-            'success' => 1,
-            'meta' => [
-                'title' => $title,
-                'description' => $description,
-                'image' => [
-                    'url' => $image,
-                    ],],
-        ];
-        return response()->json($arr);
-    }
-
     public function uploadFile(Request $request)
     {
         $file = $request->file('image');
         $image = Imgur::upload($file);
 
-        return response()->json(['url' =>  $image->link()]);
+        return response()->json(['url' => $image->link()]);
     }
 
     public function storeThread(ThreadStoreRequest $request): array
     {
-
-        if (!auth()->user()->can('create-threads')){
-            abort(403,'Դուք չեք կարող ստեղծել նոր հոդված');
+        if (!auth()->user()->can('create-threads')) {
+            abort(403, 'Դուք չեք կարող ստեղծել նոր հոդված');
         }
-        $request->validated();
+
+        $validatedData = $request->validated();
         $thread = Post::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'user_id' => auth()->user()->id,
-            'category_id' => $request->category,
-            'subcategory_id' => $request->subcategory
-            ]);
+            'title' => $validatedData['title'],
+            'body' => $validatedData['body'],
+            'user_id' => auth()->id(),
+            'category_id' => $validatedData['category'],
+            'subcategory_id' => $validatedData['subcategory'],
+        ]);
 
         return ['redirect' => route('thread.view', $thread->id)];
     }
@@ -82,7 +48,7 @@ class ThreadController extends Controller
 
         if ($category !== null) {
             $query->where('category_id', $category);
-            $posts['category'] = Category::find($category)->name;
+            $posts['category'] = Category::findOrFail($category)->name;
         }
 
         if ($subcategory !== null) {
@@ -90,12 +56,16 @@ class ThreadController extends Controller
         }
 
         $posts['data'] = $query->limit(20)->get();
+
         return response()->json($posts);
     }
 
-    public function showThread($id){
-        $thread = Post::with('user', 'subcategory', 'category')->find($id);
-        return inertia('Main/ThreadView', ['thread' => $thread, 'hasFavorite' => auth()->user()?->hasFavorited($thread) ?? false]);
+    public function showThread($id)
+    {
+        $thread = Post::with('user', 'subcategory', 'category')->findOrFail($id);
+        $hasFavorite = auth()->user()?->hasFavorited($thread) ?? false;
+
+        return inertia('Main/ThreadView', compact('thread', 'hasFavorite'));
     }
 
     public function showThreads()
@@ -103,9 +73,12 @@ class ThreadController extends Controller
         return inertia('Main/Main');
     }
 
-    public function showFavorites(){
+    public function showFavorites()
+    {
         $favorites = auth()->user()?->getFavoriteItems(Post::class)->with('user', 'subcategory', 'category')->get();
-        return inertia('Main/Favorites', ['favorites' => $favorites]);
+
+        return inertia('Main/Favorites', compact('favorites'));
     }
+
 
 }

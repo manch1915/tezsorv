@@ -1,42 +1,43 @@
 <script setup>
-import {h, ref} from "vue";
-import { router } from '@inertiajs/vue3'
-import { mdiMagnify,mdiViewHeadline,mdiSendVariantOutline,mdiBook,mdiFlowerTulip } from '@mdi/js';
-import {NConfigProvider, NDropdown, NIcon, NInput,darkTheme} from "naive-ui";
+import {computed, h, onMounted, ref} from "vue";
+import {router} from '@inertiajs/vue3'
+import {mdiMagnify, mdiViewHeadline, mdiSendVariantOutline, mdiBook, mdiFlowerTulip} from '@mdi/js';
+import {NConfigProvider, NDropdown, NIcon, NInput, darkTheme, NBadge} from "naive-ui";
 import {
     PersonCircleOutline as UserIcon,
     Pencil as EditIcon,
     LogOutOutline as LogoutIcon,
     HeartOutline as SaveIcon
 } from "@vicons/ionicons5";
-import { Link } from '@inertiajs/vue3';
+import {Link} from '@inertiajs/vue3';
+import {useMainStore} from "@/stores/main";
 import BaseIcon from "@/Components/BaseIcon.vue";
 
-
-const props =  defineProps({
+const props = defineProps({
     auth: Object,
-})
+});
 
-const openNav = ref(false)
+const store = useMainStore();
+onMounted(async () => {
+    await store.fetchNotificationCount();
+});
+const notificationsCount = computed(() => store.notifications);
+const openNav = ref(false);
 
 const renderIcon = (icon) => {
-    return () => {
-        return h(NIcon, null, {
-            default: () => h(icon)
-        });
-    };
+    return () => h(NIcon, null, {default: () => h(icon)});
 };
 
-const options = ref([
+const options = [
     {
         label: "Profile",
         key: "member",
         icon: renderIcon(UserIcon),
         props: {
             onClick: () => {
-                router.visit(route('member',props.auth.user.id))
-            }
-        }
+                router.visit(route('member', props.auth.user.id));
+            },
+        },
     },
     {
         label: "Edit Profile",
@@ -44,9 +45,9 @@ const options = ref([
         icon: renderIcon(EditIcon),
         props: {
             onClick: () => {
-                router.visit(route('personalDetails'))
-            }
-        }
+                router.visit(route('personalDetails'));
+            },
+        },
     },
     {
         label: "Favorites",
@@ -54,9 +55,9 @@ const options = ref([
         icon: renderIcon(SaveIcon),
         props: {
             onClick: () => {
-                router.visit(route('thread.showFavorites'))
-            }
-        }
+                router.visit(route('thread.showFavorites'));
+            },
+        },
     },
     {
         label: "Logout",
@@ -64,33 +65,30 @@ const options = ref([
         icon: renderIcon(LogoutIcon),
         props: {
             onClick: () => {
-                router.post(route('logout'))
-            }
-        }
-    }]
-)
+                router.post(route('logout'));
+            },
+        },
+    },
+];
 
-const active = ref(false)
+const active = ref(false);
 </script>
 <template>
     <header>
         <div class="main-container">
             <nav class="">
-                <div class="md:static py-2 px-2 rounded fixed z-50 bg-mine-second w-full top-0 navTabs text-white">
+                <div class="md:static py-2 px-2 rounded-b fixed z-50 bg-mine-second w-full top-0 navTabs text-white">
                     <ul class="publicTabs flex items-center">
                         <div class="mobileMenuButton hiddenResponsiveFull md:hidden block">
-                            <BaseIcon @click="openNav = !openNav" class="text-mainText" w="w-auto" h="h-auto" size="30" :path="mdiViewHeadline"/>
+                            <BaseIcon @click="openNav = !openNav" class="text-mainText" w="w-auto" h="h-auto" size="30"
+                                      :path="mdiViewHeadline"/>
                         </div>
                         <div class="hiddenWideUnder fl_l">
-                            <Link id="neo-logo" class="" :href="route('main')"><img alt="" src="/images/logo.svg"></Link>
+                            <Link id="neo-logo" class="" :href="route('main')"><img alt="" src="/images/logo.svg">
+                            </Link>
                             <li class="navTab selected">
                                 <div class=" tabLinks">
                                     <ul class="secondaryContent blockLinksList">
-                                        <li>
-                                            <a href="#">
-                                                Հոդվածներ
-                                            </a>
-                                        </li>
                                         <li>
                                             <a href="https://t.me/narcisguru" target="_blank">
                                                 Տելեգրամ
@@ -119,30 +117,23 @@ const active = ref(false)
                             <li class="navTab alerts Popup PopupControl PopupClosed PopupContainerControl">
                                 <a class="navLink NoPopupGadget" href="#" rel="Menu">
                                     <div class="counter-container ">
-                                        <svg fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M12 2.1c4.02 0 6.9 3.28 6.9 7.53v1.6c0 .23.2.53.72 1.08l.27.27c1.08 1.1 1.51 1.73 1.51 2.75 0 .44-.05.79-.27 1.2-.45.88-1.42 1.37-2.87 1.37h-1.9c-.64 2.33-2.14 3.6-4.36 3.6-2.25 0-3.75-1.3-4.37-3.67l.02.07H5.74c-1.5 0-2.47-.5-2.9-1.41-.2-.4-.24-.72-.24-1.16 0-1.02.43-1.65 1.51-2.75l.27-.27c.53-.55.72-.85.72-1.08v-1.6C5.1 5.38 7.99 2.1 12 2.1zm2.47 15.8H9.53c.46 1.25 1.25 1.8 2.47 1.8s2.01-.55 2.47-1.8zM12 3.9c-2.96 0-5.1 2.43-5.1 5.73v1.6c0 .85-.39 1.46-1.23 2.33l-.28.29c-.75.75-.99 1.11-.99 1.48 0 .19.01.29.06.38.1.22.43.39 1.28.39h12.52c.82 0 1.16-.17 1.28-.4.05-.1.06-.2.06-.37 0-.37-.24-.73-.99-1.48l-.28-.29c-.84-.87-1.23-1.48-1.23-2.33v-1.6c0-3.3-2.13-5.73-5.1-5.73z"
-                                                fill="currentColor"></path>
-                                        </svg>
-                                        <div id="AlertsMenu_Counter" class="itemCount Zero"
-                                             data-text="У Вас есть новые оповещения: %d.">
-                                            <span class="Total">0</span>
-                                        </div>
+                                        <n-badge color="grey" :value="notificationsCount" :max="99">
+                                            <svg fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12 2.1c4.02 0 6.9 3.28 6.9 7.53v1.6c0 .23.2.53.72 1.08l.27.27c1.08 1.1 1.51 1.73 1.51 2.75 0 .44-.05.79-.27 1.2-.45.88-1.42 1.37-2.87 1.37h-1.9c-.64 2.33-2.14 3.6-4.36 3.6-2.25 0-3.75-1.3-4.37-3.67l.02.07H5.74c-1.5 0-2.47-.5-2.9-1.41-.2-.4-.24-.72-.24-1.16 0-1.02.43-1.65 1.51-2.75l.27-.27c.53-.55.72-.85.72-1.08v-1.6C5.1 5.38 7.99 2.1 12 2.1zm2.47 15.8H9.53c.46 1.25 1.25 1.8 2.47 1.8s2.01-.55 2.47-1.8zM12 3.9c-2.96 0-5.1 2.43-5.1 5.73v1.6c0 .85-.39 1.46-1.23 2.33l-.28.29c-.75.75-.99 1.11-.99 1.48 0 .19.01.29.06.38.1.22.43.39 1.28.39h12.52c.82 0 1.16-.17 1.28-.4.05-.1.06-.2.06-.37 0-.37-.24-.73-.99-1.48l-.28-.29c-.84-.87-1.23-1.48-1.23-2.33v-1.6c0-3.3-2.13-5.73-5.1-5.73z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+                                        </n-badge>
                                     </div>
                                 </a>
                             </li>
                             <n-dropdown class="custom-dropdown" :options="options">
                                 <li class="navTab account">
                                      <span id="account-style" class="navLink accountPopup NoPopupGadget flex items-center" rel="Menu">
-                                         <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">{{ auth.user.neo }}</span></b>
+                                         <b id="NavigationAccountUsername"
+                                            class="hiddenNarrowUnder accountUsername username !p-0"><span
+                                             class="style2">{{ auth.user.neo }}</span></b>
                                          <BaseIcon :path="mdiFlowerTulip"  fill="purple"/>
-                                         <span id="NavigationAccountBalance" class="hiddenNarrowUnder">
-                                             <span class="balanceLabel hidden">
-                                                    <!--Badge-->
-                                                 <span class="balanceValue">0</span>
-                                                 <span class="svgIcon--rub"></span>
-                                             </span>
-                                         </span>
                                          <span class="avatar">
                                             <img v-if="auth.user.profile_picture" alt="Текущий аватар" class="navTab--visitorAvatar" :src="auth.user.profile_picture">
                                             <img v-else alt="Текущий аватар" class="navTab--visitorAvatar" src="/images/unuser.jpg">

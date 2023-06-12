@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function index(Request $request){
+    public function index()
+    {
         return inertia('Home');
     }
-    public function catalog(Request $request){
+
+    public function catalog()
+    {
         return inertia('Catalog');
-    }
-    public function wysiwyg(Request $request){
-        return inertia('NeoEditor');
     }
 }

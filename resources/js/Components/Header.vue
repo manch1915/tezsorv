@@ -173,33 +173,7 @@ export default {
                 it: "Venerdì scorso ho visto un verme blu striato macchiato stringere la mano a una lucertola senza gambe.",
                 jp: "先週の金曜日、縞模様の青いワームが脚のないトカゲと握手するのを見ました。",
                 cn: "上周五，我看到一只斑点的蓝色蠕虫与一只无腿的蜥蜴握手。"
-            },
-            user:{
-                authenticated: false,
-                user: {}
             }
-        }
-
-    },
-    created() {
-        this.checkAuth();
-    },
-    methods: {
-        async checkAuth() {
-            try {
-                axios.defaults.withCredentials = true;
-                await axios.get('/sanctum/csrf-cookie');
-                const response = await axios.get('/api/user');
-                this.user.authenticated = response.data.authenticated
-                this.user.uesr = response.data.user
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        logout(){
-            axios.post('api/logout').then(res => {
-                this.user.authenticated = false
-            })
         }
     }
 }

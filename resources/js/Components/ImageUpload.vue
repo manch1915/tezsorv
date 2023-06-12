@@ -1,8 +1,8 @@
 <script setup>
-import { ref} from "vue";
+import {ref} from "vue";
 import {darkTheme, NConfigProvider} from 'naive-ui'
 import {NButton, NCard, NModal, NUpload} from "naive-ui";
-import VuePictureCropper, { cropper } from 'vue-picture-cropper'
+import VuePictureCropper, {cropper} from 'vue-picture-cropper'
 import axios from 'axios'
 
 const showModal = ref(false);
@@ -29,9 +29,9 @@ const saveAvatar = () => {
     loading.value = true
     const formData = new FormData();
     console.log()
-    if (selectedFile.value.type.split('/').pop() === 'gif'){
+    if (selectedFile.value.type.split('/').pop() === 'gif') {
         formData.append('avatar', selectedFile.value);
-    }else{
+    } else {
         formData.append('avatar', blobFile.value);
     }
 
@@ -53,42 +53,43 @@ const saveAvatar = () => {
 </script>
 <template>
     <n-config-provider :theme="darkTheme">
-    <n-button class="w-full mt-2" @click="showModal = true">
-        Upload pfp
-    </n-button>
-    <n-modal v-model:show="showModal">
-        <n-card
-            style="width: 600px"
-            title="Upload pfp"
-            :bordered="false"
-            size="huge"
-            role="dialog"
-            aria-modal="true"
+        <n-upload
+            :show-upload-list="false"
+            accept="image/jpeg, image/png, image/gif"
+            @change="handleFileChange"
+            @click="showModal = true"
         >
-            <n-upload
-                :show-upload-list="false"
-                accept="image/jpeg, image/png, image/gif"
-                @change="handleFileChange"
+            <n-button class="w-full mt-2 bg-second">Փոխել</n-button>
+        </n-upload>
+        <n-modal v-model:show="showModal">
+            <n-card
+                style="width: 600px"
+                :bordered="false"
+                size="huge"
+                role="dialog"
+                aria-modal="true"
             >
-                <n-button class="w-full">Upload Image</n-button>
-            </n-upload>
-            <VuePictureCropper
-                :boxStyle="{
+                <n-button v-show="imagePreview !== null" class="w-full mb-5 bg-second" :loading="loading"
+                          @click="getResult">
+                    Կտրել
+                </n-button>
+                <VuePictureCropper
+                    :boxStyle="{
                   width: '100%',
                   height: '100%',
                   backgroundColor: '#f8f8f8',
                   margin: 'auto',
                 }"
-                :img="imagePreview"
-                :options="{
+                    :img="imagePreview"
+                    :options="{
                   viewMode: 1,
                   dragMode: 'crop',
                   aspectRatio: 1,
                 }"
-            />
-            <n-button v-show="imagePreview !== null" class="w-full mt-5" :loading="loading" @click="getResult">Crop</n-button>
-        </n-card>
-    </n-modal>
+                />
+
+            </n-card>
+        </n-modal>
     </n-config-provider>
 </template>
 
@@ -103,7 +104,8 @@ const saveAvatar = () => {
     max-width: 100%;
     max-height: 300px;
 }
-.n-upload-trigger{
+
+.n-upload-trigger {
     width: 100%;
 }
 </style>

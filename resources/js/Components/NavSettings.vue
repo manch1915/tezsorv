@@ -1,38 +1,39 @@
 <template>
-    <div class="flex justify-center my-2" v-if="loading">
-        <ring-loader :loading="loading"/>
-    </div>
-    <div class="section pt-4">
-        <ol class="nodeList NodeList forums text-slate-300">
-            <ul class="generalTabs" >
-                <li>
-                    <ul class="PersonalTabs">
-                        <li class="list node personalTabmythreads personalTab forum level_2" v-for="item in menuSettings">
-                            <a class="icon OverlayTrigger" href="#"></a>
-                            <div class="nodeInfo forumNodeInfo">
-                                <div class="nodeText">
-                                    <h3 class="nodeTitle">
-                                        <Link :href="route(item.to)" class="flex items-center content-center">
-                                           <span class="personalTabTitle"> {{ item.label }}</span>
-                                        </Link>
-                                    </h3>
+    <div>
+        <div class="flex justify-center my-2" v-if="loading">
+            <ring-loader :loading="loading"/>
+        </div>
+        <div class="section pt-4" v-if="menuSettings.length">
+            <ol class="nodeList NodeList forums text-slate-300">
+                <ul class="generalTabs">
+                    <li>
+                        <ul class="PersonalTabs">
+                            <li class="list node personalTabmythreads personalTab forum level_2"
+                                v-for="item in menuSettings" :key="item.to">
+                                <a class="icon OverlayTrigger" href="#"></a>
+                                <div class="nodeInfo forumNodeInfo">
+                                    <div class="nodeText">
+                                        <h3 class="nodeTitle">
+                                            <Link :href="route(item.to)" class="flex items-center content-center">
+                                                <span class="personalTabTitle">{{ item.label }}</span>
+                                            </Link>
+                                        </h3>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
-        </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ol>
+        </div>
     </div>
 </template>
 
-<script setup>
 
+<script setup>
 import RingLoader from "vue-spinner/src/RingLoader.vue";
 import menuSettings from "@/menuSettings";
 import { Link } from '@inertiajs/vue3';
-
 </script>
 
 <style scoped>

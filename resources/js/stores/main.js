@@ -2,89 +2,71 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useMainStore = defineStore("main", {
-  state: () => ({
-    /* User */
-    userName: null,
-    userEmail: null,
-    userAvatar: null,
-    apiUrl: 'https://narcis.guru/api/',
-    isFieldFocusRegistered: false,
+    state: () => ({
+        threadCategory: '',
+        slideList: [],
+        sexes: [],
+        clients: [],
+        notifications: [],
+        threadList: [],
+        member: null,
+    }),
+    actions: {
+        async fetchSlideList() {
+            try {
+                const response = await axios.get(route('slideList'));
+                this.slideList = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
-    threadCategory: '',
-    slideList: [],
-    sexes: [],
-    clients: [],
-    history: [],
-    threadList: [],
-    member: null,
-  }),
-  actions: {
-      setUser(payload) {
-          if (payload.name) {
-              this.userName = payload.name;
-          }
-          if (payload.email) {
-              this.userEmail = payload.email;
-          }
-          if (payload.avatar) {
-              this.userAvatar = payload.avatar;
-          }
-      },
+        async fetchNotificationCount() {
+            try {
+                const response = await axios.get(route('notifications'));
+                this.notifications = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
-      async fetchSlideList() {
-          await axios.get(`${this.apiUrl}slideList`)
-              .then((response) => {
-                  this.slideList = response.data;
-              })
-              .catch((error) => {
-                  alert(error.message);
-              });
-      },
+        async fetchThreadList(category, subcategory) {
+            let url = route('threadList');
 
-      async fetchThreadList(category, subcategory) {
+            if (!isNaN(category)) {
+                url = route('threadList', category);
+                if (!isNaN(subcategory)) {
+                    url = route('threadList', category, subcategory);
+                }
+            }
 
-          let url = `${this.apiUrl}threadList/`;
+            try {
+                const response = await axios.get(url);
+                this.threadList = response.data['data'];
+                this.threadCategory = response.data['category'];
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
-          if (!isNaN(category)) {
-              url += category;
-              if (!isNaN(subcategory)) {
-                  url += `/${subcategory}`;
-              }
-          }
+        async fetchSexes() {
+            try {
+                const response = await axios.get(route('sexes'));
+                this.sexes = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
-          try {
-              const response = await axios.get(url);
-              this.threadList = response.data['data'];
-              this.threadCategory = response.data['category'];
-          } catch (error) {
-              console.error(error);
-
-          }
-      },
-
-      async fetchSexes() {
-          await axios.get(`${this.apiUrl}sexes`)
-              .then((response) => {
-                  this.sexes = response.data;
-              })
-              .catch((error) => {
-                  alert(error.message);
-              });
-      },
-
-      async fetchMember(id) {
-          this.loading  = true;
-          await axios.get(`${this.apiUrl}member/${id}`)
-              .then((response) => {
-                  this.loading = false;
-                  this.member = response.data;
-              })
-              .catch((error) => {
-                  alert(error.message);
-              });
-      },
-  },
-  mutations: {
-
-  },
+        async fetchMember(id) {
+            this.loading = true;
+            try {
+                const response = await axios.get(route('member.id', id));
+                this.loading = false;
+                this.member = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
 });

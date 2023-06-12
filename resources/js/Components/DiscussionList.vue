@@ -2,27 +2,24 @@
 import DiscussionListItem from "@/Components/DiscussionListItem.vue";
 import {useMainStore} from "@/stores/main";
 import {computed, onMounted, ref} from "vue";
-import {router} from "@inertiajs/vue3"
-
+import {router} from "@inertiajs/vue3";
 
 const loading = ref(false);
 
+const {page} = router;
+const [category, subcategory] = page.url.split('/').slice(3).map(parseInt);
 
-const url = router.page.url.split('/')
-
-let category = parseInt(url[3]);
-let subcategory = parseInt(url[4]);
-console.log(category, subcategory)
 const store = useMainStore();
 onMounted(async () => {
     loading.value = true;
-    await store.fetchThreadList(category,subcategory);
+    await store.fetchThreadList(category, subcategory);
     loading.value = false;
 });
 
 const threads = computed(() => store.threadList);
 const threadCategory = computed(() => store.threadCategory);
 </script>
+
 <template>
     <div class="mainContainer lg:mr-2 mr-0 lg:mt-0 mt-4">
         <div class="mainContent">
@@ -30,16 +27,18 @@ const threadCategory = computed(() => store.threadCategory);
                 <div class="aboveThreadList">
                     <div class="ads"></div>
                     <div class="discussionListItems">
-                        <h1 class="text-xl text-white pb-2">{{threadCategory}}</h1>
-                        <template v-for="thread in threads">
-                        <DiscussionListItem
-                            :user-avatar="thread.user.profile_picture"
-                            :created_at="thread.created_at"
-                            :title="thread.title"
-                            :username="thread.user.username"
-                            :user_id="thread.user.id"
-                            :id="thread.id"
-                        />
+                        <h1 class="text-xl text-white pb-2">{{ threadCategory }}</h1>
+                        <template v-if="!loading">
+                            <DiscussionListItem
+                                v-for="thread in threads"
+                                :key="thread.id"
+                                :user-avatar="thread.user.profile_picture"
+                                :created_at="thread.created_at"
+                                :title="thread.title"
+                                :username="thread.user.username"
+                                :user_id="thread.user.id"
+                                :id="thread.id"
+                            />
                         </template>
                     </div>
                 </div>
@@ -49,17 +48,11 @@ const threadCategory = computed(() => store.threadCategory);
 </template>
 
 <style scoped>
-@media (min-width: 1025px) {
-
-}
 .mainContainer {
     width: 100%;
 }
-.mainContent {
-    border-radius: 10px;
-    padding: 15px 20px;
-    background: rgb(39, 39, 39);
-}
+
+.mainContent,
 .discussionList {
     border-radius: 10px;
     padding: 15px 20px;
@@ -67,13 +60,11 @@ const threadCategory = computed(() => store.threadCategory);
 }
 @media screen and (max-width: 768px) {
     .discussionList {
-        border-radius: 10px;
         padding: 15px 0;
-        background: rgb(39, 39, 39);
     }
 }
 .aboveThreadList {
-    margin: 0 0 15px;
+    margin-bottom: 15px;
     box-sizing: border-box;
     width: 100%;
 }

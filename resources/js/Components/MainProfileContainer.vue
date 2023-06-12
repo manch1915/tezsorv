@@ -29,71 +29,73 @@ const member = computed(() => store.member);
 
 const memberCreatedAt = computed(() =>
     new Date(member.value.created_at).toLocaleString()
-)
+);
 </script>
 
 <template>
     <section class="lg:mt-0 mt-4">
         <div class="mainContainer">
             <div class="mainContent">
-                <div v-if="member" class="userInfo flex flex-col">
-                    <div class="username"><p>{{ member.username }}</p></div>
-                    <div class="inline-grid grid-cols-2 mt-4">
-                        <div class="pr-10 text-mainText">
-                            <ul>
-                                <li v-if="member.first_name">Անուն:</li>
-                                <li v-if="member.last_name">Ազգանուն:</li>
-                                <li v-if="memberCreatedAt ">Գրանցվել է:</li>
-                                <li v-if="member.sex.name">Սեռ:</li>
-                                <li v-if="member.role">Դեր:</li>
-                                <li v-if="member.country">Երկիր:</li>
-                                <li v-if="member.city">Քաղաք:</li>
-                            </ul>
+                <template v-if="member">
+                    <div class="userInfo flex flex-col">
+                        <div class="username"><p>{{ member.username }}</p></div>
+                        <div class="inline-grid grid-cols-2 mt-4">
+                            <div class="pr-10 text-mainText">
+                                <ul>
+                                    <li v-if="member.first_name">Անուն:</li>
+                                    <li v-if="member.last_name">Ազգանուն:</li>
+                                    <li v-if="memberCreatedAt">Գրանցվել է:</li>
+                                    <li v-if="member.sex?.name">Սեռ:</li>
+                                    <li v-if="member.role">Դեր:</li>
+                                    <li v-if="member.country">Երկիր:</li>
+                                    <li v-if="member.city">Քաղաք:</li>
+                                </ul>
+                            </div>
+                            <div class="text-white">
+                                <ul>
+                                    <li>{{ member.first_name }}</li>
+                                    <li>{{ member.last_name }}</li>
+                                    <li>{{ memberCreatedAt }}</li>
+                                    <li>{{ member.sex?.name }}</li>
+                                    <li>{{ member.role }}</li>
+                                    <li>{{ member.country }}</li>
+                                    <li>{{ member.city }}</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="text-white">
-                            <ul>
-                                <li>{{ member.first_name }}</li>
-                                <li>{{ member.last_name }}</li>
-                                <li>{{ memberCreatedAt }}</li>
-                                <li>{{ member.sex.name }}</li>
-                                <li>{{ member.role }}</li>
-                                <li>{{ member.country }}</li>
-                                <li>{{ member.city }}</li>
-                            </ul>
+                        <div class="flex gap-x-3">
+                            <a v-if="member.instagram" :href="`https://www.instagram.com/${member.instagram}`"
+                               class="mt-4" target="_blank">
+                                <BaseIcon :path="mdiInstagram" class="instagram__logo" fill="#949494" size="50"/>
+                            </a>
+                            <a v-if="member.telegram" :href="`https://www.t.me/${member.telegram}`" class="w-2 mt-4"
+                               target="_blank">
+                                <BaseIcon :path="mdiSendCircleOutline" class="telegram__logo" fill="#949494" size="50"/>
+                            </a>
                         </div>
                     </div>
-                    <div class="flex gap-x-3">
-                        <a v-if="member.instagram" :href="`https://www.instagram.com/${member.instagram}`"
-                           class=" mt-4" target="_blank">
-                            <BaseIcon :path="mdiInstagram" class="instagram__logo" fill="#949494" size="50"/>
-                        </a>
-                        <a v-if="member.telegram" :href="`https://www.t.me/${member.telegram}`" class="w-2 mt-4"
-                           target="_blank">
-                            <BaseIcon :path="mdiSendCircleOutline" class="telegram__logo" fill="#949494" size="50"/>
-                        </a></div>
-
-                </div>
-                <div class="themes pt-5 flex justify-start items-start content-start flex-col">
-                    <n-button class="text-gray-500" icon-placement="left" text>
-                        <template #icon>
-                            <n-icon>
-                                <BaseIcon :path="mdiNoteMultipleOutline"/>
-                            </n-icon>
-                        </template>
-                        Темы от {{ member?.username ?? '' }}
-                    </n-button>
-                </div>
-                <div class="counts_module mt-2" v-if="member">
-                    <div class="page_counter">
-                        <div class="count">{{ member.likes_count }}</div>
-                        <div class="label text-mainText">Սիմպատյա</div>
+                    <div class="themes pt-5 flex justify-start items-start content-start flex-col">
+                        <n-button class="text-gray-500" icon-placement="left" text>
+                            <template #icon>
+                                <n-icon>
+                                    <BaseIcon :path="mdiNoteMultipleOutline"/>
+                                </n-icon>
+                            </template>
+                            Темы от {{ member.username ?? '' }}
+                        </n-button>
                     </div>
-                </div>
+                    <div class="counts_module mt-2">
+                        <div class="page_counter">
+                            <div class="count">{{ member.likes_count }}</div>
+                            <div class="label text-mainText">Սիմպատյա</div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
         <div class="mainContainer mt-2">
             <div class="mainContent">
-
+                <!-- ... -->
             </div>
         </div>
     </section>

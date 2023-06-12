@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\User;
+use App\Notifications\UserLiked;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,7 @@ class LikeController extends Controller
 
             // Increment likesReceived_count for the member user
             $member->increment('likes_count');
+            $member->notify(new UserLiked);
         }
 
         return response()->json($member->likes_count);

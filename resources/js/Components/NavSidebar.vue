@@ -1,100 +1,93 @@
 <script setup>
 import SideBarListItem from "@/Components/SideBarListItem.vue";
 import {Link} from "@inertiajs/vue3";
-
-import { useMainStore } from "@/stores/main";
-import {computed, onMounted, reactive, ref} from 'vue';
+import {useMainStore} from "@/stores/main";
+import {computed, onMounted, ref} from 'vue';
 import RingLoader from "vue-spinner/src/RingLoader.vue";
-
-const state = reactive({
-    loading: false,
-});
 
 const openList = ref(true);
 
-if (window.innerWidth < 1122){
+if (window.innerWidth < 1122) {
     openList.value = false
 }
 
 const store = useMainStore();
+
+const loading = ref(false)
+
 onMounted(async () => {
-    state.loading = true;
+    loading.value = true;
     await store.fetchSlideList();
-    state.loading = false;
+    loading.value = false;
 });
 
 const categories = computed(() => store.slideList);
-
-
 </script>
+
 <template>
-    <div class="section flex flex-col gap-y-3">
-        <Link class="CreateThreadButton buttons button primary full callToAction" :href="route('thread.new')">Սարքել հոդված</Link>
-        <a @click="openList = !openList" class="hidden OpenList buttons button  full callToAction" href="#">Բացել բաժինները</a>
-    </div>
-    <div class="flex justify-center my-2" v-if="state.loading">
-        <ring-loader :loading="state.loading"/>
-    </div>
-    <div v-show="openList" class="section pt-4" v-if="categories[0]">
-        <ol class="nodeList NodeList forums text-slate-300">
-            <ul class="generalTabs"  >
-                <li class="list node node0 forum level_2 current">
-                    <div class="nodeInfo forumNodeInfo">
-                        <div class="nodeText">
-                            <h3 class="nodeTitle">
-                                <Link :href="route('main')">Բոլոր հոդվածները</Link>
-                            </h3>
+    <div>
+        <div class="section flex flex-col gap-y-3">
+            <Link class="CreateThreadButton buttons button primary full callToAction" :href="route('thread.new')">Սարքել
+                հոդված
+            </Link>
+            <a @click="openList = !openList" class="hidden OpenList buttons button full callToAction" href="#">Բացել
+                բաժինները</a>
+        </div>
+        <div class="flex justify-center my-2" v-if="loading">
+            <ring-loader :loading="loading"/>
+        </div>
+        <div v-show="openList" class="section pt-4" v-if="categories.length > 0">
+            <ol class="nodeList NodeList forums text-slate-300">
+                <ul class="generalTabs">
+                    <li class="list node node0 forum level_2 current">
+                        <div class="nodeInfo forumNodeInfo">
+                            <div class="nodeText">
+                                <h3 class="nodeTitle">
+                                    <Link :href="route('main')">Բոլոր հոդվածները</Link>
+                                </h3>
+                            </div>
+                        </div>
+                        <span class="ForumSearch" tabindex="0"></span>
+                    </li>
+                    <li class="mt-2">
+                        <ul class="PersonalTabs">
+                            <li class="list node personalTabmythreads personalTab forum level_2">
+                                <a class="icon OverlayTrigger" href="#"></a>
+                                <div class="nodeInfo forumNodeInfo">
+                                    <div class="nodeText">
+                                        <h3 class="nodeTitle">
+                                            <a href="#">
+                                                <span class="personalTabTitle">Իմ հոդվածները</span>
+                                            </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <li id="103" class="node category level_1">
+                    <ol class="nodeList">
+                        <SideBarListItem v-for="category in categories.slice(0, 9)" :key="category.id"
+                                         :list="category"/>
+                    </ol>
+                </li>
+                <li id="84" class="node category level_1">
+                    <div class="categoryNodeInfo categoryStrip">
+                        <div class="categoryText">
+                            <h3 class="nodeTitle">Общий раздел</h3>
                         </div>
                     </div>
-                    <span class="ForumSearch" tabindex="0"></span>
+                    <ol class="nodeList">
+                        <SideBarListItem v-for="category in categories.slice(9, 14)" :key="category.id"
+                                         :list="category"/>
+                    </ol>
                 </li>
-                <li class="mt-2">
-                    <ul class="PersonalTabs">
-                        <li class="list node personalTabmythreads personalTab forum level_2">
-                            <a class="icon OverlayTrigger" href="#"></a>
-                            <div class="nodeInfo forumNodeInfo">
-                                <div class="nodeText">
-                                    <h3 class="nodeTitle">
-                                        <a href="#">
-                                            <span class="personalTabTitle">Իմ հոդվածները</span>
-                                        </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <li id="103" class="node category level_1">
-                <ol class="nodeList">
-                    <SideBarListItem :list="categories[0]"/>
-                    <SideBarListItem :list="categories[1]"/>
-                    <SideBarListItem :list="categories[2]"/>
-                    <SideBarListItem :list="categories[3]"/>
-                    <SideBarListItem :list="categories[4]"/>
-                    <SideBarListItem :list="categories[5]"/>
-                    <SideBarListItem :list="categories[6]"/>
-                    <SideBarListItem :list="categories[7]"/>
-                    <SideBarListItem :list="categories[8]"/>
-                </ol>
-            </li>
-            <li id="84" class="node category level_1">
-                <div class="categoryNodeInfo categoryStrip">
-                    <div class="categoryText">
-                        <h3 class="nodeTitle">Общий раздел</h3>
-                    </div>
-                </div>
-                <ol class="nodeList">
-                    <SideBarListItem :list="categories[9]"/>
-                    <SideBarListItem :list="categories[10]"/>
-                    <SideBarListItem :list="categories[11]"/>
-                    <SideBarListItem :list="categories[12]"/>
-                    <SideBarListItem :list="categories[13]"/>
-                </ol>
-            </li>
-        </ol>
+            </ol>
+        </div>
     </div>
 </template>
+
 
 <style scoped>
 .buttons{

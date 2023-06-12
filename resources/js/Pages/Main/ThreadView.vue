@@ -65,7 +65,7 @@ const html = converter.convert();
                     </div>
                     <add-to-favorites :thread-id="thread.id" :hasFavorite="hasFavorite"/>
                 </div>
-                <div v-html="html"></div>
+                <div v-html="html" class="text-white"></div>
             </div>
         </section>
     </main>

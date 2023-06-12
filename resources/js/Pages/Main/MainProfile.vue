@@ -1,32 +1,33 @@
 <script setup>
-import MainProfileContainer from "@/Components/MainProfileContainer.vue";
-import SidebarProfile from "@/Components/SidebarProfile.vue";
-import MainHeader from "@/Components/MainHeader.vue";
-import MainLayout from "@/Layouts/MainLayout.vue";
-import { Head } from '@inertiajs/vue3'
+import {Head} from '@inertiajs/vue3';
+
+import MainProfileContainer from '@/Components/MainProfileContainer.vue';
+import SidebarProfile from '@/Components/SidebarProfile.vue';
+import MainHeader from '@/Components/MainHeader.vue';
+import MainLayout from '@/Layouts/MainLayout.vue';
 
 const props = defineProps({
     auth: Object,
-})
+});
 </script>
 
 <template>
     <Head title="Profile"/>
-    <main>
+    <main class="main-container">
         <MainHeader :auth="auth"/>
         <MainLayout>
             <template #main>
                 <MainProfileContainer/>
             </template>
             <template #sidebar>
-                <SidebarProfile :auth="props.auth"/>
+                <SidebarProfile :auth="auth"/>
             </template>
         </MainLayout>
     </main>
 </template>
 
 <style scoped>
-main{
+.main-container {
     background-color: #303030;
 }
 </style>

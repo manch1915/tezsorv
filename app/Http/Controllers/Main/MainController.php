@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\ReferralLink;
-use App\Models\ReferralProgram;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yish\Imgur\Facades\Upload as Imgur;
 
@@ -23,15 +21,18 @@ class MainController extends Controller
         return inertia('Main/MainProfile');
     }
 
-    //show member by id for api
+    // Show member by ID for API
     public function showMember(int $id)
     {
         $member = User::find($id);
-        $member['sex'] = $member->sex;
-        $member['role'] = $member->getRoleNames()->last();
+
         if (!$member) {
             return response()->json(['message' => 'Member not found']);
         }
+
+        $member->load('sex');
+        $member['role'] = $member->getRoleNames()->last();
+
         return response()->json($member);
     }
 
@@ -52,22 +53,23 @@ class MainController extends Controller
 
     public function upgrade()
     {
-        $referralLink = ReferralLink::getReferral(auth()->user()->id, 1);
+        $referralLink = ReferralLink::getReferral(auth()->id(), 1);
         $neoCount = auth()->user()->neo;
         $userRole = auth()->user()->getRoleNames()->last();
-        return inertia('Main/AccountSettings/Upgrade', ['referralLink' => $referralLink, 'neoCount' => $neoCount,  'userRole' => $userRole]);
+
+        return inertia('Main/AccountSettings/Upgrade', compact('referralLink', 'neoCount', 'userRole'));
     }
 
-    public function avatarUpload(Request  $request)
+    public function avatarUpload(Request $request)
     {
-
         $avatar = $request->file('avatar');
-        if ($avatar->getClientOriginalExtension() === 'gif' && !auth()->user()->can('add-animated-pfp')){
+        $user = auth()->user();
+
+        if ($avatar->getClientOriginalExtension() === 'gif' && !$user->can('add-animated-pfp')) {
             return response()->json('Animated avatars are not allowed for your role');
         }
 
         $image = Imgur::upload($avatar);
-        $user = auth()->user();
         $user->profile_picture = $image->link();
         $user->save();
 
@@ -97,5 +99,10 @@ class MainController extends Controller
         } else {
             return response()->json(['message' => 'You need to upgrade your account']);
         }
+    }
+
+    public function notificationsCount()
+    {
+        return response()->json(auth()->user()->unreadNotifications()->count());
     }
 }
