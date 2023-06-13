@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('mobile_number_verified')->default(false);
             $table->string('profile_picture')->nullable();
 
-            $table->string('soundcloud_track')->nullable();
+            $table->text('soundcloud_track')->nullable();
 
             $table->bigInteger('neo')->default(0);
             $table->unsignedInteger('likes_count')->default(0);
