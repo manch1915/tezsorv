@@ -6,6 +6,7 @@ import {Link} from "@inertiajs/vue3";
 import {computed, ref} from "vue";
 
 import AddToFavorites from "@/Components/AddToFavorites.vue";
+import {NPopover} from "naive-ui";
 
 const props = defineProps({
     auth: Object,
@@ -53,17 +54,27 @@ const html = converter.convert();
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">
                 <div class="user__data flex justify-between">
-                    <div class="flex">
+                    <div class="flex items-center">
                         <div class="user__avatar w-16">
                             <img class="rounded-full" :src="thread.user.profile_picture" alt="">
                         </div>
-                        <Link :href="route('member', thread.user.id)"
-                              class="pl-5 text-lg text-white hover:text-green-800 transition">{{ thread.user.username }}
-                        </Link>
-                        <div>
-                            <p class="ml-5 bg-second text-sm p-2 rounded text-mainText">Հոդվածի հեղինակ</p></div>
+                        <n-popover trigger="hover">
+                            <template #trigger>
+                                <Link :href="route('member', thread.user.id)"
+                                      class="pl-5 text-lg text-white hover:text-green-800 transition">
+                                    {{ thread.user.username }}
+                                </Link>
+                            </template>
+                            <span>Հոդվածի հեղինակ</span>
+                        </n-popover>
                     </div>
-                    <add-to-favorites :thread-id="thread.id" :hasFavorite="hasFavorite"/>
+                    <n-popover trigger="hover">
+                        <template #trigger>
+                            <add-to-favorites :thread-id="thread.id" :hasFavorite="hasFavorite"/>
+                        </template>
+                        <span>Պահպանել հոդվածը</span>
+                    </n-popover>
+
                 </div>
                 <div v-html="html" class="text-white"></div>
             </div>

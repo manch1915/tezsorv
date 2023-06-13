@@ -22,9 +22,8 @@ const props = defineProps({
                             <div class="aboveThreadList">
                                 <div class="discussionListItems">
                                     <h1 class="text-xl text-white pb-2">Favorites</h1>
-                                    <template v-for="thread in favorites">
+                                    <template v-for="thread in favorites" :key="thread.id">
                                         <DiscussionListItem
-                                            :key="thread.id"
                                             :user-avatar="thread.user.profile_picture"
                                             :created_at="thread.created_at"
                                             :title="thread.title"

@@ -32,6 +32,7 @@ const form = useForm({
     about: props.auth.user.about,
     country: props.auth.user.country,
     sex_id: props.auth.user.sex_id,
+    soundcloud_track: props.auth.user.soundcloud_track,
     terms: false,
 })
 
@@ -136,6 +137,13 @@ store.fetchSexes();
 
                             <SettingsInput border title="Երկիր">
                                 <n-select v-model:value="form.country" :options="countryNames" placeholder="Ընտրեք"/>
+                            </SettingsInput>
+
+                            <SettingsInput border title="Soundcloud">
+                                <div class="text-white">
+                                    <n-input v-model:value="form.soundcloud_track" placeholder="Track embed"
+                                             type="textarea"/>
+                                </div>
                             </SettingsInput>
                             <n-button :loading="state.loading" @click.prevent="saveData">
                                 <template #icon>

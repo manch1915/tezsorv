@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             SubcategorySeeder::class,
             RoleAndPermissionSeeder::class,
-            ]);
+            ReferralProgramsSeeder::class,
+        ]);
     }
 }

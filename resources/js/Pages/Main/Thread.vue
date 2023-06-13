@@ -7,6 +7,7 @@ import {toast} from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import {router} from '@inertiajs/vue3';
 import NeoEditor from '@/Components/NeoEditor.vue';
+import MainHeader from "@/Components/MainHeader.vue";
 
 const props = defineProps({
     auth: Object,
@@ -72,7 +73,7 @@ const saveThread = () => {
 <template>
     <main class="min-h-screen bg-mine-second">
         <MainHeader :auth="props.auth"/>
-        <section class="headerMover rounded">
+        <section class="headerMover bg-mine-second rounded">
             <div class="w-full p-6">
                 <NConfigProvider :theme="darkTheme">
                     <NSpace vertical>
@@ -83,7 +84,7 @@ const saveThread = () => {
                         <NSelect v-model:value="category" class="mt-6" :options="categories"
                                  placeholder="Select category" @update-value="select"/>
                         <NSelect :options="subcategories" v-model:value="subcategory" placeholder="Select subcategory"/>
-                        <div>
+                        <div class="flex justify-center">
                             <NButton type="primary" @click.prevent="saveThread" ghost>Save your thread</NButton>
                         </div>
                     </NSpace>

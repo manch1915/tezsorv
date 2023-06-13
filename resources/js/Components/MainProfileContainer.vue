@@ -30,6 +30,26 @@ const member = computed(() => store.member);
 const memberCreatedAt = computed(() =>
     new Date(member.value.created_at).toLocaleString()
 );
+
+const soundcloudLink = computed(() => {
+    if (!member.value) {
+        return null;
+    }
+    const regex = /https:\/\/w\..+&visual=true/;
+    const match = regex.exec(store.member.soundcloud_track);
+    if (match) {
+        let url = new URL(match[0]);
+
+        url.searchParams.set('hide_related', 'true');
+        url.searchParams.set('show_comments', 'false');
+        url.searchParams.set('show_user', 'false');
+        url.searchParams.set('show_teaser', 'false');
+
+        return url.toString() + '&amp;';
+    } else {
+        return null;
+    }
+});
 </script>
 
 <template>
@@ -93,9 +113,11 @@ const memberCreatedAt = computed(() =>
                 </template>
             </div>
         </div>
-        <div class="mainContainer mt-2">
+        <div v-if="soundcloudLink" class="mainContainer mt-2">
             <div class="mainContent">
-                <!-- ... -->
+                <iframe width="100%" height="166" scrolling="no" frameborder="no"
+                        :src='soundcloudLink'>
+                </iframe>
             </div>
         </div>
     </section>

@@ -8,7 +8,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import ImageUploader from 'quill-image-uploader';
 import axios from 'axios'
 import ResizeModule from "@ssumo/quill-resize-module";
-import {ref, watch, defineEmits} from "vue";
+import {ref, watch} from "vue";
 
 Quill.register('modules/imageUploader', ImageUploader);
 Quill.register("modules/resize", ResizeModule);

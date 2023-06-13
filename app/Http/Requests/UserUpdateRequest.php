@@ -27,14 +27,15 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required','string','max:15', Rule::unique('users')->ignore(Auth::id())],
-            'first_name' => ['string','max:15','nullable'],
-            'last_name' => ['string','max:25','nullable'],
-            'about' => ['string','max:255','nullable'],
-            'country' => ['string','max:255','nullable'],
-            'sex_id' => ['numeric','max:255'],
-            'telegram' => ['string','max:255','nullable'],
-            'instagram' => ['string','max:255','nullable'],
+            'username' => ['required', 'string', 'max:15', Rule::unique('users')->ignore(Auth::id())],
+            'first_name' => ['string', 'max:15', 'nullable'],
+            'last_name' => ['string', 'max:25', 'nullable'],
+            'about' => ['string', 'max:255', 'nullable'],
+            'country' => ['string', 'max:255', 'nullable'],
+            'sex_id' => ['numeric', 'max:255'],
+            'telegram' => ['string', 'max:255', 'nullable'],
+            'instagram' => ['string', 'max:255', 'nullable'],
+            'soundcloud_track' => ['string', 'nullable'],
         ];
     }
 

@@ -22,12 +22,16 @@ class RewardUser
 
                 // Example...
                 if ($referral->program->name === 'Sign-up Bonus') {
+
                     // User who was sharing link
                     $provider = $referral->user;
                     $provider->addCredits(15);
+
                     // User who used the link
                     $user = $event->user;
                     $user->addCredits(20);
+
+                    $provider->notify(new \App\Notifications\ReferalBonus($user));
                 }
 
             }

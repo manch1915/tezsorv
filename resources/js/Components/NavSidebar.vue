@@ -27,7 +27,8 @@ const categories = computed(() => store.slideList);
 <template>
     <div>
         <div class="section flex flex-col gap-y-3">
-            <Link class="CreateThreadButton buttons button primary full callToAction" :href="route('thread.new')">Սարքել
+            <Link class="CreateThreadButton buttons button primary full callToAction hover:!bg-second"
+                  :href="route('thread.new')">Սարքել
                 հոդված
             </Link>
             <a @click="openList = !openList" class="hidden OpenList buttons button full callToAction" href="#">Բացել
@@ -75,7 +76,7 @@ const categories = computed(() => store.slideList);
                 <li id="84" class="node category level_1">
                     <div class="categoryNodeInfo categoryStrip">
                         <div class="categoryText">
-                            <h3 class="nodeTitle">Общий раздел</h3>
+                            <h3 class="nodeTitle">Ընդհանուր</h3>
                         </div>
                     </div>
                     <ol class="nodeList">
