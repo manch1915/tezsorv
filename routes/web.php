@@ -23,7 +23,7 @@ Route::get('/catalog', [\App\Http\Controllers\IndexController::class, 'catalog']
 
 Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {
     Route::get('/', [Main::class, 'index'])->name('main');
-    Route::get('/member/{id}', [Main::class, 'member'])->name('member');
+    Route::get('/member/{username}', [Main::class, 'member'])->name('member');
     Route::post('/avatarUpload', [Main::class, 'avatarUpload'])->name('avatarUpload');
 
     Route::get('/notifications', [Main::class, 'notificationsCount'])->name('notifications');

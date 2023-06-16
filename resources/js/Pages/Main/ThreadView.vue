@@ -60,7 +60,7 @@ const html = converter.convert();
                         </div>
                         <n-popover trigger="hover">
                             <template #trigger>
-                                <Link :href="route('member', thread.user.id)"
+                                <Link :href="route('member', thread.user.username)"
                                       class="pl-5 text-lg text-white hover:text-green-800 transition">
                                     {{ thread.user.username }}
                                 </Link>

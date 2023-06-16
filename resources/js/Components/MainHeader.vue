@@ -35,7 +35,7 @@ const options = [
         icon: renderIcon(UserIcon),
         props: {
             onClick: () => {
-                router.visit(route('member', props.auth.user.id));
+                router.visit(route('member', props.auth.user.username));
             },
         },
     },

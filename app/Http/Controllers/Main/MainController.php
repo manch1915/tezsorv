@@ -22,9 +22,9 @@ class MainController extends Controller
     }
 
     // Show member by ID for API
-    public function showMember(int $id)
+    public function showMember(string $username)
     {
-        $member = User::find($id);
+        $member = User::where('username', $username)->first();
 
         if (!$member) {
             return response()->json(['message' => 'Member not found']);

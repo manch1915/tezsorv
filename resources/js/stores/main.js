@@ -58,10 +58,10 @@ export const useMainStore = defineStore("main", {
             }
         },
 
-        async fetchMember(id) {
+        async fetchMember(username) {
             this.loading = true;
             try {
-                const response = await axios.get(route('member.id', id));
+                const response = await axios.get(route('member.username', username));
                 this.loading = false;
                 this.member = response.data;
             } catch (error) {

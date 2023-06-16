@@ -10,4 +10,4 @@ Route::get('/threadList/{category?}/{subcategory?}', [\App\Http\Controllers\Thre
 
 Route::get('/sexes', [\App\Http\Controllers\Main\SlideController::class, 'showSexes'])->name('sexes');
 
-Route::get('/member/{id}', [App\Http\Controllers\Main\MainController::class, 'showMember'])->name('member.id');
+Route::get('/member/{username}', [App\Http\Controllers\Main\MainController::class, 'showMember'])->name('member.username');

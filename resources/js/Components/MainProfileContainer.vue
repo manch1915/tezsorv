@@ -10,21 +10,20 @@ const store = useMainStore();
 
 const memberId = computed(() => {
     const url = window.location.href;
-    const regex = /\/(\d+)$/;
+    const regex = /\/(\w+)$/;
     const match = url.match(regex);
 
     if (!match) {
         throw new Error('Invalid URL');
     }
 
-    return parseInt(match[1], 10);
+    return match[1];
 });
 
 onMounted(() => {
     store.fetchMember(memberId.value);
 });
 
-const loading = computed(() => store.loading);
 const member = computed(() => store.member);
 
 const memberCreatedAt = computed(() =>
