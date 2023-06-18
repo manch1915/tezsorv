@@ -35,9 +35,12 @@ Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {
     Route::post('/thread/new', [\App\Http\Controllers\ThreadController::class, 'storeThread'])->name('thread.store');
     Route::post('/thread/uploadFile', [\App\Http\Controllers\ThreadController::class, 'uploadFile'])->name('thread.uploadFile');
 
+
     Route::post('/like', [App\Http\Controllers\LikeController::class, 'like'])->name('like');
 
     Route::post('addToFavorites', [App\Http\Controllers\FavoritesController::class, 'addToFavorites'])->middleware('can:add-to-favorites')->name('addToFavorites');
+
+    Route::post('/comment/store', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
 
     Route::prefix('/account')->group(function () {
         Route::get('/personal-details', [Main::class, 'personalDetails'])->name('personalDetails');
@@ -45,6 +48,7 @@ Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {
         Route::get('/upgrade', [Main::class, 'upgrade'])->name('upgrade');
         Route::post('/upgradeRole', [Main::class, 'upgradeRole'])->name('upgradeRole');
         Route::get('/security', [Main::class, 'security'])->name('security');
+        Route::get('/notifications', [\App\Http\Controllers\AccountNotificationController::class, 'show'])->name('account-notification.show');
     });
 });
 

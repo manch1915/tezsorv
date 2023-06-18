@@ -74,10 +74,10 @@ const options = [
 const active = ref(false);
 </script>
 <template>
-    <header>
+    <header class="md:static fixed top-0 w-full z-50">
         <div class="main-container">
             <nav class="">
-                <div class="md:static py-2 px-2 rounded-b fixed z-50 w-full top-0 navTabs text-white">
+                <div class=" py-2 px-2 rounded-b w-full navTabs text-white">
                     <ul class="publicTabs flex items-center">
                         <div class="mobileMenuButton hiddenResponsiveFull md:hidden block">
                             <BaseIcon @click="openNav = !openNav" class="text-mainText" w="w-auto" h="h-auto" size="30"
@@ -103,7 +103,7 @@ const active = ref(false);
                         <li id="searchBar" class="pageWidth pr-2 md:block hidden">
                             <fieldset class="QuickSearch" data-member-search-url="members/search">
                                 <n-config-provider :theme="darkTheme">
-                                    <n-input round  placeholder="Փնտրել">
+                                    <n-input round placeholder="Փնտրել">
                                         <template #prefix>
                                             <BaseIcon :path="mdiMagnify"/>
                                         </template>
@@ -112,31 +112,29 @@ const active = ref(false);
                             </fieldset>
                         </li>
                         <ul class="account-links md:p-0 p-2">
-                            <!-- account -->
-                            <!-- alerts popup -->
                             <li class="navTab alerts Popup PopupControl PopupClosed PopupContainerControl">
-                                <a class="navLink NoPopupGadget" href="#" rel="Menu">
-                                    <div class="counter-container ">
-                                        <n-badge color="grey" :value="parseInt(notificationsCount)" :max="99">
-                                            <svg fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12 2.1c4.02 0 6.9 3.28 6.9 7.53v1.6c0 .23.2.53.72 1.08l.27.27c1.08 1.1 1.51 1.73 1.51 2.75 0 .44-.05.79-.27 1.2-.45.88-1.42 1.37-2.87 1.37h-1.9c-.64 2.33-2.14 3.6-4.36 3.6-2.25 0-3.75-1.3-4.37-3.67l.02.07H5.74c-1.5 0-2.47-.5-2.9-1.41-.2-.4-.24-.72-.24-1.16 0-1.02.43-1.65 1.51-2.75l.27-.27c.53-.55.72-.85.72-1.08v-1.6C5.1 5.38 7.99 2.1 12 2.1zm2.47 15.8H9.53c.46 1.25 1.25 1.8 2.47 1.8s2.01-.55 2.47-1.8zM12 3.9c-2.96 0-5.1 2.43-5.1 5.73v1.6c0 .85-.39 1.46-1.23 2.33l-.28.29c-.75.75-.99 1.11-.99 1.48 0 .19.01.29.06.38.1.22.43.39 1.28.39h12.52c.82 0 1.16-.17 1.28-.4.05-.1.06-.2.06-.37 0-.37-.24-.73-.99-1.48l-.28-.29c-.84-.87-1.23-1.48-1.23-2.33v-1.6c0-3.3-2.13-5.73-5.1-5.73z"
-                                                    fill="currentColor"></path>
-                                            </svg>
-                                        </n-badge>
-                                    </div>
-                                </a>
+                                <Link class="navLink" :href="route('account-notification.show')">
+                                    <n-badge color="grey" :value="parseInt(notificationsCount)" :max="99">
+                                        <svg fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2.1c4.02 0 6.9 3.28 6.9 7.53v1.6c0 .23.2.53.72 1.08l.27.27c1.08 1.1 1.51 1.73 1.51 2.75 0 .44-.05.79-.27 1.2-.45.88-1.42 1.37-2.87 1.37h-1.9c-.64 2.33-2.14 3.6-4.36 3.6-2.25 0-3.75-1.3-4.37-3.67l.02.07H5.74c-1.5 0-2.47-.5-2.9-1.41-.2-.4-.24-.72-.24-1.16 0-1.02.43-1.65 1.51-2.75l.27-.27c.53-.55.72-.85.72-1.08v-1.6C5.1 5.38 7.99 2.1 12 2.1zm2.47 15.8H9.53c.46 1.25 1.25 1.8 2.47 1.8s2.01-.55 2.47-1.8zM12 3.9c-2.96 0-5.1 2.43-5.1 5.73v1.6c0 .85-.39 1.46-1.23 2.33l-.28.29c-.75.75-.99 1.11-.99 1.48 0 .19.01.29.06.38.1.22.43.39 1.28.39h12.52c.82 0 1.16-.17 1.28-.4.05-.1.06-.2.06-.37 0-.37-.24-.73-.99-1.48l-.28-.29c-.84-.87-1.23-1.48-1.23-2.33v-1.6c0-3.3-2.13-5.73-5.1-5.73z"
+                                                fill="currentColor"></path>
+                                        </svg>
+                                    </n-badge>
+                                </Link>
                             </li>
                             <n-dropdown class="custom-dropdown" :options="options">
                                 <li class="navTab account">
-                                     <span id="account-style" class="navLink accountPopup NoPopupGadget flex items-center" rel="Menu">
+                                     <span id="account-style" class="navLink accountPopup flex items-center">
                                          <b id="NavigationAccountUsername"
                                             class="hiddenNarrowUnder accountUsername username !p-0"><span
                                              class="style2">{{ auth.user.neo }}</span></b>
-                                         <BaseIcon :path="mdiFlowerTulip"  fill="purple"/>
+                                         <BaseIcon :path="mdiFlowerTulip" fill="purple"/>
                                          <span class="avatar">
-                                            <img v-if="auth.user.profile_picture" alt="Текущий аватар" class="navTab--visitorAvatar" :src="auth.user.profile_picture">
-                                            <img v-else alt="Текущий аватар" class="navTab--visitorAvatar" src="/images/unuser.jpg">
+                                            <img v-if="auth.user.profile_picture" alt="Текущий аватар"
+                                                 class="navTab--visitorAvatar" :src="auth.user.profile_picture">
+                                            <img v-else alt="Текущий аватар" class="navTab--visitorAvatar"
+                                                 src="/images/unuser.jpg">
                                          </span>
                                      </span>
                                 </li>
@@ -148,15 +146,21 @@ const active = ref(false);
         </div>
     </header>
     <Transition>
-    <div v-show="openNav" class="sideNav bg-mine-second z-10">
-        <div class="p-5">
-        <Link id="neo-logo" :href="route('main')" ><img alt="" class="w-14 pt-2" src="/images/logo.svg"></Link>
-            <ul class="sideUl text-white">
-                <li class="flex items-center"><BaseIcon :path="mdiBook"/>Հոդվածներ</li>
-                <li class="flex items-center"><BaseIcon :path="mdiSendVariantOutline"/>Սոց ցանցեր</li>
-            </ul>
+        <div v-show="openNav" class="sideNav bg-mine-second z-10">
+            <div class="p-5">
+                <Link id="neo-logo" :href="route('main')"><img alt="" class="w-14 pt-2" src="/images/logo.svg"></Link>
+                <ul class="sideUl text-white">
+                    <li class="flex items-center">
+                        <BaseIcon :path="mdiBook"/>
+                        Հոդվածներ
+                    </li>
+                    <li class="flex items-center">
+                        <BaseIcon :path="mdiSendVariantOutline"/>
+                        Սոց ցանցեր
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </Transition>
 </template>
 
@@ -165,13 +169,16 @@ const active = ref(false);
 header {
     background-color: #272727;
 }
+
 li {
     margin: auto;
 }
-.sideUl{
+
+.sideUl {
 
 }
-.sideUl li{
+
+.sideUl li {
     padding: 0 5px;
     border-radius: 6px;
     line-height: 36px;
@@ -184,10 +191,12 @@ li {
     width: 100%;
     height: 36px;
 }
-.sideUl li:hover{
+
+.sideUl li:hover {
     background: rgb(45, 45, 45);
     color: inherit;
 }
+
 #neo-logo {
     height: 45px;
     width: 45px;
@@ -218,11 +227,13 @@ li {
     justify-content: space-between;
     align-content: center;
 }
+
 @media screen and (max-width: 768px) {
     .navTabs {
         box-shadow: 0px -7px 20px #ffffff;
     }
 }
+
 .account-links {
     display: flex;
     justify-content: center;
@@ -368,44 +379,51 @@ input.textCtrl:focus, select.textCtrl:focus, textarea.textCtrl:focus, div.textCt
     font-weight: 600;
     color: rgb(214, 214, 214);
 }
-.sideNav{
+
+.sideNav {
     display: block;
     position: fixed;
     top: 46px;
     width: 90vw;
     height: calc(100vh - 46px);
 }
+
 .v-enter-active,
 .v-leave-active {
     transition: 0.3s;
 }
 
-.v-enter-from{
+.v-enter-from {
     transform: translate(-100%, 0);
 }
+
 .v-leave-to {
     transform: translate(-100%, 0);
 }
 
 @media only screen and (max-width: 768px) {
-    .hiddenWideUnder{
+    .hiddenWideUnder {
         display: none;
     }
 }
 </style>
 <style>
-.custom-dropdown{
+.custom-dropdown {
     background-color: #272727 !important;
 }
+
 .n-dropdown-menu .n-dropdown-option .n-dropdown-option-body:not(.n-dropdown-option-body--disabled).n-dropdown-option-body--pending::before {
-    background-color:  rgb(45, 45, 45);
+    background-color: rgb(45, 45, 45);
 }
-.custom-dropdown .n-dropdown-option-body__label{
+
+.custom-dropdown .n-dropdown-option-body__label {
     color: rgb(239, 231, 231);
 }
+
 .n-dropdown-menu .n-dropdown-option .n-dropdown-option-body .n-dropdown-option-body__prefix {
     color: rgb(239, 231, 231);
 }
+
 .n-dropdown-menu .n-dropdown-option .n-dropdown-option-body:not(.n-dropdown-option-body--disabled).n-dropdown-option-body--pending .n-dropdown-option-body__prefix, .n-dropdown-menu .n-dropdown-option .n-dropdown-option-body:not(.n-dropdown-option-body--disabled).n-dropdown-option-body--pending .n-dropdown-option-body__suffix {
     color: #228E5D;
 }

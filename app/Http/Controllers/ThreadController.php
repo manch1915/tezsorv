@@ -7,6 +7,7 @@ use App\Models\Post;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Yish\Imgur\Facades\Upload as Imgur;
 
 class ThreadController extends Controller
@@ -63,9 +64,37 @@ class ThreadController extends Controller
     public function showThread($id)
     {
         $thread = Post::with('user', 'subcategory', 'category')->findOrFail($id);
-        $hasFavorite = auth()->user()?->hasFavorited($thread) ?? false;
 
-        return inertia('Main/ThreadView', compact('thread', 'hasFavorite'));
+        if (!Cookie::has('thread-' . $id)) {
+            $thread->increment('views');
+            Cookie::queue('thread-' . $id, true, 60);
+            $thread->save();
+        }
+
+        $hasFavorite = auth()->user()?->hasFavorited($thread) ?? false;
+        $comments = $thread->comments()->where('comment_id', null)->with('user', 'replies.user')->get();
+
+        function fetchReplies($comment)
+        {
+            $replies = $comment->replies()->with('user', 'replies.user')->get();
+
+            if ($replies->isNotEmpty()) {
+                foreach ($replies as $reply) {
+                    $reply->replies = fetchReplies($reply);
+                }
+            }
+
+            return $replies;
+        }
+
+        foreach ($comments as $comment) {
+            if ($comment->replies->isNotEmpty()) {
+                foreach ($comment->replies as $reply) {
+                    $reply->replies = fetchReplies($reply);
+                }
+            }
+        }
+        return inertia('Main/ThreadView', compact('thread', 'hasFavorite', 'comments'));
     }
 
     public function showThreads()

@@ -1,5 +1,22 @@
+<template>
+    <div class="discussionListItem border-b-[1px] border-second" data-author="">
+        <div class="discussionListItem--Wrapper p-4">
+            <div class="listBlock account hidden sm:block">
+                <div class="bold lastPostInfo">
+                    <span class="style2">{{ props.username }}</span>
+                </div>
+            </div>
+            <h3 class="title">{{ props.title }}</h3>
+            <span class="secondRow">
+                    <span class="startDate" v-if="created_at">{{ created_at }}</span>
+                    <span class="replyCount"></span>
+                </span>
+        </div>
+    </div>
+</template>
+
 <script setup>
-import {Link} from '@inertiajs/vue3';
+
 import {computed} from "vue";
 
 const props = defineProps({
@@ -7,28 +24,11 @@ const props = defineProps({
         type: String,
         nullable: true
     },
-    username: {
-        type: String,
-        nullable: true
-    },
-    user_id: {
-        type: Number,
-        nullable: true
-    },
-    id: {
-        type: Number,
-        nullable: true
-    },
     created_at: {
         type: String,
         nullable: true
     },
-    userAvatar: {
-        type: String,
-        nullable: true
-    },
 });
-
 const months = [
     "Հունվարի",
     "Փետրվարի",
@@ -43,7 +43,6 @@ const months = [
     "Նոյեմբերի",
     "Դեկտեմբերի"
 ];
-
 const created_at = computed(() => {
     const d = new Date(props.created_at);
     const month = months[d.getMonth()];
@@ -53,32 +52,6 @@ const created_at = computed(() => {
     return `${month} ${day} ${year}`;
 });
 </script>
-
-<template>
-    <div class="discussionListItem border-b-[1px] border-second" data-author="">
-        <div class="discussionListItem--Wrapper">
-            <div class="listBlock account hidden sm:block">
-                <Link class="avatar" data-avatarhtml="true" :href="route('member', props.username)"
-                      :title="props.username">
-                    <img class="avatar-img" :src="props.userAvatar" width="48" height="48" alt="User Avatar">
-                </Link>
-                <div class="bold lastPostInfo">
-                    <Link class="username" :href="route('member', props.username)"><span
-                        class="style2">{{ props.username }}</span></Link>
-                </div>
-            </div>
-            <Link class="listBlock main" :href="route('thread.view', props.id)">
-                <h3 class="title">{{ props.title }}</h3>
-                <span class="secondRow">
-          <span class="username style1">{{ props.username }}</span>
-          <span class="info-separator"></span>
-          <span class="startDate">{{ created_at }}</span>
-          <span class="replyCount"></span>
-        </span>
-            </Link>
-        </div>
-    </div>
-</template>
 
 <style scoped>
 .discussionListItem {

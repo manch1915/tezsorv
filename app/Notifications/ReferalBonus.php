@@ -51,7 +51,7 @@ class ReferalBonus extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'data' => $this->linkUsedUser->usermane . ' joined with your referral link, you get 15 neo points bonus',
+            'data' => $this->linkUsedUser . ' joined with your referral link, you get 15 neo points bonus',
         ];
     }
 }
