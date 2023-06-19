@@ -24,8 +24,8 @@ class PostFactory extends Factory
             'updated_at' => Carbon::now(),
 
             'user_id' => User::factory(),
-            'category_id' => Category::factory(),
-            'subcategory_id' => Subcategory::factory(),
+            'category_id' => 1,
+            'subcategory_id' => 2,
         ];
     }
 }

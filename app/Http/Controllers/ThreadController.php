@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ThreadStoreRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Subcategory;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class ThreadController extends Controller
             $query->where('subcategory_id', $subcategory);
         }
 
-        $posts['data'] = $query->limit(20)->get();
+        $posts['data'] = $query->paginate(10);
 
         return response()->json($posts);
     }
