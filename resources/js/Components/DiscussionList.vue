@@ -1,6 +1,5 @@
 <script setup>
 import DiscussionListItem from "@/Components/DiscussionListItem.vue";
-import {useMainStore} from "@/stores/main";
 import {ref, watch} from "vue";
 import {router} from "@inertiajs/vue3";
 import axios from "axios";
@@ -10,22 +9,18 @@ import {useAutoAnimate} from "@formkit/auto-animate/vue";
 const loading = ref(false);
 
 const {page} = router;
+
 const [category, subcategory] = page.url.split('/').slice(3).map(((str, index) => (parseInt(str))));
 
-const store = useMainStore();
 const threads = ref({});
 const threadCategory = ref('');
 const pageRef = ref(1);
-const urlRef = ref('');
 const fetchThreadList = async (cat = category, sub = subcategory, page = pageRef.value) => {
     let url = route('threadList') + '?page=' + page;
-    urlRef.value = url
     if (!isNaN(cat)) {
         url = route('threadList', cat) + '?page=' + page;
-        urlRef.value = url
         if (!isNaN(sub)) {
             url = route('threadList', [cat, sub]) + '?page=' + page;
-            urlRef.value = url
         }
     }
     try {

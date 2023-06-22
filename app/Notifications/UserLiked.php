@@ -12,14 +12,14 @@ class UserLiked extends Notification
 {
     use Queueable;
 
-    protected $userLikedId;
+    protected $userLikedUsername;
 
     /**
      * Create a new notification instance.
      */
     public function __construct()
     {
-        $this->userLikedId = auth()->id();
+        $this->userLikedUsername = auth()->user()->username;
     }
 
     /**
@@ -50,10 +50,9 @@ class UserLiked extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        //User::find($this->userLikedId) get username
 
         return [
-            'data' => User::find($this->userLikedId)->username . ' liked your profile',
+            'data' => $this->userLikedUsername . ' liked your profile',
         ];
     }
 }
