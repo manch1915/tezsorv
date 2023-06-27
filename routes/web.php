@@ -22,7 +22,6 @@ use App\Http\Controllers\Main\MainController as Main;
 
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-Route::get('/catalog', [IndexController::class, 'catalog'])->name('catalog');
 
 
 Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {

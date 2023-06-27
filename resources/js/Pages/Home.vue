@@ -9,7 +9,7 @@
                         class="text-highlight-orange">թյուր</span> ռեսուրսներ
                     </div>
                     <p class="text-size-large my-5 text-lg md:text-2xl p-2">Ինձ վտանգ չի սպառնում, Սքայլեր։ Ես եմ վտանգը։</p>
-                    <Link :href="route('catalog')" class="glow-button">Կատալոգ</Link>
+                    <Link :href="route('main')" class="glow-button">Կատալոգ</Link>
                 </div>
             </div>
         </section>
