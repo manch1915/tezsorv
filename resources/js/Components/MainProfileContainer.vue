@@ -1,14 +1,17 @@
 <script setup>
 import {useMainStore} from "@/stores/main";
-import {computed, onMounted} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {NButton, NIcon} from "naive-ui";
+import axios from "axios";
 import {mdiNoteMultipleOutline, mdiInstagram, mdiSendCircleOutline} from '@mdi/js';
 
 import BaseIcon from "@/Components/BaseIcon.vue";
+import NeoEditor from "@/Components/NeoEditor.vue";
+import MainProfileWallItem from "@/Components/MainProfileWallItem.vue";
 
 const store = useMainStore();
 
-const memberId = computed(() => {
+const memberUsername = computed(() => {
     const url = window.location.href;
     const regex = /\/(\w+)$/;
     const match = url.match(regex);
@@ -21,10 +24,34 @@ const memberId = computed(() => {
 });
 
 onMounted(() => {
-    store.fetchMember(memberId.value);
+    store.fetchMember(memberUsername.value);
 });
 
 const member = computed(() => store.member);
+
+const memberId = computed(() => member.value.id);
+const body = ref({});
+const walls = ref({});
+
+watch(member, async (newMember) => {
+    if (newMember && newMember.id) {
+        try {
+            const response = await axios.get(route('wall.index', [newMember.id]));
+            walls.value = response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+});
+
+const addWall = () => {
+    axios.post(route('wall.store'), {
+        'wall_user_id': memberId.value,
+        'body': JSON.stringify(body.value)
+    })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+}
 
 const memberCreatedAt = computed(() =>
     new Date(member.value.created_at).toLocaleString()
@@ -119,6 +146,19 @@ const soundcloudLink = computed(() => {
                 </iframe>
             </div>
         </div>
+        <div class="mainContainer mt-2">
+            <div class="mainContent">
+                <NeoEditor v-model="body" type="bubble"/>
+                <n-button @click.prevent="addWall">addWall</n-button>
+            </div>
+        </div>
+        <template v-for="wall in walls">
+            <div class="mainContainer mt-2">
+                <div class="mainContent">
+                    <main-profile-wall-item :wall="wall"/>
+                </div>
+            </div>
+        </template>
     </section>
 </template>
 
@@ -225,8 +265,9 @@ const soundcloudLink = computed(() => {
     display: inline-block;
     padding: 15px;
 }
+
 .page_counter .count {
-    text-shadow: 1px 0px 7px rgb(42, 183, 51);
+    text-shadow: 1px 0 7px rgb(42, 183, 51);
 }
 
 .page_counter .count {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,7 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function update(UserUpdateRequest $request) : \Illuminate\Http\JsonResponse
+    public function update(UserUpdateRequest $request): JsonResponse
     {
         $validated = $request->validated();
 

@@ -10,9 +10,4 @@ class IndexController extends Controller
     {
         return inertia('Home');
     }
-
-    public function catalog()
-    {
-        return inertia('Catalog');
-    }
 }

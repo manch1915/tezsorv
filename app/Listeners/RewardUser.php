@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\UserReferred;
 use App\Models\ReferralLink;
 use App\Models\ReferralRelationship;
+use App\Notifications\ReferalBonus;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -31,7 +32,7 @@ class RewardUser
                     $user = $event->user;
                     $user->addCredits(20);
 
-                    $provider->notify(new \App\Notifications\ReferalBonus($user));
+                    $provider->notify(new ReferalBonus($user));
                 }
 
             }

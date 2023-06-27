@@ -18,6 +18,7 @@ const props = defineProps({
     hasFavorite: Boolean,
     comments: Object
 })
+
 const months = [
     "Հունվարի",
     "Փետրվարի",

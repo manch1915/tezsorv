@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Yish\Imgur\UploadServiceProvider;
 
 return [
 
@@ -181,7 +182,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        \Yish\Imgur\UploadServiceProvider::class,
+        UploadServiceProvider::class,
         /*
          * Package Service Providers...
          */

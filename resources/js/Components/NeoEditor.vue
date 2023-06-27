@@ -1,10 +1,11 @@
 <template>
-    <QuillEditor theme="snow" :options="options" v-model:content="editorContent"/>
+  <QuillEditor :theme="props.type" :options="options" v-model:content="editorContent"/>
 </template>
 
 <script setup>
 import {QuillEditor, Quill} from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 import ImageUploader from 'quill-image-uploader';
 import axios from 'axios'
 import ResizeModule from "@ssumo/quill-resize-module";
@@ -13,25 +14,28 @@ import {ref, watch} from "vue";
 Quill.register('modules/imageUploader', ImageUploader);
 Quill.register("modules/resize", ResizeModule);
 
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'snow'
+  }
+})
 const options = {
     modules: {
         toolbar: {
-            container: [
+          container: props.type === 'bubble' ? [['bold', 'image', 'color'], ['clean']] : [
                 ['link', 'image'],
                 ['bold', 'italic', 'underline', 'strike'],
-                [{'header': 1}, {'header': 2}],
-                [{'list': 'ordered'}, {'list': 'bullet'}],
-                [{'script': 'sub'}, {'script': 'super'}],
-                [{'indent': '-1'}, {'indent': '+1'}],
-                [{'direction': 'rtl'}],
-
-                [{'size': ['small', false, 'large', 'huge']}],
-                [{'header': [1, 2, 3, 4, 5, 6, false]}],
-
-                [{'color': []}, {'background': []}],
-                [{'align': []}],
-
-                ['clean']
+            [{'header': 1}, {'header': 2}],
+            [{'list': 'ordered'}, {'list': 'bullet'}],
+            [{'script': 'sub'}, {'script': 'super'}],
+            [{'indent': '-1'}, {'indent': '+1'}],
+            [{'direction': 'rtl'}],
+            [{'size': ['small', false, 'large', 'huge']}],
+            [{'header': [1, 2, 3, 4, 5, 6, false]}],
+            [{'color': []}, {'background': []}],
+            [{'align': []}],
+            ['clean'],
             ],
         },
         imageUploader: {
@@ -39,7 +43,6 @@ const options = {
                 return new Promise((resolve, reject) => {
                     const formData = new FormData()
                     formData.append('image', file)
-
                     axios.post(route('thread.uploadFile'), formData)
                         .then(response => {
                             const imageUrl = response.data.url
