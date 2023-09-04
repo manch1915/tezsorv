@@ -1,13 +1,23 @@
 <script setup>
-import {useMainStore} from "@/stores/main";
+// Vue related imports
 import {computed, onMounted, ref, watch} from "vue";
-import {NButton, NIcon} from "naive-ui";
-import axios from "axios";
-import {mdiNoteMultipleOutline, mdiInstagram, mdiSendCircleOutline} from '@mdi/js';
 
+// UI Components imports
+import {NButton, NIcon, NSpace} from "naive-ui";
+
+// Other imports
+import axios from "axios";
+import {mdiNoteMultipleOutline} from '@mdi/js';
+
+// Local components and functions imports
+import {useMainStore} from "@/stores/main";
+import {getWalls, postWall} from '@/api/wall';
 import BaseIcon from "@/Components/BaseIcon.vue";
 import NeoEditor from "@/Components/NeoEditor.vue";
 import MainProfileWallItem from "@/Components/MainProfileWallItem.vue";
+import UsernameComponent from "@/Components/username-component.vue";
+import UserInfo from "@/Components/user-info.vue";
+import SocialHandle from "@/Components/social-handle.vue";
 
 const store = useMainStore();
 
@@ -23,58 +33,65 @@ const memberUsername = computed(() => {
     return match[1];
 });
 
+// Function to fetch data and fill ref 'walls'
+async function fetchWalls(id) {
+  try {
+    const response = await getWalls(id);
+    walls.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Function to post a wall and log the response
+async function postAWall(input) {
+  try {
+    const response = await postWall(input);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 onMounted(() => {
     store.fetchMember(memberUsername.value);
 });
 
+// Computed properties and refs
 const member = computed(() => store.member);
-
-const memberId = computed(() => member.value.id);
+const memberId = computed(() => member.value.data.id);
 const body = ref({});
 const walls = ref({});
 
-watch(member, async (newMember) => {
-    if (newMember && newMember.id) {
-        try {
-            const response = await axios.get(route('wall.index', [newMember.id]));
-            walls.value = response.data;
-        } catch (error) {
-            console.error(error);
-        }
+// Watch for changes in member 'ref' and fetch walls accordingly
+watch(member, (newMember) => {
+  if (newMember.data && newMember.data.id) {
+    fetchWalls(newMember.data.id)
     }
 });
 
 const addWall = () => {
-    axios.post(route('wall.store'), {
+  postAWall({
         'wall_user_id': memberId.value,
         'body': JSON.stringify(body.value)
-    })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+  });
 }
 
-const memberCreatedAt = computed(() =>
-    new Date(member.value.created_at).toLocaleString()
-);
+const memberCreatedAt = computed(() => new Date(member.value.created_at).toLocaleString());
 
+// Computed property to create soundcloud link
 const soundcloudLink = computed(() => {
-    if (!member.value) {
+  if (!member.value || !/https:\/\/w\..+&visual=true/.test(store.member.soundcloud_track)) {
         return null;
     }
-    const regex = /https:\/\/w\..+&visual=true/;
-    const match = regex.exec(store.member.soundcloud_track);
-    if (match) {
-        let url = new URL(match[0]);
 
-        url.searchParams.set('hide_related', 'true');
-        url.searchParams.set('show_comments', 'false');
-        url.searchParams.set('show_user', 'false');
-        url.searchParams.set('show_teaser', 'false');
+  let url = new URL(/https:\/\/w\..+&visual=true/.exec(store.member.soundcloud_track)[0]);
 
-        return url.toString() + '&amp;';
-    } else {
-        return null;
-    }
+  ['hide_related', 'show_comments', 'show_user', 'show_teaser'].forEach(item => {
+    url.searchParams.set(item, 'false');
+  });
+
+  return url.toString() + '&amp;';
 });
 </script>
 
@@ -82,198 +99,143 @@ const soundcloudLink = computed(() => {
     <section class="lg:mt-0 mt-4">
         <div class="mainContainer">
             <div class="mainContent">
-                <template v-if="member">
-                    <div class="userInfo flex flex-col">
-                        <div class="username"><p>{{ member.username }}</p></div>
-                        <div class="inline-grid grid-cols-2 mt-4">
-                            <div class="pr-10 text-mainText">
-                                <ul>
-                                    <li v-if="member.first_name">Անուն:</li>
-                                    <li v-if="member.last_name">Ազգանուն:</li>
-                                    <li v-if="memberCreatedAt">Գրանցվել է:</li>
-                                    <li v-if="member.sex?.name">Սեռ:</li>
-                                    <li v-if="member.role">Դեր:</li>
-                                    <li v-if="member.country">Երկիր:</li>
-                                    <li v-if="member.city">Քաղաք:</li>
-                                </ul>
-                            </div>
-                            <div class="text-white">
-                                <ul>
-                                    <li>{{ member.first_name }}</li>
-                                    <li>{{ member.last_name }}</li>
-                                    <li>{{ memberCreatedAt }}</li>
-                                    <li>{{ member.sex?.name }}</li>
-                                    <li>{{ member.role }}</li>
-                                    <li>{{ member.country }}</li>
-                                    <li>{{ member.city }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="flex gap-x-3">
-                            <a v-if="member.instagram" :href="`https://www.instagram.com/${member.instagram}`"
-                               class="mt-4" target="_blank">
-                                <BaseIcon :path="mdiInstagram" class="instagram__logo" fill="#949494" size="50"/>
-                            </a>
-                            <a v-if="member.telegram" :href="`https://www.t.me/${member.telegram}`" class="w-2 mt-4"
-                               target="_blank">
-                                <BaseIcon :path="mdiSendCircleOutline" class="telegram__logo" fill="#949494" size="50"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="themes pt-5 flex justify-start items-start content-start flex-col">
-                        <n-button class="text-gray-500" icon-placement="left" text>
-                            <template #icon>
-                                <n-icon>
-                                    <BaseIcon :path="mdiNoteMultipleOutline"/>
-                                </n-icon>
-                            </template>
-                            Темы от {{ member.username ?? '' }}
-                        </n-button>
-                    </div>
-                    <div class="counts_module mt-2">
-                        <div class="page_counter">
-                            <div class="count">{{ member.likes_count }}</div>
-                            <div class="label text-mainText">Սիմպատյա</div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </div>
-        <div v-if="soundcloudLink" class="mainContainer mt-2">
-            <div class="mainContent">
-                <iframe width="100%" height="166" scrolling="no" frameborder="no"
-                        :src='soundcloudLink'>
-                </iframe>
-            </div>
-        </div>
-        <div class="mainContainer mt-2">
-            <div class="mainContent">
-                <NeoEditor v-model="body" type="bubble"/>
-                <n-button @click.prevent="addWall">addWall</n-button>
-            </div>
-        </div>
-        <template v-for="wall in walls">
-            <div class="mainContainer mt-2">
-                <div class="mainContent">
-                    <main-profile-wall-item :wall="wall"/>
+              <template v-if="member">
+                <div class="userInfo flex flex-col">
+                  <username-component :username="member.data.username"/>
+                  <user-info :member="member.data"/>
+                  <social-handle :member="member.data"/>
                 </div>
+                <div class="themes pt-5 flex justify-start items-start content-start flex-col">
+                  <n-button class="text-gray-500" icon-placement="left" text>
+                    <template #icon>
+                      <n-icon>
+                        <BaseIcon :path="mdiNoteMultipleOutline"/>
+                      </n-icon>
+                    </template>
+                    Темы от {{ member.username ?? '' }}
+                  </n-button>
+                </div>
+                <div class="counts_module mt-2">
+                  <div class="page_counter">
+                    <div class="count">{{ member.likes_count }}</div>
+                    <div class="label text-mainText">Սիմպատյա</div>
+                  </div>
+                </div>
+              </template>
             </div>
-        </template>
+        </div>
+      <div class="mainContainer mt-2" v-if="soundcloudLink">
+        <div class="mainContent">
+          <iframe width="100%" height="166" scrolling="no" frameborder="no" :src='soundcloudLink'></iframe>
+        </div>
+      </div>
+
+      <div class="mainContainer mt-2">
+        <div class="mainContent">
+          <n-space vertical>
+            <div class="bg-gray-700 rounded">
+              <NeoEditor v-model="body" type="bubble"/>
+            </div>
+            <n-button @click.prevent="addWall">addWall</n-button>
+          </n-space>
+        </div>
+      </div>
+
+      <div class="mainContainer mt-2" v-for="wall in walls" :key="wall.id">
+        <div class="mainContent">
+          <main-profile-wall-item :wall="wall"/>
+        </div>
+      </div>
     </section>
 </template>
 
 <style>
-
-.mainContainer, section {
-    width: 100%;
+.mainContainer,
+section {
+  width: 100%;
 }
 
 .mainContent {
-    border-radius: 10px;
-    padding: 15px 20px;
-    background: rgb(39, 39, 39);
+  border-radius: 10px;
+  padding: 15px 20px;
+  background: rgb(39, 39, 39);
 }
 
 .username {
-    padding: 0 0 15px;
+  padding-bottom: 15px;
 }
 
 .username p {
-    color: rgb(148, 148, 148);
-    font-size: 20px;
+  color: rgb(148, 148, 148);
+  font-size: 20px;
 }
 
-@keyframes instagram {
-    0% {
-        filter: drop-shadow(0px 0px 8px #5851db)
-    }
-    25% {
-        filter: drop-shadow(0px 0px 8px #405de6)
-    }
-    50% {
-        filter: drop-shadow(0px 0px 8px #833ab4)
-    }
-    75% {
-        filter: drop-shadow(0px 0px 8px #c13584)
-    }
-    100% {
-        filter: drop-shadow(0px 0px 8px #5851db)
-    }
+.instagram__logo,
+.telegram__logo {
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
 }
 
-.instagram__logo {
-    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
-}
-
-.instagram__logo svg {
-    opacity: 0.4;
-    animation-name: instagram;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    transition: all 0.5s;
-}
-
-.instagram__logo svg {
-    opacity: 0.4;
-    animation-name: instagram;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
+.instagram__logo svg,
+.telegram__logo svg {
+  opacity: 0.4;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  transition: all 0.5s;
 }
 
 .instagram__logo svg:hover {
-    opacity: 1;
-    filter: drop-shadow(0px 0px 4px #c13584)
-}
-
-@keyframes telegram {
-    0% {
-        filter: drop-shadow(0px 0px 0px #229ED9)
-    }
-    50% {
-        filter: drop-shadow(0px 0px 8px #229ED9)
-    }
-    100% {
-        filter: drop-shadow(0px 0px 0px #229ED9)
-    }
-}
-
-.telegram__logo {
-    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
-}
-
-.telegram__logo svg {
-    opacity: 0.4;
-    animation-name: telegram;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    transition: all 0.5s;
+  opacity: 1;
+  filter: drop-shadow(0px 0px 4px #c13584);
 }
 
 .telegram__logo svg:hover {
-    opacity: 1;
-    filter: drop-shadow(0px 0px 4px #229ED9)
+  opacity: 1;
+  filter: drop-shadow(0px 0px 4px #229ED9);
 }
 
 .counts_module {
-    text-align: center;
-    border-top: 1px solid rgb(45, 45, 45);
-    max-height: 69px;
-    overflow: hidden;
+  text-align: center;
+  border-top: 1px solid rgb(45, 45, 45);
+  max-height: 69px;
+  overflow: hidden;
 }
 
 .page_counter {
-    display: inline-block;
-    padding: 15px;
+  display: inline-block;
+  padding: 15px;
 }
 
 .page_counter .count {
-    text-shadow: 1px 0 7px rgb(42, 183, 51);
+  text-shadow: 1px 0 7px rgb(42, 183, 51);
+  font-size: 19px;
+  color: rgb(0, 186, 120);
+  padding-bottom: 3px;
+  line-height: 21px;
 }
 
-.page_counter .count {
-    font-size: 19px;
-    color: rgb(0, 186, 120);
-    padding-bottom: 3px;
-    line-height: 21px;
+@keyframes instagram {
+  0%,
+  100% {
+    filter: drop-shadow(0px 0px 8px #5851db);
+  }
+  25% {
+    filter: drop-shadow(0px 0px 8px #405de6);
+  }
+  50% {
+    filter: drop-shadow(0px 0px 8px #833ab4);
+  }
+  75% {
+    filter: drop-shadow(0px 0px 8px #c13584);
+  }
+}
+
+@keyframes telegram {
+  0%,
+  100% {
+    filter: drop-shadow(0px 0px 0px #229ED9);
+  }
+  50% {
+    filter: drop-shadow(0px 0px 8px #229ED9);
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps} from 'vue';
+import {defineProps, onMounted, onUnmounted, ref} from 'vue';
 import {Head} from '@inertiajs/vue3';
 
 import MainLayout from '@/Layouts/MainLayout.vue';
@@ -10,6 +10,36 @@ import NavSidebar from '@/Components/NavSidebar.vue';
 const props = defineProps({
     auth: Object,
     notifications: Object
+});
+
+const ws = ref(null);
+
+onMounted(() => {
+    ws.value = new WebSocket('ws://localhost:8080');
+
+    ws.value.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        // handle user connected/disconnected notification
+        switch (data.type) {
+            case 'user_connect':
+                // logic when user is connected
+                break;
+            case 'user_disconnect':
+                // logic when user is disconnected
+                break;
+        }
+    };
+
+    ws.value.onopen = () => {
+        // User just connected send init message to WebSocket server
+        ws.value.send(JSON.stringify({type: 'init', user_id: props.auth.id}));
+    };
+});
+
+onUnmounted(() => {
+    if (ws.value) {
+        ws.value.close();
+    }
 });
 </script>
 

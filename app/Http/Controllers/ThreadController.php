@@ -13,6 +13,27 @@ use Yish\Imgur\Facades\Upload as Imgur;
 
 class ThreadController extends Controller
 {
+    protected function authorizeThreadCreation()
+    {
+        abort_unless(auth()->user()->can('create-threads'), 403, 'Դուք չեք կարող ստեղծել նոր հոդված');
+    }
+
+    protected function createThreadFromValidatedRequestData(array $validatedData): Post
+    {
+        return Post::create($this->formatThreadData($validatedData));
+    }
+
+    private function formatThreadData(array $validatedData): array
+    {
+        return [
+            'title' => $validatedData['title'],
+            'body' => $validatedData['body'],
+            'user_id' => auth()->id(),
+            'category_id' => $validatedData['category'],
+            'subcategory_id' => $validatedData['subcategory'],
+        ];
+    }
+
     public function newThread()
     {
         return inertia('Main/Thread');
@@ -22,80 +43,111 @@ class ThreadController extends Controller
     {
         $file = $request->file('image');
         $image = Imgur::upload($file);
-
         return response()->json(['url' => $image->link()]);
     }
 
     public function storeThread(ThreadStoreRequest $request): array
     {
-        if (!auth()->user()->can('create-threads')) {
-            abort(403, 'Դուք չեք կարող ստեղծել նոր հոդված');
-        }
+        $this->authorizeThreadCreation();
 
-        $validatedData = $request->validated();
-        $thread = Post::create([
-            'title' => $validatedData['title'],
-            'body' => $validatedData['body'],
-            'user_id' => auth()->id(),
-            'category_id' => $validatedData['category'],
-            'subcategory_id' => $validatedData['subcategory'],
-        ]);
+        $thread = $this->createThreadFromValidatedRequestData($request->validated());
 
         return ['redirect' => route('thread.view', $thread->id)];
     }
 
     public function show(?int $category = null, ?int $subcategory = null)
     {
+        $posts = [];
+
         $query = Post::with('user')->orderBy('created_at', 'desc');
-
-        if ($category !== null) {
-            $query->where('category_id', $category);
-            $posts['category'] = Category::findOrFail($category)->name;
-        }
-
-        if ($subcategory !== null) {
-            $query->where('subcategory_id', $subcategory);
-        }
-
-        $posts['data'] = $query->paginate(10);
+        $posts['data'] = $this->buildPostsQuery($query, $category, $subcategory)->paginate(10);
 
         return response()->json($posts);
     }
 
+    private function buildPostsQuery($query, int $category = null, int $subcategory = null)
+    {
+        if (!is_null($category)) {
+            $query->where('category_id', $category);
+            $posts['category'] = Category::findOrFail($category)->name;
+        }
+
+        if (!is_null($subcategory)) {
+            $query->where('subcategory_id', $subcategory);
+        }
+
+        return $query;
+    }
+
     public function showThread($id)
     {
-        $thread = Post::with('user', 'subcategory', 'category')->findOrFail($id);
+        return inertia('Main/ThreadView', $this->prepareThreadData($id));
+    }
 
-        if (!Cookie::has('thread-' . $id)) {
-            $thread->increment('views');
-            Cookie::queue('thread-' . $id, true, 60);
-            $thread->save();
+    private function prepareThreadData($id): array
+    {
+        $thread = $this->getThreadWithDependencies($id);
+
+        if (!$this->hasThreadCookie($id)) {
+            $this->increaseThreadViewsAndQueueCookie($thread, $id);
         }
 
-        $hasFavorite = auth()->user()?->hasFavorited($thread) ?? false;
-        $comments = $thread->comments()->where('comment_id', null)->with('user', 'replies.user')->get();
+        return [
+            'thread' => $thread,
+            'hasFavorite' => $this->checkUserFavorite($thread),
+            'comments' => $this->populateRepliesToComments($this->getThreadComments($thread))
+        ];
+    }
 
-        function fetchReplies($comment)
-        {
-            $replies = $comment->replies()->with('user', 'replies.user')->get();
-
-            if ($replies->isNotEmpty()) {
-                foreach ($replies as $reply) {
-                    $reply->replies = fetchReplies($reply);
-                }
-            }
-
-            return $replies;
-        }
-
+    private function populateRepliesToComments($comments)
+    {
         foreach ($comments as $comment) {
             if ($comment->replies->isNotEmpty()) {
-                foreach ($comment->replies as $reply) {
-                    $reply->replies = fetchReplies($reply);
-                }
+                $comment->replies = $this->fetchRepliesForComment($comment);
             }
         }
-        return inertia('Main/ThreadView', compact('thread', 'hasFavorite', 'comments'));
+
+        return $comments;
+    }
+
+    public function getThreadWithDependencies($id)
+    {
+        return Post::with('user', 'subcategory', 'category')->findOrFail($id);
+    }
+
+    public function hasThreadCookie($id)
+    {
+        return Cookie::has('thread-' . $id);
+    }
+
+    public function increaseThreadViewsAndQueueCookie($thread, $id)
+    {
+        $thread->increment('views');
+        Cookie::queue('thread-' . $id, true, 60);
+        $thread->save();
+    }
+
+    public function checkUserFavorite($thread)
+    {
+        return auth()->user()?->hasFavorited($thread) ?? false;
+    }
+
+    public function getThreadComments($thread)
+    {
+        return $thread->comments()->where('comment_id', null)->with('user', 'replies.user')->get();
+    }
+
+    public function fetchRepliesForComment($comment)
+    {
+        $replies = $comment->replies()->with('user', 'replies.user')->get();
+
+        if ($replies->isNotEmpty()) {
+            foreach ($replies as $reply) {
+                $reply->replies = $this->fetchRepliesForComment($reply);
+            }
+        }
+
+        return $replies;
     }
 
     public function showThreads()
@@ -109,6 +161,4 @@ class ThreadController extends Controller
 
         return inertia('Main/Favorites', compact('favorites'));
     }
-
-
 }

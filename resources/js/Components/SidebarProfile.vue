@@ -6,7 +6,7 @@ import Like from "@/Components/Like.vue";
 const store = useMainStore();
 
 const member = computed(() => store.member);
-
+console.log(member)
 const props = defineProps({
     auth: Object
 })

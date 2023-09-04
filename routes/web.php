@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountNotificationController;
+use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ThreadController;
@@ -55,6 +56,10 @@ Route::group(['prefix' => 'main', 'middleware' => 'auth'], function () {
         Route::get('/security', [Main::class, 'security'])->name('security');
         Route::get('/notifications', [AccountNotificationController::class, 'show'])->name('account-notification.show');
     });
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'can:join-admin-panel'], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 });
 
 require __DIR__ . '/auth.php';

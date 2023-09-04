@@ -156,7 +156,7 @@ export default {
                 {
                     name: 'Catalog',
                     description: 'Understand how we take your privacy seriously.',
-                    href: route('catalog'),
+                    href: route('main'),
                     icon: ShieldCheckIcon
                 },
             ],

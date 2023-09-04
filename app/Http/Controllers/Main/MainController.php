@@ -3,25 +3,31 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\ReferralLink;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yish\Imgur\Facades\Upload as Imgur;
 
 class MainController extends Controller
 {
-    public function index()
+    protected $views = [
+        'index' => 'Main/Main',
+        'member' => 'Main/MainProfile',
+        'personalDetails' => 'Main/AccountSettings/PersonalDetails',
+        'contactDetails' => 'Main/AccountSettings/ContactDetails',
+        'security' => 'Main/AccountSettings/Security'
+    ];
+
+    public function __call($method, $parameters)
     {
-        return inertia('Main/Main');
+        if (array_key_exists($method, $this->views)) {
+            return inertia($this->views[$method]);
+        }
+
+        return parent::__call($method, $parameters);
     }
 
-    public function member()
-    {
-        return inertia('Main/MainProfile');
-    }
-
-    // Show member by ID for API
     public function showMember(string $username)
     {
         $member = User::where('username', $username)->first();
@@ -33,45 +39,28 @@ class MainController extends Controller
         $member->load('sex');
         $member['role'] = $member->getRoleNames()->last();
 
-        return response()->json($member);
-    }
-
-    public function personalDetails()
-    {
-        return inertia('Main/AccountSettings/PersonalDetails');
-    }
-
-    public function contactDetails()
-    {
-        return inertia('Main/AccountSettings/ContactDetails');
-    }
-
-    public function security()
-    {
-        return inertia('Main/AccountSettings/Security');
+        return new UserResource($member);
     }
 
     public function upgrade()
     {
-        $referralLink = ReferralLink::getReferral(auth()->id(), 1);
-        $neoCount = auth()->user()->neo;
-        $userRole = auth()->user()->getRoleNames()->last();
-
-        return inertia('Main/AccountSettings/Upgrade', compact('referralLink', 'neoCount', 'userRole'));
+        return inertia('Main/AccountSettings/Upgrade', [
+            'referralLink' => ReferralLink::getReferral(auth()->id(), 1),
+            'neoCount' => auth()->user()->neo,
+            'userRole' => auth()->user()->getRoleNames()->last()
+        ]);
     }
 
     public function avatarUpload(Request $request)
     {
         $avatar = $request->file('avatar');
-        $user = auth()->user();
-
-        if ($avatar->getClientOriginalExtension() === 'gif' && !$user->can('add-animated-pfp')) {
+        if ($avatar->getClientOriginalExtension() === 'gif' && !auth()->user()->can('add-animated-pfp')) {
             return response()->json('Animated avatars are not allowed for your role');
         }
 
-        $image = Imgur::upload($avatar);
-        $user->profile_picture = $image->link();
-        $user->save();
+        auth()->user()->update([
+            'profile_picture' => Imgur::upload($avatar)->link()
+        ]);
 
         return response()->json('Avatar uploaded successfully');
     }
@@ -79,30 +68,19 @@ class MainController extends Controller
     public function upgradeRole(Request $request)
     {
         $user = auth()->user();
-        $neo = $user->neo;
 
-        $roles = collect([
-            ['role' => 'alfa', 'threshold' => 100],
-            ['role' => 'beta', 'threshold' => 60],
-            ['role' => 'delta', 'threshold' => 45],
-            ['role' => 'gamma', 'threshold' => 30],
-            ['role' => 'omega', 'threshold' => 15],
-        ]);
-
-        $role = $roles->first(function ($item) use ($neo) {
-            return $neo >= $item['threshold'];
-        });
+        $role = Role::where('threshold', '<=', $user->neo)->orderBy('threshold', 'desc')->first();
 
         if ($role) {
-            $user->assignRole($role['role']);
-            return response()->json(['message' => 'Role upgraded successfully, your role is ' . $role['role']]);
-        } else {
-            return response()->json(['message' => 'You need to upgrade your account']);
+            $user->assignRole($role['name']);
+            return response()->json(['message' => 'Role upgraded successfully, your role is ' . $role['name']]);
         }
+
+        return response()->json(['message' => 'You need to upgrade your account']);
     }
 
     public function notificationsCount()
     {
-        return response()->json(auth()->user()->unreadNotifications()->count());
+        return response()->json(['count' => auth()->user()->unreadNotifications()->count()]);
     }
 }

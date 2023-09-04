@@ -1,28 +1,31 @@
 <script setup>
-import {mdiStar} from '@mdi/js';
-import axios from 'axios';
-import {ref} from 'vue';
-import BaseIcon from "@/Components/BaseIcon.vue";
+import {ref, toRefs} from 'vue'
+import {mdiStar} from '@mdi/js'
+import axios from 'axios'
+import BaseIcon from "@/Components/BaseIcon.vue"
 
-const props = defineProps({
-    threadId: Number,
-    hasFavorite: Boolean,
-});
+const props = toRefs(defineProps({
+    threadId: {type: Number},
+    hasFavorite: {type: Boolean}
+}))
 
-const starColor = ref(props.hasFavorite ? 'yellow' : 'gray');
-
+let starColor = ref(props.hasFavorite.value ? 'yellow' : 'gray')
 const addToFavorite = async () => {
-    try {
-        const response = await axios.post(route('addToFavorites'), {thread_id: props.threadId});
-        starColor.value = response.data ? 'yellow' : 'gray';
-    } catch (error) {
+    axios
+        .post(route('addToFavorites'), {thread_id: props.threadId.value})
+        .then(response => {
+            starColor.value = response.data ? 'yellow' : 'gray'
+        })
+        .catch((error) => {
+            console.error(error)
+            // TODO: Add error handling logic if necessary
+        })
+}
 
-    }
-};
 </script>
 
 <template>
     <div class="cursor-pointer">
-        <BaseIcon :path="mdiStar" size="30" :fill="starColor" @click="addToFavorite"/>
+        <BaseIcon :path="mdiStar" size="30" :fill="starColor.value" @click="addToFavorite"/>
     </div>
 </template>

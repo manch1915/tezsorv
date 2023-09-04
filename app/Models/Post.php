@@ -20,11 +20,6 @@ class Post extends Model
         'likes'
     ];
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -38,5 +33,10 @@ class Post extends Model
     public function subcategory()
     {
         return $this->belongsTo(Subcategory::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -24,7 +24,7 @@ export const useMainStore = defineStore("main", {
         async fetchNotificationCount() {
             try {
                 const response = await axios.get(route('notifications'));
-                this.notifications = response.data;
+                this.notifications = response.data.count;
             } catch (error) {
                 console.error(error);
             }

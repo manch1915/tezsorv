@@ -1,44 +1,44 @@
 <script setup>
-import DiscussionListItem from "@/Components/DiscussionListItem.vue";
 import {ref, watch} from "vue";
 import {router} from "@inertiajs/vue3";
-import axios from "axios";
-import {NPagination, NConfigProvider, darkTheme, NSpace} from "naive-ui";
-import {useAutoAnimate} from "@formkit/auto-animate/vue";
+import axios from 'axios';
+import DiscussionListItem from '@/Components/DiscussionListItem.vue';
+import {NPagination, NConfigProvider, darkTheme, NSpace} from 'naive-ui';
+import {useAutoAnimate} from '@formkit/auto-animate/vue';
 
-const loading = ref(false);
-
+// Get page from router and split to get category and subcategory
 const {page} = router;
+const [category, subcategory] = page.url.split('/').slice(3).reduce((acc, str, index) => [...acc, parseInt(str)], []);
 
-const [category, subcategory] = page.url.split('/').slice(3).map(((str, index) => (parseInt(str))));
-
+// Create Reactive variables for components and API results
 const threads = ref({});
 const threadCategory = ref('');
 const pageRef = ref(1);
-const fetchThreadList = async (cat = category, sub = subcategory, page = pageRef.value) => {
-    let url = route('threadList') + '?page=' + page;
-    if (!isNaN(cat)) {
-        url = route('threadList', cat) + '?page=' + page;
-        if (!isNaN(sub)) {
-            url = route('threadList', [cat, sub]) + '?page=' + page;
-        }
+let loading = ref(false);
+const [parent] = useAutoAnimate({duration: 100});
+
+async function fetchThreadList() {
+    let params = [category, subcategory].filter(Boolean);
+    let url = route('threadList', params);
+
+    if (pageRef.value) {
+        url = new URL(url.toString());
+        url.searchParams.append('page', pageRef.value);
+        url = url.toString();
     }
     try {
+        loading.value = true;
         const response = await axios.get(url);
         threads.value = response.data['data'];
         threadCategory.value = response.data['category'];
     } catch (error) {
         console.error(error);
+    } finally {
+        loading.value = false;
     }
-};
-const [parent] = useAutoAnimate({
-    duration: 100
-})
-watch(pageRef, () => {
-    fetchThreadList();
-});
-fetchThreadList();
+}
 
+watch([pageRef, category, subcategory], fetchThreadList, {immediate: true});
 </script>
 
 <template>

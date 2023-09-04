@@ -41,6 +41,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'add-to-favorites']);
         Permission::create(['name' => 'add-animated-pfp']);
 
+        Permission::create(['name' => 'join-admin-panel']);
 
         $rootRole = Role::create(['name' => 'root']);
         $sigmaRole = Role::create(['name' => 'sigma']);
@@ -69,7 +70,8 @@ class RoleAndPermissionSeeder extends Seeder
             'edit-subcategories',
             'delete-subcategories',
             'add-to-favorites',
-            'add-animated-pfp'
+            'add-animated-pfp',
+            'join-admin-panel'
         ]);
         $sigmaRole->givePermissionTo([
             'edit-users',
