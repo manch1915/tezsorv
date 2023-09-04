@@ -10,8 +10,13 @@ class WallController extends Controller
 {
     public function index($id)
     {
-        $user = User::findOrFail($id);
-        $walls = $user->walls()->with('user')->orderBy('created_at', 'desc')->get();
+        $walls = Wall::with('user')
+            ->whereHas('user', function ($query) use ($id) {
+                $query->where('id', $id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return response()->json($walls);
     }
 
