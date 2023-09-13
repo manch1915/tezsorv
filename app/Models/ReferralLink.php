@@ -46,7 +46,6 @@ class ReferralLink extends Model
 
     public function program()
     {
-        // TODO: Check if second argument is required
         return $this->belongsTo(ReferralProgram::class, 'referral_program_id');
     }
 

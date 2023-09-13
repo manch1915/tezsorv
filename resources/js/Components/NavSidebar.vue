@@ -16,9 +16,11 @@ const store = useMainStore();
 const loading = ref(false)
 
 onMounted(async () => {
-    loading.value = true;
-    await store.fetchSlideList();
-    loading.value = false;
+    if (!await store.isSlideListFetched()) {
+        loading.value = true;
+        await store.fetchSlideList();
+        loading.value = false;
+    }
 });
 
 const categories = computed(() => store.slideList);

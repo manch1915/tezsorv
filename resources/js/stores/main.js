@@ -20,7 +20,9 @@ export const useMainStore = defineStore("main", {
                 console.error(error);
             }
         },
-
+        async isSlideListFetched() {
+            return this.slideList && this.slideList.length > 0;
+        },
         async fetchNotificationCount() {
             try {
                 const response = await axios.get(route('notifications'));

@@ -18,7 +18,6 @@ const addToFavorite = async () => {
         })
         .catch((error) => {
             console.error(error)
-            // TODO: Add error handling logic if necessary
         })
 }
 

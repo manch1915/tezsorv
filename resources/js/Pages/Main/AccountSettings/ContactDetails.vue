@@ -18,7 +18,7 @@ const props = defineProps({
 })
 
 const form = useForm({
-    username: props.auth.user.username, //todo username uxarkvum e avelord
+    username: props.auth.user.username,
     telegram: props.auth.user.telegram,
     instagram: props.auth.user.instagram,
 })
