@@ -12,12 +12,11 @@ export const useMainStore = defineStore("main", {
 
     threadCategory: '',
     slideList: [],
-    sexes: [],
     clients: [],
     history: [],
     threadList: [],
-    member: null,
   }),
+
   actions: {
       setUser(payload) {
           if (payload.name) {
@@ -61,30 +60,5 @@ export const useMainStore = defineStore("main", {
 
           }
       },
-
-      async fetchSexes() {
-          await axios.get(`${this.apiUrl}sexes`)
-              .then((response) => {
-                  this.sexes = response.data;
-              })
-              .catch((error) => {
-                  alert(error.message);
-              });
-      },
-
-      async fetchMember(id) {
-          this.loading  = true;
-          await axios.get(`${this.apiUrl}member/${id}`)
-              .then((response) => {
-                  this.loading = false;
-                  this.member = response.data;
-              })
-              .catch((error) => {
-                  alert(error.message);
-              });
-      },
-  },
-  mutations: {
-
   },
 });

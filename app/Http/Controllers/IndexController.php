@@ -12,7 +12,4 @@ class IndexController extends Controller
     public function catalog(Request $request){
         return inertia('Catalog');
     }
-    public function wysiwyg(Request $request){
-        return inertia('NeoEditor');
-    }
 }

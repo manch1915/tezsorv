@@ -1,14 +1,10 @@
 <script setup>
-import { useMainStore } from "@/stores/main";
-import { computed} from 'vue';
 import ImageUpload from "@/Components/ImageUpload.vue";
 import Like from "@/Components/Like.vue";
-const store = useMainStore();
-
-const member = computed(() => store.member);
 
 const props = defineProps({
-    auth: Object
+    auth: Object,
+    member: Object
 })
 
 </script>

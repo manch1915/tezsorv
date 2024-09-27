@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -30,32 +31,21 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(RegisterRequest $request): RedirectResponse
     {
-        $request->validate([
-            'username' => 'required|string|max:255|unique:'.User::class,
-            'email' => 'required|string|email|max:255|unique:'.User::class,
-            'password' => ['required', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-        event(new Registered($user));
+        $user = User::create($request->validated());
 
         Auth::login($user);
 
         return redirect()->route('main');
     }
+
     /**
      * Handle an incoming registration request.
      *
      * @throws ValidationException
      */
-    public function update(UserUpdateRequest $request) : \Illuminate\Http\JsonResponse
+    public function update(UserUpdateRequest $request): \Illuminate\Http\JsonResponse
     {
         $validated = $request->validated();
 
@@ -63,5 +53,4 @@ class RegisteredUserController extends Controller
 
         return response()->json();
     }
-
 }

@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function () {
     return response()->json([
         'authenticated' => auth()->check(),
-        'user' => auth()->user()
+        'user' => auth()->user(),
     ]);
 });
 
-Route::get('/slideList', [\App\Http\Controllers\Main\SlideController::class, 'show']);
-
 Route::get('/threadList/{category?}/{subcategory?}', [\App\Http\Controllers\ThreadController::class, 'show']);
-
-Route::get('/sexes', [\App\Http\Controllers\Main\SlideController::class, 'showSexes']);
-
-Route::get('/member/{id}', [App\Http\Controllers\Main\MainController::class, 'showMember']);
+Route::get('/thread/fetchUrl', [\App\Http\Controllers\ThreadController::class, 'fetchUrl'])->name('thread.fetchUrl');

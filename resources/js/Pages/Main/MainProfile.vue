@@ -1,30 +1,28 @@
 <script setup>
 import MainProfileContainer from "@/Components/MainProfileContainer.vue";
 import SidebarProfile from "@/Components/SidebarProfile.vue";
-import MainHeader from "@/Components/MainHeader.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
     auth: Object,
+    member: Object
 })
+
+defineOptions({layout: MainLayout})
 </script>
 
 <template>
-    <main>
-        <MainHeader :auth="auth"/>
-        <MainLayout>
+        <AppLayout>
             <template #main>
-                <MainProfileContainer/>
+                <MainProfileContainer :member="member"/>
             </template>
             <template #sidebar>
-                <SidebarProfile :auth="props.auth"/>
+                <SidebarProfile :auth="props.auth" :member="member"/>
             </template>
-        </MainLayout>
-    </main>
+        </AppLayout>
 </template>
 
 <style scoped>
-main{
-    background-color: #303030;
-}
+
 </style>

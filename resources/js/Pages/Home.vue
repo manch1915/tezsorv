@@ -15,9 +15,15 @@
         </section>
         <div class="mx-auto max-w-7xl">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-5 p-2 gap-y-3">
-                <HomeCardImg image="images/fizika.png" prov="Ֆիզիկան նյութի, էներգիայի և դրանց փոխազդեցությունների ուսումնասիրությունն է:Ուսանեք մեխանիկայի, ջերմոդինամիկայի և այլնի մասին:" zagalovok="Ֆիզիկա"/>
-                <HomeCardImg image="images/prog.png" prov="Ծրագրավորումը համակարգչային ծրագրեր գրելու արվեստ է ՝ օգտագործելով ծրագրավորման լեզուներ:Ուսանեք վեբ զարգացման, խաղերի ձևավորման և այլնի մասին:" zagalovok="Ծրագրավորում"/>
-                <HomeCardImg image="images/qimia.png" prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:" zagalovok="Քիմիա"/>
+                <HomeCardImg image="images/fizika.png"
+                             prov="Ֆիզիկան նյութի, էներգիայի և դրանց փոխազդեցությունների ուսումնասիրությունն է:Ուսանեք մեխանիկայի, ջերմոդինամիկայի և այլնի մասին:"
+                             zagalovok="Ֆիզիկա"/>
+                <HomeCardImg image="images/prog.png"
+                             prov="Ծրագրավորումը համակարգչային ծրագրեր գրելու արվեստ է ՝ օգտագործելով ծրագրավորման լեզուներ:Ուսանեք վեբ զարգացման, խաղերի ձևավորման և այլնի մասին:"
+                             zagalovok="Ծրագրավորում"/>
+                <HomeCardImg image="images/qimia.png"
+                             prov="Քիմիան նյութի և դրա փոխազդեցությունների ուսումնասիրությունն է մեկ այլ նյութի հետ:Ուսանեք քիմիական ռեակցիաների, կենսաքիմիայի և այլնի մասին:"
+                             zagalovok="Քիմիա"/>
             </div>
             <Footer/>
         </div>
@@ -28,14 +34,13 @@
 import Footer from "@/Components/Footer.vue";
 import {Link} from "@inertiajs/vue3";
 import Statistics from "@/Components/Statistics.vue";
-import axios from 'axios';
 import AnimateOnVisible from "@/Components/AnimateOnVisible.vue";
 import Header from "@/Components/Header.vue";
 import HomeCardImg from "@/Components/HomeCardImg.vue";
 
 export default {
     name: "Home",
-    components: {HomeCardImg, AnimateOnVisible, Statistics, Footer, Header,Link},
+    components: {HomeCardImg, AnimateOnVisible, Statistics, Footer, Header, Link},
     props: {
         user: Object,
     },
@@ -45,8 +50,7 @@ export default {
     mounted() {
 
     },
-    methods: {
-    }
+    methods: {}
 }
 </script>
 

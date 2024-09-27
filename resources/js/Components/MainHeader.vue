@@ -59,9 +59,6 @@ const options = ref([
     }]
 )
 
-
-
-
 const iconRotate = ref(false)
 const active = ref(false)
 </script>
@@ -69,12 +66,12 @@ const active = ref(false)
     <header>
         <div class="main-container">
             <nav>
-                <div class="md:static fixed z-50 bg-mine-second w-full top-0 navTabs text-white">
+                <div class="md:static fixed z-50 w-full top-0 navTabs text-white">
                     <ul class="publicTabs flex items-center">
                         <div class="mobileMenuButton hiddenResponsiveFull md:hidden block">
                             <BaseIcon @click="openNav = !openNav" class="text-mainText" w="w-auto" h="h-auto" size="30" :path="mdiViewHeadline"/>
                         </div>
-                        <div class="hiddenWideUnder fl_l">
+                        <div class="hiddenWideUnder fl_l py-3">
                             <Link id="neo-logo" :href="route('main')"><img alt="" src="/images/logo.svg"></Link>
                             <li class="navTab selected">
                                 <div class=" tabLinks">
@@ -182,7 +179,7 @@ const active = ref(false)
                             </li>
                             <n-dropdown class="custom-dropdown" :options="options">
                                 <li class="navTab account">
-                                     <span id="account-style" class="navLink accountPopup NoPopupGadget" rel="Menu">
+                                     <span id="account-style" class="navLink accountPopup NoPopupGadget flex items-center" rel="Menu">
                                          <b id="NavigationAccountUsername" class="hiddenNarrowUnder accountUsername username"><span class="style2">{{ auth.user.username }}</span></b>
                                          <span id="NavigationAccountBalance" class="hiddenNarrowUnder">
                                              <span class="balanceLabel hidden">

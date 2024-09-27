@@ -74,16 +74,19 @@ const editor = new EditorJS({
 
     },
 },)
+
+
 </script>
 <template>
-    <main class="min-h-screen">
-        <MainHeader :auth="props.auth"/>
+    <MainHeader :auth="props.auth"/>
+    <main class="h-screen">
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">
                 <h1 class="text-start text-white text-2xl mb-2">{{ thread.title}}</h1>
                 <h1 class="text-start text-mainText text-sm mb-6">Հոդված {{ thread.category.name}} -> {{ thread.subcategory.name}} բաժնում ստեղծվել է {{ thread.user.username }}-ի կողմից {{ created_at }} | {{thread.views}} դիտում</h1>
             </div>
         </section>
+
         <section class="headerMover bg-mine-second rounded-lg">
             <div class="w-full p-6">
                 <div class="user__data flex">
@@ -97,7 +100,7 @@ const editor = new EditorJS({
                 <div id="editorjs" class="text-white"></div>
             </div>
         </section>
-    </main>
+        </main>
 </template>
 
 <style>

@@ -3,9 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -42,19 +46,29 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Status::class);
     }
-    public function sex()
+
+    public function gender()
     {
-        return $this->belongsTo(Sex::class);
+        return $this->belongsTo(Gender::class);
     }
 
-    public function likesReceived()
+    public function likesReceived(): HasMany
     {
         return $this->hasMany(Like::class, 'liked_user_id');
     }
 
-    public function likesGiven()
+    public function likesGiven(): HasMany
     {
         return $this->hasMany(Like::class, 'user_id');
     }
 
+    public function setPasswordAttribute($value): void
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function getProfilePictureAttribute($value): ?string
+    {
+        return $value ? Storage::url($value) : null;
+    }
 }

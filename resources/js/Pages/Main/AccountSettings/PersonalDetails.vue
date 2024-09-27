@@ -1,6 +1,4 @@
 <script setup>
-import {useMainStore} from "@/stores/main";
-import MainHeader from "@/Components/MainHeader.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import NavSettings from "@/Components/NavSettings.vue";
 import {NButton, NConfigProvider, NInput, NRadio, NRadioGroup, NSelect, NSpace} from "naive-ui";
@@ -14,9 +12,11 @@ import axios from 'axios';
 import InputError from "@/Components/InputError.vue";
 import {toast} from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
     auth: Object,
+    genders:Object,
 })
 
 const state = reactive({
@@ -25,13 +25,15 @@ const state = reactive({
 
 const errors = ref([]);
 
+let user = props.auth.user
+
 const form = useForm({
-    username: props.auth.user.username,
-    first_name: props.auth.user.first_name,
-    last_name: props.auth.user.last_name,
-    about: props.auth.user.about,
-    country: props.auth.user.country,
-    sex_id: props.auth.user.sex_id,
+    username: user.username,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    about: user.about,
+    country: user.country,
+    gender_id: user.gender_id,
     terms: false,
 })
 
@@ -80,18 +82,11 @@ const saveData = async () => {
     }
     state.loading = false
 }
-
-const store = useMainStore();
-
-store.fetchSexes();
-
+defineOptions({layout: MainLayout})
 </script>
 
 <template>
-
-    <main>
-        <MainHeader :auth="auth"/>
-        <MainLayout>
+    <AppLayout>
             <template #main>
                 <n-config-provider :theme="darkTheme">
                     <div class="mainContainer sm:mt-0 mt-5">
@@ -122,10 +117,10 @@ store.fetchSexes();
                             </SettingsInput>
 
                             <SettingsInput border title="Սեռ">
-                                <n-radio-group v-model:value="form.sex_id" name="radiogroup">
+                                <n-radio-group v-model:value="form.gender_id" name="radiogroup">
                                     <n-space>
                                         <n-radio
-                                            v-for="item in store.sexes"
+                                            v-for="item in genders"
                                             :key="item.id"
                                             :label="item.name"
                                             :value="item.id"
@@ -151,9 +146,7 @@ store.fetchSexes();
             <template #sidebar>
                 <NavSettings/>
             </template>
-        </MainLayout>
-
-    </main>
+    </AppLayout>
 
 </template>
 

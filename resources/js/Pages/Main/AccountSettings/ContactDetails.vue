@@ -1,5 +1,4 @@
 <script setup>
-import MainHeader from "@/Components/MainHeader.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import NavSettings from "@/Components/NavSettings.vue";
 import {useForm} from "@inertiajs/vue3";
@@ -12,15 +11,17 @@ import {NButton, NConfigProvider, NInput} from "naive-ui";
 import {darkTheme } from 'naive-ui'
 import {toast} from "vue3-toastify";
 import 'vue3-toastify/dist/index.css';
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
     auth: Object,
 })
 
+let user = props.auth.user
 const form = useForm({
-    username: props.auth.user.username, //todo username uxarkvum e avelord
-    telegram: props.auth.user.telegram,
-    instagram: props.auth.user.instagram,
+    username: user.username, //todo username uxarkvum e avelord
+    telegram: user.telegram,
+    instagram: user.instagram,
 })
 
 const state = reactive({
@@ -41,15 +42,13 @@ const saveData = async () => {
     } catch (error) {
         console.error(error)
     }
-
 }
 
+defineOptions({layout: MainLayout})
 </script>
 
 <template >
-    <main>
-        <MainHeader :auth="auth"/>
-        <MainLayout>
+    <AppLayout>
             <template #main>
                 <n-config-provider :theme="darkTheme">
                     <div class="mainContainer sm:mt-0 mt-5">
@@ -79,8 +78,7 @@ const saveData = async () => {
             <template #sidebar>
                 <NavSettings/>
             </template>
-        </MainLayout>
-    </main>
+    </AppLayout>
 </template>
 
 

@@ -1,31 +1,25 @@
 <script setup>
-import MainHeader from "@/Components/MainHeader.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import NavSettings from "@/Components/NavSettings.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
     auth: Object,
 })
 
+defineOptions({layout: MainLayout})
 </script>
 
 <template >
-    <main>
-        <MainHeader :auth="auth"/>
-        <MainLayout>
+    <AppLayout>
             <template #main>
 
             </template>
             <template #sidebar>
                 <NavSettings/>
             </template>
-        </MainLayout>
-    </main>
+    </AppLayout>
 </template>
 
-
 <style>
-main{
-    background-color: #303030;
-}
 </style>

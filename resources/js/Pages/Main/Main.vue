@@ -1,34 +1,24 @@
 <template>
-    <main>
-        <MainHeader :auth="auth"/>
-        <MainLayout>
+        <AppLayout>
             <template #main>
                 <DiscussionList/>
             </template>
             <template #sidebar>
-                <NavSidebar/>
+                <NavSidebar :categories="categories"/>
             </template>
-        </MainLayout>
-    </main>
+        </AppLayout>
 </template>
 
-<script>
+<script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DiscussionList from "@/Components/DiscussionList.vue";
-import MainHeader from "@/Components/MainHeader.vue";
 import NavSidebar from "@/Components/NavSidebar.vue";
-//todo options api
+import AppLayout from "@/Layouts/AppLayout.vue";
 
-export default {
-    name: "Main",
-    components: {NavSidebar, MainHeader, DiscussionList, MainLayout},
-    props: {
-        auth: Object
-    }
-}
+//todo options api
+const props = defineProps({
+    categories: Array,
+})
+
+defineOptions({layout: MainLayout})
 </script>
-<style>
-main{
-    background-color: #303030;
-}
-</style>

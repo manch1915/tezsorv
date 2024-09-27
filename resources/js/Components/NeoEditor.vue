@@ -44,7 +44,7 @@ const editor = new EditorJS({
         linkTool: {
             class: LinkTool,
             config: {
-                endpoint: 'http://localhost:8000/main/thread/fetchUrl', // Your backend endpoint for url data fetching,
+                endpoint: route('thread.fetchUrl'), // Your backend endpoint for url data fetching,
             }
         }
 
@@ -67,8 +67,6 @@ const saveData = () => {
 defineExpose({
     saveData
 })
-
-
 </script>
 
 <style>

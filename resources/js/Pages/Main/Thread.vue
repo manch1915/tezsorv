@@ -1,48 +1,20 @@
-<template>
-    <main>
-        <MainHeader :auth="props.auth"/>
-        <section class="headerMover bg-mine-second rounded">
-            <div class="w-full p-6">
-                <h1 class="text-white bold text-lg">Վերնագիր։ </h1>
-                <h3 class="text-white">Մի քանի բառով ձևակերպեք, թե ինչի մասին է ձեր թեման </h3>
-                <n-config-provider :theme="darkTheme">
-                    <n-input v-model:value="title" placeholder="Thread title" class="mt-2"/>
-                </n-config-provider>
-                <NeoEditor ref="editorRef" @saveData="saveThread"/>
-                <n-config-provider :theme="darkTheme">
-                <n-select v-model:value="category" :options="categories" placeholder="Select category" @update-value="select"/>
-                <n-select :options="subcategories" v-model:value="subcategory"  placeholder="Select subcategory" class="my-6"/>
-                <div>
-                    <n-button type="primary" ghost :on-click="getEditorData">Save your thread</n-button>
-                </div>
-                </n-config-provider>
-            </div>
-        </section>
-        <div class="h-6"></div>
-    </main>
-</template>
-
 <script setup>
-import MainHeader from "@/Components/MainHeader.vue";
 import {NConfigProvider, NInput, darkTheme, NSelect, NButton} from "naive-ui";
 import NeoEditor from "@/Components/NeoEditor.vue";
-import { useMainStore } from "@/stores/main";
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import axios from 'axios';
+import MainLayout from "@/Layouts/MainLayout.vue";
 
 const props = defineProps({
     auth: Object,
+    slideList: Object
 })
 const editorRef = ref()
 const title = ref('')
 const category = ref(null)
 const subcategory = ref(null)
-const store = useMainStore();
-onMounted(async () => {
-    await store.fetchSlideList();
-});
 
-const categories = computed(() => store.slideList.map(function (num){
+const categories = computed(() => props.slideList.map(function (num){
     return {
         label: num.name,
         value: num.id,
@@ -55,7 +27,7 @@ const select = () => {
     if (category.value === null) {
         return;
     }
-    subcategories.value = store.slideList[category.value - 1].subcategories
+    subcategories.value = props.slideList[category.value - 1].subcategories
         .map((subcategory) => ({
             label: subcategory.name,
             value: subcategory.id,
@@ -79,13 +51,36 @@ const saveThread = (data) => {
 const getEditorData = () => {
     editorRef.value.saveData()
 }
-
+defineOptions({layout: MainLayout})
 </script>
+<template>
+        <div class="h-screen">
+        <section class="headerMover bg-mine-second rounded">
+            <div class="w-full p-6">
 
-<style>
-main{
-    background-color: #303030;
-}
+                <h1 class="text-white bold text-lg">Վերնագիր։ </h1>
+                <h3 class="text-white">Մի քանի բառով ձևակերպեք, թե ինչի մասին է ձեր թեման </h3>
+
+                <n-config-provider :theme="darkTheme">
+                    <n-input v-model:value="title" placeholder="Աշոտ Սմբատ" class="mt-2"/>
+                </n-config-provider>
+
+                <NeoEditor ref="editorRef" @saveData="saveThread"/>
+                <n-config-provider :theme="darkTheme">
+
+                <n-select v-model:value="category" :options="categories" placeholder="Ընտրեք կատեգորիան" @update-value="select"/>
+                <n-select :options="subcategories" v-model:value="subcategory"  placeholder="Ընտրեք թեման" class="my-6"/>
+
+                <div>
+                    <n-button type="primary" ghost :on-click="getEditorData">Պահպանել</n-button>
+                </div>
+                </n-config-provider>
+            </div>
+        </section>
+        </div>
+</template>
+
+<style scoped>
 section{
     max-width: 1076px;
 }

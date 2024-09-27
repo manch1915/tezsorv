@@ -13,7 +13,7 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $sexes = [
+        $genders = [
             ['name' => 'user'],
             ['name' => 'admin'],
             ['name' => 'legend'],
@@ -21,8 +21,8 @@ class StatusSeeder extends Seeder
             ['name' => 'sigma'],
         ];
         //todo change names
-        foreach ($sexes as $sex) {
-            Status::create($sex);
+        foreach ($genders as $gender) {
+            Status::create($gender);
         }
     }
 }

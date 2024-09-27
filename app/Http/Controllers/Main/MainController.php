@@ -3,39 +3,38 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Gender;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Yish\Imgur\Facades\Upload as Imgur;
 
 class MainController extends Controller
 {
     public function index()
     {
-        return inertia('Main/Main');
+        $categories = Category::with('subcategories')->get();
+
+        return inertia('Main/Main', [
+            'categories' => $categories,
+        ]);
     }
 
-    public function member()
+    public function member(Request $request, $id)
     {
-        return inertia('Main/MainProfile');
-    }
+        $member = User::findOrFail($id)->with(['status', 'gender'])->first();
 
-    //show member by id for api
-    public function showMember(int $id)
-    {
-        $member = User::find($id);
-        $member['status'] = $member->status;
-        $member['sex'] = $member->sex;
-
-        if (!$member) {
-            return response()->json(['message' => 'Member not found']);
-        }
-        return response()->json($member);
+        return inertia('Main/MainProfile',
+            ['member' => $member]);
     }
 
     public function personalDetails()
     {
-        return inertia('Main/AccountSettings/PersonalDetails');
+        $genders = Gender::all();
+
+        return inertia('Main/AccountSettings/PersonalDetails',
+            ['genders' => $genders]
+        );
     }
 
     public function contactDetails()
@@ -53,19 +52,22 @@ class MainController extends Controller
         return inertia('Main/AccountSettings/Upgrade');
     }
 
-    public function avatarUpload(Request  $request)
-
+    public function avatarUpload(Request $request)
     {
+        $file = $request->file('avatar');
 
-        $image = $request->file('avatar');
+        $imageName = uniqid().'.'.$file->extension();
 
-        $image = Imgur::upload($image);
+        $userId = $request->user()->id;
+
+        $path = "images/{$userId}/avatar";
+
+        $filePath = $file->storeAs($path, $imageName, 'public');
 
         $user = auth()->user();
-        $user->profile_picture = $image->link();
+        $user->profile_picture = $filePath;
         $user->save();
+
         return response()->json('Avatar uploaded successfully');
     }
-
-
 }

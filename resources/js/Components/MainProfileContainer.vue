@@ -1,12 +1,12 @@
 <script setup>
-import {useMainStore} from "@/stores/main";
-import {computed, onMounted} from "vue";
+import {computed} from "vue";
 import {NButton, NIcon} from "naive-ui";
 import {mdiNoteMultipleOutline, mdiInstagram, mdiSendCircleOutline} from '@mdi/js';
-
 import BaseIcon from "@/Components/BaseIcon.vue";
 
-const store = useMainStore();
+const props = defineProps({
+    member: Object
+})
 
 const memberId = computed(() => {
     const url = window.location.href;
@@ -20,15 +20,8 @@ const memberId = computed(() => {
     return parseInt(match[1], 10);
 });
 
-onMounted(() => {
-    store.fetchMember(memberId.value);
-});
-
-const loading = computed(() => store.loading);
-const member = computed(() => store.member);
-
 const memberCreatedAt = computed(() =>
-    new Date(member.value.created_at).toLocaleString()
+    new Date(props.member.created_at).toLocaleString()
 )
 </script>
 
@@ -44,7 +37,7 @@ const memberCreatedAt = computed(() =>
                                 <li v-if="member.first_name">Անուն:</li>
                                 <li v-if="member.last_name">Ազգանուն:</li>
                                 <li v-if="memberCreatedAt ">Գրանցվել է:</li>
-                                <li v-if="member.sex.name">Սեռ:</li>
+                                <li v-if="member.gender.name">Սեռ:</li>
                                 <li v-if="member.status.name">Ստատուս:</li>
                                 <li v-if="member.country">Երկիր:</li>
                                 <li v-if="member.city">Քաղաք:</li>
@@ -55,7 +48,7 @@ const memberCreatedAt = computed(() =>
                                 <li>{{ member.first_name }}</li>
                                 <li>{{ member.last_name }}</li>
                                 <li>{{ memberCreatedAt }}</li>
-                                <li>{{ member.sex.name }}</li>
+                                <li>{{ member.gender.name }}</li>
                                 <li>{{ member.status.name }}</li>
                                 <li>{{ member.country }}</li>
                                 <li>{{ member.city }}</li>
@@ -111,11 +104,6 @@ const memberCreatedAt = computed(() =>
     border-radius: 10px;
     padding: 15px 20px;
     background: rgb(39, 39, 39);
-}
-
-.username {
-    padding: 0 0 15px;
-    border-bottom: 1px solid rgb(45, 45, 45);
 }
 
 .username p {
@@ -206,7 +194,7 @@ const memberCreatedAt = computed(() =>
     padding: 15px;
 }
 .page_counter .count {
-    text-shadow: 1px 0px 7px rgb(42, 183, 51);
+    text-shadow: 1px 0 7px rgb(42, 183, 51);
 }
 
 .page_counter .count {

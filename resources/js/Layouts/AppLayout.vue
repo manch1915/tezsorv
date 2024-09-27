@@ -1,20 +1,18 @@
 <template>
-    <main>
-        <MainHeader :auth="auth"/>
-        <div class="headerMover">
-            <div class="breadBoxTop"></div>
-            <slot/>
+        <div class="pageContent">
+                    <div v-show="false" class="sidebar"></div>
+                    <slot name="main"></slot>
+            <aside class="md:mt-0 mt-10">
+                <div class="sidebar">
+                    <div class="sidebarWrapper">
+                        <slot name="sidebar"></slot>
+                    </div>
+                </div>
+            </aside>
         </div>
-        <div id="asd"></div>
-    </main>
 </template>
 
 <script setup>
-import MainHeader from "@/Components/MainHeader.vue";
-import {usePage} from "@inertiajs/vue3";
-
-const page = usePage()
-const auth = page.props.auth;
 </script>
 
 <style scoped>
@@ -22,10 +20,6 @@ const auth = page.props.auth;
     float: left;
     margin-right: 15px;
     width: 240px;
-}
-
-main {
-    background-color: #303030;
 }
 
 .sidebarWrapper {
@@ -73,14 +67,13 @@ main {
         align-items: center;
         align-content: center;
     }
-
-    .sidebar {
+    .sidebar{
         float: none;
         margin-right: 15px;
         width: 100%;
     }
 
-    .sidebar .sidebarWrapper, aside {
+    .sidebar .sidebarWrapper, aside{
         width: 100%;
 
     }

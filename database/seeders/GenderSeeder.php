@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sex;
+use App\Models\Gender;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SexSeeder extends Seeder
+class GenderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $sexes = [
+        $genders = [
             ['name' => 'female'],
             ['name' => 'male'],
             ['name' => 'other'],
@@ -21,8 +21,8 @@ class SexSeeder extends Seeder
             ['name' => 'sigma'],
         ];
 
-        foreach ($sexes as $sex) {
-            Sex::create($sex);
+        foreach ($genders as $gender) {
+            Gender::create($gender);
         }
     }
 }
